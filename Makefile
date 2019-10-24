@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/10/24 23:04:46 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/10/24 23:49:12 by sdunckel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,27 +23,31 @@ HEADER			= includes
 FOLDER			= srcs
 
 LIBFT 			= libft
+MINILIBX 		= minilibx
+
+LIB				= $(MINILIBX)/libmlx.dylib $(LIBFT)/libft.a
 
 CC				= gcc
 CFLAGS 			= -Wall -Wextra -Werror
 RM				= rm -f
 
-all:			${NAME}
+all:			$(NAME)
 
-$(NAME):		${OBJS}
+$(NAME):		$(OBJS)
 				@make -C $(LIBFT)
-				@cp libft/libft.a ./$(NAME)
-				@${CC} ${CFLAGS} ${OBJS} -I ${HEADER} -o $(NAME)
+				@make -C $(MINILIBX)
+				@$(CC) $(CFLAGS) -I $(HEADER) $(LIB) $(OBJS) -o $(NAME)
 
 %.o: %.c
-				@${CC} ${CFLAGS} -I ${HEADER} -o $@ -c $<
+				@$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
 
 clean:
-				@${RM} ${OBJS}
+				@$(RM) $(OBJS)
 				@make clean -C $(LIBFT)
+				@make clean -C $(MINILIBX)
 
 fclean:			clean
-				@${RM} ${NAME}
+				@$(RM) $(NAME)
 				@make fclean -C $(LIBFT)
 
 re:				fclean all
