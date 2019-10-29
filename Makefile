@@ -6,14 +6,14 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/10/24 23:49:12 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/10/29 16:00:18 by sdunckel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= miniRT
 
 SRCS_LIST		= \
-
+					mini_rt.c
 
 SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})
 
@@ -29,6 +29,7 @@ LIB				= $(MINILIBX)/libmlx.dylib $(LIBFT)/libft.a
 
 CC				= gcc
 CFLAGS 			= -Wall -Wextra -Werror
+LFLAGS			= -lmlx -framework OpenGL -framework AppKit
 RM				= rm -f
 
 all:			$(NAME)
@@ -36,7 +37,7 @@ all:			$(NAME)
 $(NAME):		$(OBJS)
 				@make -C $(LIBFT)
 				@make -C $(MINILIBX)
-				@$(CC) $(CFLAGS) -I $(HEADER) $(LIB) $(OBJS) -o $(NAME)
+				@$(CC) $(CFLAGS) $(LFLAGS) -I $(HEADER) -L /usr/local/lib/ $(LIBFT)/libft.a $(OBJS) -o $(NAME)
 
 %.o: %.c
 				@$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
