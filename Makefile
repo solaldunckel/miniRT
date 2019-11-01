@@ -6,14 +6,17 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/10/29 16:00:18 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/11/01 16:03:00 by sdunckel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= miniRT
 
 SRCS_LIST		= \
-					mini_rt.c
+					mini_rt.c \
+					ft_parse.c \
+					ft_parse_2.c \
+					ft_ft.c
 
 SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})
 

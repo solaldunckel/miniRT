@@ -6,35 +6,43 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/10/29 16:57:22 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/01 16:16:06 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
+void	handle_error()
+{
+	printf("Error\n");
+	exit(0);
+}
+
 int		parse_rt_file(char *rt_file, t_mini_rt *rt)
 {
 	int		fd;
-	int		i;
+	int		ret;
 	char	*line;
 
-	i = 0;
+	ret = 0;
 	if ((fd = open(rt_file, O_RDONLY)) < 0)
 		return (0);
 	while (get_next_line(fd, &line))
 	{
-		while (line[i])
-		{
-			if (line[i] == 'R')
-			{
-				i++;
-				rt->res_x = ft_atoi(&line[i]);
-				i += ft_intlen(rt->res_x) + 1;
-				rt->res_y = ft_atoi(&line[i]);
-			}
-			i++;
-		}
-		printf("%s\n", line);
+		rt->i = 0;
+		while (!ft_isalpha(line[rt->i]))
+			rt->i++;
+		ret = ft_strstr_rt(&line[rt->i], "R") ? parse_res(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "A") ? parse_ambient(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "c") ? parse_camera(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "l") ? parse_light(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "sp") ? parse_sphere(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "pl") ? parse_plane(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "sq") ? parse_square(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "cy") ? parse_cylindre(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "tr") ? parse_triangle(rt, line) : 1;
+		if (!ret)
+			return (0);
 	}
 	return (1);
 }
@@ -51,10 +59,11 @@ int		main(int argc, char **argv)
 	{
 		if (!(rt.mlx_ptr = mlx_init()))
 			return (0);
-		if (!(rt.win_ptr = mlx_new_window(rt.mlx_ptr, 1920, 1080, argv[0])))
+		if (!(parse_rt_file(argv[argc - 1], &rt)))
+			handle_error();
+		if (!(rt.win_ptr = mlx_new_window(rt.mlx_ptr, rt.res.x, rt.res.y, argv[0])))
 			return (0);
-		mlx_loop(rt.mlx_ptr);
-		parse_rt_file(argv[argc - 1], &rt);
+		//mlx_loop(rt.mlx_ptr);
 	}
 	return (0);
 }
