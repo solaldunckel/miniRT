@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/01 16:16:06 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/02 17:22:08 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	handle_error()
 {
-	printf("Error\n");
+	ft_printf("Error\n");
 	exit(0);
 }
 

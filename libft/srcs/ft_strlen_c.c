@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strlen_c.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/11 11:17:21 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/02 15:46:18 by sdunckel         ###   ########.fr       */
+/*   Created: 2019/10/07 11:35:50 by sdunckel          #+#    #+#             */
+/*   Updated: 2019/11/02 13:44:37 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 64
-# endif
+size_t		ft_strlen_c(char *s, char c)
+{
+	size_t	i;
 
-# define SUCCESS 1
-# define FINISH 0
-# define ERROR -1
-
-# include "libft.h"
-
-int		get_next_line(int fd, char **line);
-
-#endif
+	i = 0;
+	while (s[i] && s[i] != c)
+		i++;
+	return (i);
+}

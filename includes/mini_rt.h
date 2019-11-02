@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/01 16:05:18 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/02 18:04:30 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_mini_rt
 	void				*win_ptr;
 	struct s_res		res;
 	struct s_ambient	ambient;
+	struct s_camera		camera;
 }				t_mini_rt;
 
 /*
@@ -52,6 +53,7 @@ int		parse_triangle(t_mini_rt *rt, char *line);
 */
 int		ft_strstr_rt(char *str, char *to_find);
 int		rgt_to_color(int r, int g, int b);
-double	ft_atof(char *str);
+int		ft_atoi_rt(char *str, t_mini_rt *rt);
+double	ft_atof_rt(char *str, t_mini_rt *rt);
 
 #endif

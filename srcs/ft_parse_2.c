@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/01 16:11:21 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/02 18:22:03 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		parse_sphere(t_mini_rt *rt, char *line)
 {
 	(void)line;
 	(void)rt;
-	printf("parsing sphere\n");
+	printf("sphere\n");
 	return (1);
 }
 
@@ -24,7 +24,7 @@ int		parse_plane(t_mini_rt *rt, char *line)
 {
 	(void)line;
 	(void)rt;
-	printf("parsing plane\n");
+	printf("plane\n");
 	return (1);
 }
 
@@ -32,7 +32,7 @@ int		parse_square(t_mini_rt *rt, char *line)
 {
 	(void)line;
 	(void)rt;
-	printf("parsing square\n");
+	printf("square\n");
 	return (1);
 }
 
@@ -40,7 +40,7 @@ int		parse_cylindre(t_mini_rt *rt, char *line)
 {
 	(void)line;
 	(void)rt;
-	printf("parsing cylindre\n");
+	printf("cylindre\n");
 	return (1);
 }
 
@@ -48,6 +48,6 @@ int		parse_triangle(t_mini_rt *rt, char *line)
 {
 	(void)line;
 	(void)rt;
-	printf("parsing triangle\n");
+	printf("triangle\n");
 	return (1);
 }

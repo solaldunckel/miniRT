@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:56:12 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/01 16:05:04 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/02 18:23:35 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,14 @@
 
 int		ft_strstr_rt(char *str, char *to_find)
 {
-	size_t		i;
 	size_t		j;
 
-	i = 0;
-	while (str[i])
+	j = 0;
+	while (str[j] == to_find[j])
 	{
-		j = 0;
-		while (str[j] == to_find[j])
-		{
-			if (str[i + j + 1] == ' ' && to_find[j + 1] == '\0')
-				return (1);
-			j++;
-		}
-		i++;
+		if (str[j + 1] == ' ' && to_find[j + 1] == '\0')
+			return (1);
+		j++;
 	}
 	return (0);
 }
@@ -45,20 +39,41 @@ int		rgt_to_color(int r, int g, int b)
 	return ((int)color);
 }
 
-double	ft_atof(char *str)
+int		ft_atoi_rt(char *str, t_mini_rt *rt)
+{
+	int		atoi;
+	int		negative;
+
+	atoi = 0;
+	negative = 0;
+	while (ft_is_space(str[rt->i]))
+		rt->i++;
+	if (str[rt->i] == '-' || str[rt->i] == '+')
+	{
+		if (str[rt->i] == '-')
+			negative = 1;
+		rt->i++;
+	}
+	while (str[rt->i] >= '0' && str[rt->i] <= '9')
+	{
+		atoi = atoi * 10 + str[rt->i] - 48;
+		rt->i++;
+	}
+	return (negative ? -atoi : atoi);
+}
+
+double	ft_atof_rt(char *str, t_mini_rt *rt)
 {
 	double	atof;
 	int		atoi;
 	int		prec;
-	int		i;
 
-	atoi = ft_atoi(str);
-	i = 0;
-	while (str[i] && str[i] != '.')
-		i++;
-	i++;
-	atof = ft_atoi(&str[i]);
-	prec = ft_strlen(&str[i]);
+	atoi = ft_atoi_rt(str, rt);
+	if (str[rt->i] != '.')
+		return (atoi);
+	rt->i++;
+	atof = ft_atoi_rt(str, rt);
+	prec = ft_intlen(atof);
 	while (prec--)
 		atof = atof / 10;
 	return (atoi + atof);

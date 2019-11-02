@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 10:57:51 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/10/24 22:50:12 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/02 15:37:53 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <limits.h>
+
+# include "ft_printf.h"
+# include "get_next_line.h"
 
 # define TRUE 1
 # define FALSE 0
@@ -123,5 +126,6 @@ char				*ft_itoa_base(uintmax_t n, char *base);
 char				*ft_c_to_str(char c);
 char				*ft_uitoa(uintmax_t n);
 size_t				ft_uintlen(uintmax_t n);
+size_t				ft_strlen_c(char *s, char c);
 
 #endif
