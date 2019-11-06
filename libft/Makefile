@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/11/02 16:27:31 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/11/06 15:38:15 by sdunckel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,7 @@ SRCS_LIST	= \
 				ft_uitoa.c \
 				ft_uintlen.c \
 				get_next_line.c \
+				ft_strequ.c \
 				ft_strlen_c.c
 SRCS		= $(addprefix ${FOLDER}/, ${SRCS_LIST})
 OBJS		= ${SRCS:.c=.o}

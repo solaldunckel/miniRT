@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ft.c                                            :+:      :+:    :+:   */
+/*   ft.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:56:12 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/06 12:14:27 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:37:31 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,10 @@ int		ft_strstr_rt(char *str, char *to_find)
 int		rgb_to_color(int r, int g, int b)
 {
 	int				*color;
-	unsigned char 	*tmp;
+	unsigned char	*tmp;
 
 	if (!(color = malloc(sizeof(int*))))
-		return (0);
-	// if (!(tmp = malloc(sizeof(char*) * 4)))
-	// 	return (0);
+		handle_error("malloc failed");
 	tmp = (unsigned char *)color;
 	tmp[0] = 0;
 	tmp[1] = r;

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/06 12:34:28 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:37:34 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,36 @@ typedef struct	s_mini_rt
 	struct s_sphere		sphere;
 	struct s_plane		plane;
 	struct s_square		square;
-	struct s_cylindre	cylindre;
+	struct s_cylinder	cylinder;
 	struct s_triangle	triangle;
 }				t_mini_rt;
 
 /*
 ** Parsing functions
 */
+int				parse_res(t_mini_rt *rt, char *line);
+int				parse_ambient(t_mini_rt *rt, char *line);
+int				parse_camera(t_mini_rt *rt, char *line);
+int				parse_light(t_mini_rt *rt, char *line);
+int				parse_sphere(t_mini_rt *rt, char *line);
+int				parse_plane(t_mini_rt *rt, char *line);
+int				parse_square(t_mini_rt *rt, char *line);
+int				parse_cylindre(t_mini_rt *rt, char *line);
+int				parse_triangle(t_mini_rt *rt, char *line);
+int				ft_strstr_rt(char *str, char *to_find);
+int				ft_atoi_rt(char *str, t_mini_rt *rt);
+double			ft_atof_rt(char *str, t_mini_rt *rt);
 
-int		parse_res(t_mini_rt *rt, char *line);
-int		parse_ambient(t_mini_rt *rt, char *line);
-int		parse_camera(t_mini_rt *rt, char *line);
-int		parse_light(t_mini_rt *rt, char *line);
-int		parse_sphere(t_mini_rt *rt, char *line);
-int		parse_plane(t_mini_rt *rt, char *line);
-int		parse_square(t_mini_rt *rt, char *line);
-int		parse_cylindre(t_mini_rt *rt, char *line);
-int		parse_triangle(t_mini_rt *rt, char *line);
+/*
+** Events
+*/
+int				get_keypress(int key, t_mini_rt *rt);
+int				get_cross_button(t_mini_rt *rt);
 
 /*
 ** Additional functions
 */
-
-int		ft_strstr_rt(char *str, char *to_find);
-int		rgb_to_color(int r, int g, int b);
-int		ft_atoi_rt(char *str, t_mini_rt *rt);
-double	ft_atof_rt(char *str, t_mini_rt *rt);
+int				handle_error(char *str);
+int				rgb_to_color(int r, int g, int b);
 
 #endif

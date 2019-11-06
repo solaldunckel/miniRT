@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/06 12:32:13 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:35:32 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		handle_error(char *str)
 {
-	ft_printf("miniRT Error: %s\n", str);
+	ft_printf(RED "miniRT Error: %s\n" RESET, str);
 	exit(0);
 	return (0);
 }
@@ -27,7 +27,7 @@ int		parse_rt_file(char *rt_file, t_mini_rt *rt)
 
 	ret = 0;
 	if ((fd = open(rt_file, O_RDONLY)) < 0)
-		return (handle_error("fail to open scene"));
+		handle_error("fail to open scene file");
 	while (get_next_line(fd, &line) > 0)
 	{
 		rt->i = 0;
@@ -49,36 +49,30 @@ int		parse_rt_file(char *rt_file, t_mini_rt *rt)
 	return (1);
 }
 
-int		get_keypress(int key, t_mini_rt *rt)
+int		start_mini_rt(t_mini_rt *rt, char **argv)
 {
-	(void)rt;
-	if (key == 65307)
-		exit(0);
-	return (0);
+	if (!(parse_rt_file(argv[1], rt)))
+		handle_error("fail to parse file");
+	if (!(rt->mlx_ptr = mlx_init()))
+		handle_error("fail to init mlx");
+	if (!(rt->win_ptr = mlx_new_window(rt->mlx_ptr, rt->res.x, rt->res.y, argv[0])))
+		handle_error("fail to create windows");
+	ft_printf(BOLDGREEN "Loading miniRT...\n" RESET);
+	mlx_key_hook(rt->win_ptr, get_keypress, rt);
+	mlx_hook(rt->win_ptr, 17, 0, get_cross_button, rt);
+	mlx_loop(rt->mlx_ptr);
+	return (1);
 }
 
 int		main(int argc, char **argv)
 {
 	t_mini_rt	rt;
-	int			x;
-	int			y;
 
-	if (argc > 3)
-		return (0);
-	if (argc == 3 && !ft_strcmp(argv[2], "-save"))
-		return (1); // save
+	if (argc > 3 || argc == 1 || (argc == 3 && !ft_strequ(argv[2], "-save")))
+		handle_error("wrong arguments");
+	if (argc == 3 && ft_strequ(argv[2], "-save"))
+		start_mini_rt(&rt, argv);
 	if (argc == 2)
-	{
-		if (!(rt.mlx_ptr = mlx_init()))
-			return (handle_error("fail to init mlx"));
-		if (!(parse_rt_file(argv[1], &rt)))
-			handle_error("fail to parse file");
-		if (!(rt.image_ptr = mlx_new_image(rt.mlx_ptr, rt.res.x, rt.res.y)))
-			handle_error("fail to create image");
-		if (!(rt.win_ptr = mlx_new_window(rt.mlx_ptr, rt.res.x, rt.res.y, argv[0])))
-			return (handle_error("fail to create windows"));
-		mlx_key_hook(rt.win_ptr, &get_keypress, &rt);
-		mlx_loop(rt.mlx_ptr);
-	}
+		start_mini_rt(&rt, argv);
 	return (0);
 }

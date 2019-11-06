@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parse.c                                         :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/06 12:32:37 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:20:43 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int		parse_camera(t_mini_rt *rt, char *line)
 	rt->camera.pov_y = ft_atof_rt(line, rt);
 	rt->i++;
 	rt->camera.pov_z = ft_atof_rt(line, rt);
-
 	rt->camera.orient_x = ft_atof_rt(line, rt);
 	rt->i++;
 	rt->camera.orient_y = ft_atof_rt(line, rt);

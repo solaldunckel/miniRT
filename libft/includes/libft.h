@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 10:57:51 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/02 15:37:53 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:38:02 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,6 @@ char				*ft_c_to_str(char c);
 char				*ft_uitoa(uintmax_t n);
 size_t				ft_uintlen(uintmax_t n);
 size_t				ft_strlen_c(char *s, char c);
+int					ft_strequ(char *s1, char *s2);
 
 #endif
