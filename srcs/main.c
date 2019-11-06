@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/06 17:21:26 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:22:21 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,25 @@ int		parse_rt_file(char *rt_file, t_mini_rt *rt)
 {
 	int		fd;
 	int		ret;
-	char	*line;
 
 	ret = 0;
 	if ((fd = open(rt_file, O_RDONLY)) < 0)
 		handle_error("fail to open scene file");
-	while (get_next_line(fd, &line) > 0)
+	while (get_next_line(fd, &rt->line) > 0)
 	{
 		rt->i = 0;
-		while (!ft_isalpha(line[rt->i]))
+		while (!ft_isalpha(rt->line[rt->i]))
 			rt->i++;
-		ret = ft_strstr_rt(&line[rt->i], "R", rt) ? parse_res(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "A", rt) ? parse_ambient(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "c", rt) ? parse_camera(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "l", rt) ? parse_light(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "sp", rt) ? parse_sphere(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "pl", rt) ? parse_plane(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "sq", rt) ? parse_square(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "cy", rt) ? parse_cylindre(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "tr", rt) ? parse_triangle(rt, line) : 1;
-		ft_strdel(&line);
+		ret = ft_strstr_rt(&rt->line[rt->i], "R", rt) ? parse_res(rt, rt->line) : 1;
+		ret = ft_strstr_rt(&rt->line[rt->i], "A", rt) ? parse_ambient(rt, rt->line) : 1;
+		ret = ft_strstr_rt(&rt->line[rt->i], "c", rt) ? parse_camera(rt, rt->line) : 1;
+		ret = ft_strstr_rt(&rt->line[rt->i], "l", rt) ? parse_light(rt) : 1;
+		ret = ft_strstr_rt(&rt->line[rt->i], "sp", rt) ? parse_sphere(rt, rt->line) : 1;
+		ret = ft_strstr_rt(&rt->line[rt->i], "pl", rt) ? parse_plane(rt, rt->line) : 1;
+		ret = ft_strstr_rt(&rt->line[rt->i], "sq", rt) ? parse_square(rt, rt->line) : 1;
+		ret = ft_strstr_rt(&rt->line[rt->i], "cy", rt) ? parse_cylindre(rt, rt->line) : 1;
+		ret = ft_strstr_rt(&rt->line[rt->i], "tr", rt) ? parse_triangle(rt, rt->line) : 1;
+		ft_strdel(&rt->line);
 		if (!ret)
 			return (0);
 	}

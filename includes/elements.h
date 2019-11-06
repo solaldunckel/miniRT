@@ -6,18 +6,12 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/06 16:58:20 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/06 18:11:17 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ELEMENTS_H
 # define ELEMENTS_H
-
-typedef struct	s_res
-{
-	int			x;
-	int			y;
-}				t_res;
 
 typedef struct	s_coords
 {
@@ -32,6 +26,12 @@ typedef struct	s_color
 	int			g;
 	int			b;
 }				t_color;
+
+typedef struct	s_res
+{
+	int			x;
+	int			y;
+}				t_res;
 
 typedef struct	s_ambient
 {
