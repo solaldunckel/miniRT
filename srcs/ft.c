@@ -6,23 +6,25 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:56:12 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/06 15:37:31 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/06 17:07:58 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-int		ft_strstr_rt(char *str, char *to_find)
+int		ft_strstr_rt(char *str, char *to_find, t_mini_rt *rt)
 {
 	size_t		j;
 
 	j = 0;
 	while (str[j] == to_find[j])
 	{
+		rt->i++;
 		if (str[j + 1] == ' ' && to_find[j + 1] == '\0')
 			return (1);
 		j++;
 	}
+	rt->i -= j;
 	return (0);
 }
 
@@ -49,6 +51,8 @@ int		ft_atoi_rt(char *str, t_mini_rt *rt)
 	atoi = 0;
 	negative = 0;
 	while (ft_is_space(str[rt->i]))
+		rt->i++;
+	if (str[rt->i] == ',')
 		rt->i++;
 	if (str[rt->i] == '-' || str[rt->i] == '+')
 	{

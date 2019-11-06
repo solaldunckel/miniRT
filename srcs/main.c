@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/06 15:35:32 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/06 17:21:26 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ int		parse_rt_file(char *rt_file, t_mini_rt *rt)
 		rt->i = 0;
 		while (!ft_isalpha(line[rt->i]))
 			rt->i++;
-		ret = ft_strstr_rt(&line[rt->i], "R") ? parse_res(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "A") ? parse_ambient(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "c") ? parse_camera(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "l") ? parse_light(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "sp") ? parse_sphere(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "pl") ? parse_plane(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "sq") ? parse_square(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "cy") ? parse_cylindre(rt, line) : 1;
-		ret = ft_strstr_rt(&line[rt->i], "tr") ? parse_triangle(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "R", rt) ? parse_res(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "A", rt) ? parse_ambient(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "c", rt) ? parse_camera(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "l", rt) ? parse_light(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "sp", rt) ? parse_sphere(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "pl", rt) ? parse_plane(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "sq", rt) ? parse_square(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "cy", rt) ? parse_cylindre(rt, line) : 1;
+		ret = ft_strstr_rt(&line[rt->i], "tr", rt) ? parse_triangle(rt, line) : 1;
 		ft_strdel(&line);
 		if (!ret)
 			return (0);
@@ -58,6 +58,7 @@ int		start_mini_rt(t_mini_rt *rt, char **argv)
 	if (!(rt->win_ptr = mlx_new_window(rt->mlx_ptr, rt->res.x, rt->res.y, argv[0])))
 		handle_error("fail to create windows");
 	ft_printf(BOLDGREEN "Loading miniRT...\n" RESET);
+	// function to draw
 	mlx_key_hook(rt->win_ptr, get_keypress, rt);
 	mlx_hook(rt->win_ptr, 17, 0, get_cross_button, rt);
 	mlx_loop(rt->mlx_ptr);

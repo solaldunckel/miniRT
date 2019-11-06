@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/06 15:37:34 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/06 17:19:39 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <string.h>
 # include <math.h>
 # include <stdio.h>
+
+# define DEBUG_PARSING 0
 
 typedef struct	s_mini_rt
 {
@@ -51,7 +53,7 @@ int				parse_plane(t_mini_rt *rt, char *line);
 int				parse_square(t_mini_rt *rt, char *line);
 int				parse_cylindre(t_mini_rt *rt, char *line);
 int				parse_triangle(t_mini_rt *rt, char *line);
-int				ft_strstr_rt(char *str, char *to_find);
+int				ft_strstr_rt(char *str, char *to_find, t_mini_rt *rt);
 int				ft_atoi_rt(char *str, t_mini_rt *rt);
 double			ft_atof_rt(char *str, t_mini_rt *rt);
 
