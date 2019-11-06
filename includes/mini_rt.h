@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/02 18:04:30 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/06 12:34:28 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 # include "elements.h"
 # include "../libft/includes/libft.h"
-# include "../minilibx/mlx.h"
-# include "../libft/includes/get_next_line.h"
+# include <mlx.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
@@ -32,6 +31,12 @@ typedef struct	s_mini_rt
 	struct s_res		res;
 	struct s_ambient	ambient;
 	struct s_camera		camera;
+	struct s_light		light;
+	struct s_sphere		sphere;
+	struct s_plane		plane;
+	struct s_square		square;
+	struct s_cylindre	cylindre;
+	struct s_triangle	triangle;
 }				t_mini_rt;
 
 /*
@@ -51,8 +56,9 @@ int		parse_triangle(t_mini_rt *rt, char *line);
 /*
 ** Additional functions
 */
+
 int		ft_strstr_rt(char *str, char *to_find);
-int		rgt_to_color(int r, int g, int b);
+int		rgb_to_color(int r, int g, int b);
 int		ft_atoi_rt(char *str, t_mini_rt *rt);
 double	ft_atof_rt(char *str, t_mini_rt *rt);
 

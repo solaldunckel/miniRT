@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/02 18:29:06 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/06 12:32:37 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		parse_res(t_mini_rt *rt, char *line)
 	rt->i++;
 	rt->res.x = ft_atoi_rt(line, rt);
 	rt->res.y = ft_atoi_rt(line, rt);
-	ft_printf("resolution 	x : %d y : %d\n", rt->res.x, rt->res.y);
+	printf("resolution 	x : %d y : %d\n", rt->res.x, rt->res.y);
 	return (1);
 }
 
@@ -43,7 +43,7 @@ int		parse_camera(t_mini_rt *rt, char *line)
 	rt->camera.pov_y = ft_atof_rt(line, rt);
 	rt->i++;
 	rt->camera.pov_z = ft_atof_rt(line, rt);
-	
+
 	rt->camera.orient_x = ft_atof_rt(line, rt);
 	rt->i++;
 	rt->camera.orient_y = ft_atof_rt(line, rt);
@@ -59,6 +59,6 @@ int		parse_light(t_mini_rt *rt, char *line)
 {
 	(void)line;
 	(void)rt;
-	ft_printf("light\n");
+	printf("light\n");
 	return (1);
 }
