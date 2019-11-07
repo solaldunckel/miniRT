@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/06 18:21:58 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/07 13:44:45 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,23 @@ typedef struct	s_mini_rt
 	char				*line;
 	void				*mlx_ptr;
 	void				*win_ptr;
+	struct s_list		*list;
 	struct s_res		res;
 	struct s_ambient	ambient;
-	struct s_camera		camera;
-	struct s_light		*light;
-	struct s_sphere		sphere;
-	struct s_plane		plane;
-	struct s_square		square;
-	struct s_cylinder	cylinder;
-	struct s_triangle	triangle;
 }				t_mini_rt;
 
 /*
 ** Parsing functions
 */
-int				parse_res(t_mini_rt *rt, char *line);
-int				parse_ambient(t_mini_rt *rt, char *line);
-int				parse_camera(t_mini_rt *rt, char *line);
+int				parse_res(t_mini_rt *rt);
+int				parse_ambient(t_mini_rt *rt);
+int				parse_camera(t_mini_rt *rt);
 int				parse_light(t_mini_rt *rt);
-int				parse_sphere(t_mini_rt *rt, char *line);
-int				parse_plane(t_mini_rt *rt, char *line);
-int				parse_square(t_mini_rt *rt, char *line);
-int				parse_cylindre(t_mini_rt *rt, char *line);
-int				parse_triangle(t_mini_rt *rt, char *line);
+int				parse_sphere(t_mini_rt *rt);
+int				parse_plane(t_mini_rt *rt);
+int				parse_square(t_mini_rt *rt);
+int				parse_cylindre(t_mini_rt *rt);
+int				parse_triangle(t_mini_rt *rt);
 int				ft_strstr_rt(char *str, char *to_find, t_mini_rt *rt);
 int				ft_atoi_rt(char *str, t_mini_rt *rt);
 double			ft_atof_rt(char *str, t_mini_rt *rt);
@@ -68,6 +62,7 @@ int				get_cross_button(t_mini_rt *rt);
 ** Additional functions
 */
 int				handle_error(char *str);
+int				exit_and_free(t_mini_rt *rt);
 int				rgb_to_color(int r, int g, int b);
 
 #endif
