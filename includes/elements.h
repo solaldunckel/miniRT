@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 09:28:58 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/08 15:07:06 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct	s_image
 {
 	void				*ptr;
 	char				*add;
-	int					bbp;
+	int					bpp;
 	int					size_line;
 	int					endian;
 }				t_image;

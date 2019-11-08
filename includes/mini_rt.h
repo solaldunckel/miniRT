@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 12:47:43 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/08 15:12:26 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ typedef struct	s_mini_rt
 	void				*win_ptr;
 	int					x;
 	int					y;
+	int					z;
+	int					col;
+	void				*obj;
 	struct s_list		*list;
 	struct s_res		res;
 	struct s_ambient	ambient;
@@ -60,6 +63,12 @@ double			ft_atof_rt(char *str, t_mini_rt *rt);
 */
 int				get_keypress(int key, t_mini_rt *rt);
 int				get_cross_button(t_mini_rt *rt);
+void			free_element(void *elem);
+
+/*
+** Raytracing functions
+*/
+int		raytracing(t_mini_rt *rt);
 
 /*
 ** Additional functions

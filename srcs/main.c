@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 11:24:32 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/08 15:11:10 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,10 @@ int		start_mini_rt(t_mini_rt *rt, char **argv)
 		handle_error("fail to create windows", rt);
 	if (!(rt->img.ptr = mlx_new_image(rt->mlx_ptr, rt->res.x, rt->res.y)))
 		handle_error("fail to create image", rt);
-	rt->img.add = mlx_get_data_addr(rt->img.ptr, &rt->img.bbp,
+	rt->img.add = mlx_get_data_addr(rt->img.ptr, &rt->img.bpp,
 		&rt->img.size_line, &rt->img.endian);
 	ft_printf("" BOLDGREEN "Loading miniRT...\n" RESET);
+	raytracing(rt);
 	// ft_printf("list size : %d\n", ft_lstsize(rt->list));
 	// ft_lstiter(rt->list, show_id);
 	// // function to draw
