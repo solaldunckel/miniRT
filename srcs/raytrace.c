@@ -6,17 +6,49 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 16:13:38 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:59:16 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
+int		createRGB(int r, int g, int b)
+{
+    return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+}
+
 void	ft_sphere(t_mini_rt *rt, t_element *sphere)
 {
-	(void)sphere;
-	(void)rt;
-	printf("%s\n", sphere->id);
+	double	a;
+	double	b;
+	double	c;
+	double	det;
+	double	t1;
+	double	t2;
+	double	tf;
+
+	a = pow(rt->x, 2) + pow(rt->y, 2) + pow(1, 2);
+	b = 2 * (rt->x * (rt->cam->pov.x - sphere->point.x) + 1 * (rt->cam->pov.y - sphere->point.y) + 1 * (rt->cam->pov.z - sphere->point.z));
+	c = (pow(rt->cam->pov.x - sphere->point.x, 2) + pow(rt->cam->pov.y - sphere->point.y, 2) + pow(rt->cam->pov.z - sphere->point.x, 2)) - pow(sphere->diameter / 2, 2);
+	det = pow(b, 2) - (4 * a * c);
+	if (det < 0)
+		tf = 10001;
+	if (det == 0)
+		tf = -b / (2 * a);
+	else if (det > 0)
+	{
+		t1 = (-b + sqrt(det)) / (2 * a);
+		t2 = (-b - sqrt(det)) / (2 * a);
+		t1 < t2 ? tf = t1 : 0;
+		t1 > t2 ? tf = t2 : 0;
+	}
+	if (tf < rt->t)
+	{
+		rt->t = tf;
+		rt->col = createRGB(sphere->color.r, sphere->color.g, sphere->color.b);
+		rt->obj = (void *)sphere;
+	}
+	//printf("[%s][%f][%f]\n", sphere->id, det, tf);
 }
 
 void	ft_square(t_mini_rt *rt, t_element *square)
@@ -73,6 +105,8 @@ int		raytracing(t_mini_rt *rt)
 		rt->x = 0;
 		while (rt->x < rt->res.x)
 		{
+			rt->col = 0x000000;
+			rt->t = 70;
 			ft_ray(rt);
 			color_put(rt);
 			rt->x++;

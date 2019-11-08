@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 15:17:50 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:59:34 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ typedef struct	s_mini_rt
 	int					x;
 	int					y;
 	int					z;
+	int					t;
 	int					col;
 	void				*obj;
+	struct s_element	*cam;
 	struct s_list		*list;
 	struct s_res		res;
 	struct s_ambient	ambient;

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 16:08:23 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:54:36 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,24 @@ int		parse_rt_file(char *rt_file, t_mini_rt *rt)
 	return (1);
 }
 
+void	ft_cam(t_mini_rt *rt)
+{
+	t_list		*temp;
+	t_element 	*elem;
+
+	temp = rt->list;
+	while (temp)
+	{
+		elem = temp->content;
+		if (ft_strequ(elem->id, "camera"))
+		{
+			rt->cam = elem;
+			return ;
+		}
+		temp = temp->next;
+	}
+}
+
 int		start_mini_rt(t_mini_rt *rt, char **argv)
 {
 	rt->list = NULL;
@@ -56,6 +74,7 @@ int		start_mini_rt(t_mini_rt *rt, char **argv)
 	rt->img.add = mlx_get_data_addr(rt->img.ptr, &rt->img.bpp,
 		&rt->img.size_line, &rt->img.endian);
 	ft_printf("" BOLDGREEN "Loading miniRT...\n" RESET);
+	ft_cam(rt);
 	raytracing(rt);
 	mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->img.ptr, 0, 0);
 	mlx_key_hook(rt->win_ptr, get_keypress, rt);
