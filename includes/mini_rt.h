@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 09:28:54 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/08 12:47:43 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct	s_mini_rt
 	char				*line;
 	void				*mlx_ptr;
 	void				*win_ptr;
+	int					x;
+	int					y;
 	struct s_list		*list;
 	struct s_res		res;
 	struct s_ambient	ambient;
