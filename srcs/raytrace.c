@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 16:09:52 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:13:38 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int		raytracing(t_mini_rt *rt)
 		while (rt->x < rt->res.x)
 		{
 			ft_ray(rt);
-			rt->col = 0xFF0000;
 			color_put(rt);
 			rt->x++;
 		}
