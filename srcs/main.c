@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 15:11:10 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/08 15:32:22 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int		start_mini_rt(t_mini_rt *rt, char **argv)
 		handle_error("fail to parse file", rt);
 	if (!(rt->mlx_ptr = mlx_init()))
 		handle_error("fail to init mlx", rt);
-	if (!(rt->win_ptr = mlx_new_window(rt->mlx_ptr, rt->res.x, rt->res.y, argv[0])))
+	if (!(rt->win_ptr = mlx_new_window(rt->mlx_ptr, rt->res.x, rt->res.y,
+		argv[0])))
 		handle_error("fail to create windows", rt);
 	if (!(rt->img.ptr = mlx_new_image(rt->mlx_ptr, rt->res.x, rt->res.y)))
 		handle_error("fail to create image", rt);
@@ -75,9 +76,7 @@ int		start_mini_rt(t_mini_rt *rt, char **argv)
 		&rt->img.size_line, &rt->img.endian);
 	ft_printf("" BOLDGREEN "Loading miniRT...\n" RESET);
 	raytracing(rt);
-	// ft_printf("list size : %d\n", ft_lstsize(rt->list));
-	// ft_lstiter(rt->list, show_id);
-	// // function to draw
+	mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->img.ptr, 0, 0);
 	mlx_key_hook(rt->win_ptr, get_keypress, rt);
 	mlx_hook(rt->win_ptr, 17, 0, exit_and_free, rt);
 	mlx_loop(rt->mlx_ptr);

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 15:12:26 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/08 15:17:50 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void			free_element(void *elem);
 /*
 ** Raytracing functions
 */
-int		raytracing(t_mini_rt *rt);
+int				raytracing(t_mini_rt *rt);
+int     		color_put(t_mini_rt *rt);
 
 /*
 ** Additional functions
