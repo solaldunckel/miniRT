@@ -6,11 +6,20 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:42:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 15:04:04 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:08:27 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+void	free_element(void *elem)
+{
+	t_element 	*tmp;
+
+	tmp = elem;
+	free(tmp->id);
+	free(tmp);
+}
 
 int		get_keypress(int key, t_mini_rt *rt)
 {

@@ -6,30 +6,11 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 15:32:22 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:08:23 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-
-void	free_element(void *elem)
-{
-	t_element 	*tmp;
-
-	tmp = elem;
-	free(tmp->id);
-	free(tmp);
-}
-
-void	show_id(void *lst)
-{
-	t_list		*tmp;
-	t_element 	*elem;
-
-	tmp = lst;
-	elem = tmp->content;
-	ft_printf("%s\n", elem->id);
-}
 
 int		parse_rt_file(char *rt_file, t_mini_rt *rt)
 {

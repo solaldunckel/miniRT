@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 15:33:12 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:09:52 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,34 @@ void	ft_sphere(t_mini_rt *rt, t_element *sphere)
 	(void)sphere;
 	(void)rt;
 	printf("%s\n", sphere->id);
+}
+
+void	ft_square(t_mini_rt *rt, t_element *square)
+{
+	(void)square;
+	(void)rt;
+	printf("%s\n", square->id);
+}
+
+void	ft_plane(t_mini_rt *rt, t_element *plane)
+{
+	(void)plane;
+	(void)rt;
+	printf("%s\n", plane->id);
+}
+
+void	ft_triangle(t_mini_rt *rt, t_element *triangle)
+{
+	(void)triangle;
+	(void)rt;
+	printf("%s\n", triangle->id);
+}
+
+void	ft_cylinder(t_mini_rt *rt, t_element *cylinder)
+{
+	(void)cylinder;
+	(void)rt;
+	printf("%s\n", cylinder->id);
 }
 
 void	ft_ray(t_mini_rt *rt)
