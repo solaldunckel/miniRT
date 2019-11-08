@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:56:12 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/06 19:01:54 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/07 14:10:40 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,6 @@ int		ft_strstr_rt(char *str, char *to_find, t_mini_rt *rt)
 	}
 	rt->i -= j;
 	return (0);
-}
-
-int		rgb_to_color(int r, int g, int b)
-{
-	int				*color;
-	unsigned char	*tmp;
-
-	if (!(color = malloc(sizeof(int*))))
-		handle_error("malloc failed");
-	tmp = (unsigned char *)color;
-	tmp[0] = 0;
-	tmp[1] = r;
-	tmp[2] = g;
-	tmp[3] = b;
-	return ((int)color);
 }
 
 int		ft_atoi_rt(char *str, t_mini_rt *rt)

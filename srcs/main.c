@@ -6,23 +6,33 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/07 13:54:43 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/07 14:13:44 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-int		handle_error(char *str)
+void 	free_element(void *elem)
 {
-	ft_printf(RED "miniRT Error: %s\n" RESET, str);
+	t_element 	*tmp;
+
+	tmp = elem;
+	free(tmp->id);
+	free(tmp);
+}
+
+int		handle_error(char *str, t_mini_rt *rt)
+{
+	ft_printf("" RED "miniRT Error: %s\n" RESET, str);
+	ft_lstclear(&rt->list, free_element);
 	exit(0);
 	return (0);
 }
 
 int		exit_and_free(t_mini_rt *rt)
 {
-	(void)rt;
 	ft_printf("" BOLDGREEN "Exiting miniRT...\n" RESET);
+	ft_lstclear(&rt->list, free_element);
 	exit(0);
 	return (0);
 }
@@ -34,8 +44,7 @@ int		parse_rt_file(char *rt_file, t_mini_rt *rt)
 
 	ret = 0;
 	if ((fd = open(rt_file, O_RDONLY)) < 0)
-		handle_error("fail to open scene file");
-	rt->list = NULL;
+		handle_error("fail to open scene file", rt);
 	while (get_next_line(fd, &rt->line) > 0)
 	{
 		rt->i = 0;
@@ -70,11 +79,11 @@ void 	show_id(void *lst)
 int		start_mini_rt(t_mini_rt *rt, char **argv)
 {
 	if (!(parse_rt_file(argv[1], rt)))
-		handle_error("fail to parse file");
+		handle_error("fail to parse file", rt);
 	if (!(rt->mlx_ptr = mlx_init()))
-		handle_error("fail to init mlx");
+		handle_error("fail to init mlx", rt);
 	if (!(rt->win_ptr = mlx_new_window(rt->mlx_ptr, rt->res.x, rt->res.y, argv[0])))
-		handle_error("fail to create windows");
+		handle_error("fail to create windows", rt);
 	ft_printf("" BOLDGREEN "Loading miniRT...\n" RESET);
 	ft_printf("list size : %d\n", ft_lstsize(rt->list));
 	ft_lstiter(rt->list, show_id);
@@ -90,7 +99,7 @@ int		main(int argc, char **argv)
 	t_mini_rt	rt;
 
 	if (argc > 3 || argc == 1 || (argc == 3 && !ft_strequ(argv[2], "-save")))
-		handle_error("wrong arguments");
+		handle_error("wrong arguments", &rt);
 	if (argc == 3 && ft_strequ(argv[2], "-save"))
 		start_mini_rt(&rt, argv);
 	if (argc == 2)

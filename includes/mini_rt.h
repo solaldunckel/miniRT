@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/07 13:44:45 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/07 14:10:59 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ int				get_cross_button(t_mini_rt *rt);
 /*
 ** Additional functions
 */
-int				handle_error(char *str);
+int				handle_error(char *str, t_mini_rt *rt);
 int				exit_and_free(t_mini_rt *rt);
-int				rgb_to_color(int r, int g, int b);
 
 #endif
