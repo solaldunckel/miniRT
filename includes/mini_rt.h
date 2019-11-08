@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/07 14:10:59 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/08 09:28:54 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct	s_mini_rt
 	struct s_list		*list;
 	struct s_res		res;
 	struct s_ambient	ambient;
+	struct s_image		img;
 }				t_mini_rt;
 
 /*

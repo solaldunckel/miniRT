@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/07 13:46:37 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/08 09:22:36 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int		parse_res(t_mini_rt *rt)
 {
 	rt->res.x = ft_atoi_rt(rt->line, rt);
 	rt->res.y = ft_atoi_rt(rt->line, rt);
+	if (rt->res.x < 1 || rt->res.y < 1)
+		handle_error("resolution too small", rt);
 	if (DEBUG_PARSING)
 		printf("resolution 	x : %d 		y : %d\n", rt->res.x, rt->res.y);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/07 13:57:57 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/08 09:28:58 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,27 @@ typedef struct	s_ambient
 	struct s_color	color;
 }				t_ambient;
 
+typedef struct	s_image
+{
+	void				*ptr;
+	char				*add;
+	int					bbp;
+	int					size_line;
+	int					endian;
+}				t_image;
+
 typedef struct	s_element
 {
-	char			*id;
-	struct s_coords	pov;
-	struct s_coords	point;
-	struct s_color	color;
-	struct s_coords	orient;
-	double			ratio;
-	double			diameter;
-	double			height;
-	struct s_coords	point2;
-	struct s_coords	point3;
+	char				*id;
+	struct s_coords		pov;
+	struct s_coords		point;
+	struct s_color		color;
+	struct s_coords		orient;
+	double				ratio;
+	double				diameter;
+	double				height;
+	struct s_coords		point2;
+	struct s_coords		point3;
 }				t_element;
 
 #endif

@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/11/07 14:04:25 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/11/08 11:25:17 by sdunckel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS_LIST		= \
 					parse.c \
 					parse_2.c \
 					events.c \
+					raytrace.c \
 					ft.c
 
 SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})
