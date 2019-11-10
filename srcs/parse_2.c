@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/09 15:03:07 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/10 17:58:36 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		parse_sphere(t_mini_rt *rt)
 	sphere->color.r = ft_atoi_rt(rt->line, rt);
 	sphere->color.g = ft_atoi_rt(rt->line, rt);
 	sphere->color.b = ft_atoi_rt(rt->line, rt);
-	ft_lstadd_back(&rt->list, ft_lstnew(sphere));
+	ft_lstadd_back(&rt->elem_list, ft_lstnew(sphere));
 	if (DEBUG_PARSING)
 		printf("sphere		point : %.f,%.f,%.f 		diameter : %.1f 	rgb : %d,%d,%d\n",
 		sphere->point.x, sphere->point.y, sphere->point.z, sphere->diameter,
@@ -50,7 +50,7 @@ int		parse_plane(t_mini_rt *rt)
 	plane->color.r = ft_atoi_rt(rt->line, rt);
 	plane->color.g = ft_atoi_rt(rt->line, rt);
 	plane->color.b = ft_atoi_rt(rt->line, rt);
-	ft_lstadd_back(&rt->list, ft_lstnew(plane));
+	ft_lstadd_back(&rt->elem_list, ft_lstnew(plane));
 	if (DEBUG_PARSING)
 		printf("plane		point : %.f,%.f,%.f 		orient : %.f,%.f,%.f 		rgb : %d,%d,%d\n",
 		plane->point.x, plane->point.y, plane->point.z,
@@ -76,7 +76,7 @@ int		parse_square(t_mini_rt *rt)
 	square->color.r = ft_atoi_rt(rt->line, rt);
 	square->color.g = ft_atoi_rt(rt->line, rt);
 	square->color.b = ft_atoi_rt(rt->line, rt);
-	ft_lstadd_back(&rt->list, ft_lstnew(square));
+	ft_lstadd_back(&rt->elem_list, ft_lstnew(square));
 	if (DEBUG_PARSING)
 		printf("square		point : %.f,%.f,%.f 	orient : %.f,%.f,%.f 		height : %.1f 			rgb : %d,%d,%d\n",
 		square->point.x, square->point.y, square->point.z,
@@ -103,7 +103,7 @@ int		parse_cylindre(t_mini_rt *rt)
 	cylinder->color.r = ft_atoi_rt(rt->line, rt);
 	cylinder->color.g = ft_atoi_rt(rt->line, rt);
 	cylinder->color.b = ft_atoi_rt(rt->line, rt);
-	ft_lstadd_back(&rt->list, ft_lstnew(cylinder));
+	ft_lstadd_back(&rt->elem_list, ft_lstnew(cylinder));
 	if (DEBUG_PARSING)
 		printf("cylinder	point : %.f,%.f,%.f 	orient : %.f,%.f,%.f 		diameter : %.1f 		height : %.1f 		rgb : %d,%d,%d\n",
 		cylinder->point.x, cylinder->point.y, cylinder->point.z,
@@ -131,7 +131,7 @@ int		parse_triangle(t_mini_rt *rt)
 	triangle->color.r = ft_atoi_rt(rt->line, rt);
 	triangle->color.g = ft_atoi_rt(rt->line, rt);
 	triangle->color.b = ft_atoi_rt(rt->line, rt);
-	ft_lstadd_back(&rt->list, ft_lstnew(triangle));
+	ft_lstadd_back(&rt->elem_list, ft_lstnew(triangle));
 	if (DEBUG_PARSING)
 		printf("triangle	point1 : %.f,%.f,%.f 	point2 : %.f,%.f,%.f 	point3 : %.f,%.f,%.f 		rgb : %d,%d,%d\n",
 		triangle->point.x, triangle->point.y, triangle->point.z,

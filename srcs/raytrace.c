@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 17:10:47 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/10 17:58:17 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ray(t_mini_rt *rt)
 	t_list		*temp;
 	t_element 	*elem;
 
-	temp = rt->list;
+	temp = rt->elem_list;
 	while (temp)
 	{
 		elem = temp->content;
@@ -37,6 +37,7 @@ int		raytracing(t_mini_rt *rt)
 	float 	angle;
 
 	y = 0;
+	select_cam(rt);
 	rt->cam->fov = 70;
 	rt->t = 0;
 	angle = tan(M_PI * 0.5 * rt->cam->fov / 180);
