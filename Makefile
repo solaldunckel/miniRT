@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/11/08 15:17:37 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/11/10 17:11:53 by sdunckel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,9 @@ SRCS_LIST		= \
 					events.c \
 					raytrace.c \
 					colors.c \
+					bmp.c \
+					vec.c \
+					sphere.c \
 					ft.c
 
 SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})
@@ -50,6 +53,7 @@ clean:
 
 fclean:			clean
 				@$(RM) $(NAME)
+				@$(RM) img.bmp
 				@make fclean -C $(LIBFT)
 
 re:				fclean all

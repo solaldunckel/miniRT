@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/07 13:47:42 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/09 15:03:07 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		parse_sphere(t_mini_rt *rt)
 
 	if (!(sphere = ft_calloc(1, sizeof(t_element))))
 		return (0);
-	sphere->id = ft_strdup("sphere");
+	sphere->id = ft_strdup(SPHERE);
 	sphere->point.x = ft_atof_rt(rt->line, rt);
 	sphere->point.y = ft_atof_rt(rt->line, rt);
 	sphere->point.z = ft_atof_rt(rt->line, rt);
@@ -40,7 +40,7 @@ int		parse_plane(t_mini_rt *rt)
 
 	if (!(plane = ft_calloc(1, sizeof(t_element))))
 		return (0);
-	plane->id = ft_strdup("plane");
+	plane->id = ft_strdup(PLANE);
 	plane->point.x = ft_atof_rt(rt->line, rt);
 	plane->point.y = ft_atof_rt(rt->line, rt);
 	plane->point.z = ft_atof_rt(rt->line, rt);
@@ -65,7 +65,7 @@ int		parse_square(t_mini_rt *rt)
 
 	if (!(square = ft_calloc(1, sizeof(t_element))))
 		return (0);
-	square->id = ft_strdup("square");
+	square->id = ft_strdup(SQUARE);
 	square->point.x = ft_atof_rt(rt->line, rt);
 	square->point.y = ft_atof_rt(rt->line, rt);
 	square->point.z = ft_atof_rt(rt->line, rt);
@@ -91,7 +91,7 @@ int		parse_cylindre(t_mini_rt *rt)
 
 	if (!(cylinder = ft_calloc(1, sizeof(t_element))))
 		return (0);
-	cylinder->id = ft_strdup("cylinder");
+	cylinder->id = ft_strdup(CYLINDER);
 	cylinder->point.x = ft_atof_rt(rt->line, rt);
 	cylinder->point.y = ft_atof_rt(rt->line, rt);
 	cylinder->point.z = ft_atof_rt(rt->line, rt);
@@ -118,7 +118,7 @@ int		parse_triangle(t_mini_rt *rt)
 
 	if (!(triangle = ft_calloc(1, sizeof(t_element))))
 		return (0);
-	triangle->id = ft_strdup("triangle");
+	triangle->id = ft_strdup(TRIANGLE);
 	triangle->point.x = ft_atof_rt(rt->line, rt);
 	triangle->point.y = ft_atof_rt(rt->line, rt);
 	triangle->point.z = ft_atof_rt(rt->line, rt);

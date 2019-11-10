@@ -6,19 +6,19 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 15:07:06 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/10 17:07:03 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ELEMENTS_H
 # define ELEMENTS_H
 
-typedef struct	s_coords
+typedef struct	s_vec
 {
 	double		x;
 	double		y;
 	double		z;
-}				t_coords;
+}				t_vec;
 
 typedef struct	s_color
 {
@@ -33,6 +33,12 @@ typedef struct	s_res
 	int			y;
 }				t_res;
 
+typedef struct	s_ray
+{
+	struct s_vec	ori;
+	struct s_vec	dir;
+}				t_ray;
+
 typedef struct	s_ambient
 {
 	double			ratio;
@@ -41,25 +47,26 @@ typedef struct	s_ambient
 
 typedef struct	s_image
 {
-	void				*ptr;
-	char				*add;
-	int					bpp;
-	int					size_line;
-	int					endian;
+	void			*ptr;
+	char			*add;
+	int				bpp;
+	int				size_line;
+	int				endian;
 }				t_image;
 
 typedef struct	s_element
 {
-	char				*id;
-	struct s_coords		pov;
-	struct s_coords		point;
-	struct s_color		color;
-	struct s_coords		orient;
-	double				ratio;
-	double				diameter;
-	double				height;
-	struct s_coords		point2;
-	struct s_coords		point3;
+	char			*id;
+	struct s_vec	pov;
+	struct s_vec	point;
+	struct s_color	color;
+	struct s_vec	orient;
+	double			ratio;
+	double			diameter;
+	double			height;
+	double			fov;
+	struct s_vec	point2;
+	struct s_vec	point3;
 }				t_element;
 
 #endif

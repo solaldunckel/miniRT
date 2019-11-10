@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 17:59:34 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/10 17:24:32 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,35 @@
 
 # define DEBUG_PARSING 1
 
+# define CAMERA "CAMERA"
+# define LIGHT "LIGHT"
+# define SPHERE "SPHERE"
+# define PLANE "PLANE"
+# define SQUARE "SQUARE"
+# define CYLINDER "CYLINDER"
+# define TRIANGLE "TRIANGLE"
+
+# define BMP_FILE_NAME "img.bmp"
+# define BMP_FILE_HEADER_SIZE 14
+# define BMP_INFO_HEADER_SIZE 40
+# define BMP_HEADER_SIZE BMP_FILE_HEADER_SIZE + BMP_INFO_HEADER_SIZE
+
 typedef struct	s_mini_rt
 {
 	int					i;
 	char				*line;
 	void				*mlx_ptr;
 	void				*win_ptr;
-	int					x;
-	int					y;
-	int					z;
-	int					t;
 	int					col;
-	void				*obj;
-	struct s_element	*cam;
-	struct s_list		*list;
+	double				t;
+	int					save;
+	struct s_element	*obj;
+	struct s_image		img;
 	struct s_res		res;
 	struct s_ambient	ambient;
-	struct s_image		img;
+	struct s_ray		ray;
+	struct s_list		*list;
+	struct s_element	*cam;
 }				t_mini_rt;
 
 /*
@@ -71,11 +83,31 @@ void			free_element(void *elem);
 ** Raytracing functions
 */
 int				raytracing(t_mini_rt *rt);
-int     		color_put(t_mini_rt *rt);
+
+/*
+** Objects
+*/
+void			sphere(t_mini_rt *rt, t_element *sphere);
+
+/*
+** Colors
+*/
+int     		color_put(t_mini_rt *rt, int x, int y);
+int				convert_rgb(int r, int g, int b);
+
+/*
+** Vectors
+*/
+t_vec			vec_add(t_vec v1, t_vec v2);
+t_vec			vec_sub(t_vec v1, t_vec v2);
+t_vec			vec_mul(t_vec v1, double m);
+t_vec			vec_div(t_vec v1, double d);
+t_vec			vec_dot(t_vec v1, t_vec v2);
 
 /*
 ** Additional functions
 */
+void 			create_bmp_image(t_mini_rt *rt, char *file_name);
 int				handle_error(char *str, t_mini_rt *rt);
 int				exit_and_free(t_mini_rt *rt);
 

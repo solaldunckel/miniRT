@@ -6,11 +6,19 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:42:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 16:08:27 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/09 15:59:28 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+int		exit_and_free(t_mini_rt *rt)
+{
+	ft_printf("" BOLDGREEN "Exiting miniRT...\n" RESET);
+	ft_lstclear(&rt->list, free_element);
+	exit(1);
+	return (0);
+}
 
 void	free_element(void *elem)
 {
@@ -41,13 +49,5 @@ int		handle_error(char *str, t_mini_rt *rt)
 	ft_printf("" RED "miniRT Error: %s\n" RESET, str);
 	ft_lstclear(&rt->list, free_element);
 	exit(0);
-	return (0);
-}
-
-int		exit_and_free(t_mini_rt *rt)
-{
-	ft_printf("" BOLDGREEN "Exiting miniRT...\n" RESET);
-	ft_lstclear(&rt->list, free_element);
-	exit(1);
 	return (0);
 }

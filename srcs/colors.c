@@ -6,17 +6,22 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:04:25 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 15:16:15 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/10 12:33:46 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-int     color_put(t_mini_rt *rt)
+int		convert_rgb(int r, int g, int b)
+{
+    return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+}
+
+int     color_put(t_mini_rt *rt, int x, int y)
 {
     int i;
 
-    i = rt->y * rt->img.size_line + rt->img.bpp / 8 * rt->x;
+    i = y * rt->img.size_line + rt->img.bpp / 8 * x;
     if (i < 1)
         return (0);
     rt->img.add[i] = rt->col;

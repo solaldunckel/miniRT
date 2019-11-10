@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/08 09:22:36 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/09 15:02:09 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		parse_camera(t_mini_rt *rt)
 
 	if (!(camera = ft_calloc(1, sizeof(t_element))))
 		return (0);
-	camera->id = ft_strdup("camera");
+	camera->id = ft_strdup(CAMERA);
 	camera->pov.x = ft_atof_rt(rt->line, rt);
 	camera->pov.y = ft_atof_rt(rt->line, rt);
 	camera->pov.z = ft_atof_rt(rt->line, rt);
@@ -62,7 +62,7 @@ int		parse_light(t_mini_rt *rt)
 
 	if (!(light = ft_calloc(1, sizeof(t_element))))
 		return (0);
-	light->id = ft_strdup("light");
+	light->id = ft_strdup(LIGHT);
 	light->point.x = ft_atof_rt(rt->line, rt);
 	light->point.y = ft_atof_rt(rt->line, rt);
 	light->point.z = ft_atof_rt(rt->line, rt);
