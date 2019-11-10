@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 17:58:36 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/10 22:49:43 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,9 @@ int		parse_sphere(t_mini_rt *rt)
 	if (!(sphere = ft_calloc(1, sizeof(t_element))))
 		return (0);
 	sphere->id = ft_strdup(SPHERE);
-	sphere->point.x = ft_atof_rt(rt->line, rt);
-	sphere->point.y = ft_atof_rt(rt->line, rt);
-	sphere->point.z = ft_atof_rt(rt->line, rt);
-	sphere->diameter = ft_atof_rt(rt->line, rt);
-	sphere->color.r = ft_atoi_rt(rt->line, rt);
-	sphere->color.g = ft_atoi_rt(rt->line, rt);
-	sphere->color.b = ft_atoi_rt(rt->line, rt);
+	sphere->point = split_vec(rt->split[1], rt);
+	sphere->diameter = ft_atof(rt->split[2]);
+	sphere->color = split_rgb(rt->split[3], rt);
 	ft_lstadd_back(&rt->elem_list, ft_lstnew(sphere));
 	if (DEBUG_PARSING)
 		printf("sphere		point : %.f,%.f,%.f 		diameter : %.1f 	rgb : %d,%d,%d\n",
@@ -41,15 +37,9 @@ int		parse_plane(t_mini_rt *rt)
 	if (!(plane = ft_calloc(1, sizeof(t_element))))
 		return (0);
 	plane->id = ft_strdup(PLANE);
-	plane->point.x = ft_atof_rt(rt->line, rt);
-	plane->point.y = ft_atof_rt(rt->line, rt);
-	plane->point.z = ft_atof_rt(rt->line, rt);
-	plane->orient.x = ft_atof_rt(rt->line, rt);
-	plane->orient.y = ft_atof_rt(rt->line, rt);
-	plane->orient.z = ft_atof_rt(rt->line, rt);
-	plane->color.r = ft_atoi_rt(rt->line, rt);
-	plane->color.g = ft_atoi_rt(rt->line, rt);
-	plane->color.b = ft_atoi_rt(rt->line, rt);
+	plane->point = split_vec(rt->split[1], rt);
+	plane->orient = split_vec(rt->split[2], rt);
+	plane->color = split_rgb(rt->split[3], rt);
 	ft_lstadd_back(&rt->elem_list, ft_lstnew(plane));
 	if (DEBUG_PARSING)
 		printf("plane		point : %.f,%.f,%.f 		orient : %.f,%.f,%.f 		rgb : %d,%d,%d\n",
@@ -66,16 +56,10 @@ int		parse_square(t_mini_rt *rt)
 	if (!(square = ft_calloc(1, sizeof(t_element))))
 		return (0);
 	square->id = ft_strdup(SQUARE);
-	square->point.x = ft_atof_rt(rt->line, rt);
-	square->point.y = ft_atof_rt(rt->line, rt);
-	square->point.z = ft_atof_rt(rt->line, rt);
-	square->orient.x = ft_atof_rt(rt->line, rt);
-	square->orient.y = ft_atof_rt(rt->line, rt);
-	square->orient.z = ft_atof_rt(rt->line, rt);
-	square->height = ft_atof_rt(rt->line, rt);
-	square->color.r = ft_atoi_rt(rt->line, rt);
-	square->color.g = ft_atoi_rt(rt->line, rt);
-	square->color.b = ft_atoi_rt(rt->line, rt);
+	square->point = split_vec(rt->split[1], rt);
+	square->orient = split_vec(rt->split[2], rt);
+	square->height = ft_atof(rt->split[3]);
+	square->color = split_rgb(rt->split[4], rt);
 	ft_lstadd_back(&rt->elem_list, ft_lstnew(square));
 	if (DEBUG_PARSING)
 		printf("square		point : %.f,%.f,%.f 	orient : %.f,%.f,%.f 		height : %.1f 			rgb : %d,%d,%d\n",
@@ -92,20 +76,14 @@ int		parse_cylindre(t_mini_rt *rt)
 	if (!(cylinder = ft_calloc(1, sizeof(t_element))))
 		return (0);
 	cylinder->id = ft_strdup(CYLINDER);
-	cylinder->point.x = ft_atof_rt(rt->line, rt);
-	cylinder->point.y = ft_atof_rt(rt->line, rt);
-	cylinder->point.z = ft_atof_rt(rt->line, rt);
-	cylinder->orient.x = ft_atof_rt(rt->line, rt);
-	cylinder->orient.y = ft_atof_rt(rt->line, rt);
-	cylinder->orient.z = ft_atof_rt(rt->line, rt);
-	cylinder->diameter = ft_atof_rt(rt->line, rt);
-	cylinder->height = ft_atof_rt(rt->line, rt);
-	cylinder->color.r = ft_atoi_rt(rt->line, rt);
-	cylinder->color.g = ft_atoi_rt(rt->line, rt);
-	cylinder->color.b = ft_atoi_rt(rt->line, rt);
+	cylinder->point = split_vec(rt->split[1], rt);
+	cylinder->orient = split_vec(rt->split[2], rt);
+	cylinder->diameter = ft_atof(rt->split[3]);
+	cylinder->height = ft_atof(rt->split[4]);
+	cylinder->color = split_rgb(rt->split[5], rt);
 	ft_lstadd_back(&rt->elem_list, ft_lstnew(cylinder));
 	if (DEBUG_PARSING)
-		printf("cylinder	point : %.f,%.f,%.f 	orient : %.f,%.f,%.f 		diameter : %.1f 		height : %.1f 		rgb : %d,%d,%d\n",
+		printf("cylinder	point : %.1f,%.1f,%.1f 	orient : %.f,%.f,%.f 		diameter : %.1f 		height : %.2f 		rgb : %d,%d,%d\n",
 		cylinder->point.x, cylinder->point.y, cylinder->point.z,
 		cylinder->orient.x, cylinder->orient.y, cylinder->orient.z, cylinder->diameter, cylinder->height,
 		cylinder->color.r, cylinder->color.g, cylinder->color.b);
@@ -119,18 +97,10 @@ int		parse_triangle(t_mini_rt *rt)
 	if (!(triangle = ft_calloc(1, sizeof(t_element))))
 		return (0);
 	triangle->id = ft_strdup(TRIANGLE);
-	triangle->point.x = ft_atof_rt(rt->line, rt);
-	triangle->point.y = ft_atof_rt(rt->line, rt);
-	triangle->point.z = ft_atof_rt(rt->line, rt);
-	triangle->point2.x = ft_atof_rt(rt->line, rt);
-	triangle->point2.y = ft_atof_rt(rt->line, rt);
-	triangle->point2.z = ft_atof_rt(rt->line, rt);
-	triangle->point3.x = ft_atof_rt(rt->line, rt);
-	triangle->point3.y = ft_atof_rt(rt->line, rt);
-	triangle->point3.z = ft_atof_rt(rt->line, rt);
-	triangle->color.r = ft_atoi_rt(rt->line, rt);
-	triangle->color.g = ft_atoi_rt(rt->line, rt);
-	triangle->color.b = ft_atoi_rt(rt->line, rt);
+	triangle->point = split_vec(rt->split[1], rt);
+	triangle->point2 = split_vec(rt->split[2], rt);
+	triangle->point3 = split_vec(rt->split[3], rt);
+	triangle->color = split_rgb(rt->split[4], rt);
 	ft_lstadd_back(&rt->elem_list, ft_lstnew(triangle));
 	if (DEBUG_PARSING)
 		printf("triangle	point1 : %.f,%.f,%.f 	point2 : %.f,%.f,%.f 	point3 : %.f,%.f,%.f 		rgb : %d,%d,%d\n",

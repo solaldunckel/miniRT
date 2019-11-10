@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 18:20:01 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/10 22:50:06 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,24 @@
 
 void	select_cam(t_mini_rt *rt)
 {
-	t_list		*temp;
-	t_element	*elem;
+	t_list		*tmp;
+	int			count;
 
-	temp = rt->cam_list;
-	while (temp)
+	count = 0;
+	tmp = rt->cam_list;
+	while (tmp)
 	{
-		elem = temp->content;
-		if (elem != rt->cam)
+		if (rt->cur_cam == count)
 		{
-			rt->cam = elem;
+			rt->cam = tmp->content;
+			rt->cur_cam++;
+			if (rt->cur_cam == rt->cam_count)
+				rt->cur_cam = 0;
 			return;
 		}
-		temp = temp->next;
+		count++;
+		tmp = tmp->next;
 	}
-}
-
-void 	change_cam(t_mini_rt *rt)
-{
-	mlx_clear_window(rt->mlx_ptr, rt->win_ptr);
-	raytracing(rt);
-	mlx_key_hook(rt->win_ptr, get_keypress, rt);
-	mlx_hook(rt->win_ptr, 17, 0, exit_and_free, rt);
-	mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->img.ptr, 0, 0);
-	mlx_loop(rt->mlx_ptr);
 }
 
 int		init_mlx(t_mini_rt *rt)
@@ -61,6 +55,7 @@ void	start_mini_rt(t_mini_rt *rt)
 	if (!(init_mlx(rt)))
 		handle_error("fail to initialize Minilibx", rt);
 	ft_printf("" BOLDGREEN "Loading miniRT...\n" RESET);
+	select_cam(rt);
 	raytracing(rt);
 	if (rt->save)
 	{
@@ -81,6 +76,7 @@ void	init_rt(t_mini_rt *rt)
 	rt->elem_list = NULL;
 	rt->cam_list = NULL;
 	rt->light_list = NULL;
+	rt->cur_cam = 0;
 	rt->cam = NULL;
 	rt->obj = NULL;
 	rt->col = 0x000000;

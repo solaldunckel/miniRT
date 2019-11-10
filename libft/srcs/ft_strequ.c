@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 15:37:41 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/06 15:37:42 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/10 22:14:35 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@ int		ft_strequ(char *s1, char *s2)
 	int		i;
 
 	i = 0;
+	if (!s1 || !s2)
+		return (0);
 	while (s1[i] && s2[i] && s1[i] == s2[i])
 		i++;
 	if (!s1[i] && !s2[i])

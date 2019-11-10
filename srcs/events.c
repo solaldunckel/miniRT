@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:42:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 18:20:21 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/10 21:05:06 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,15 @@ int		get_keypress(int key, t_mini_rt *rt)
 {
 	(void)rt;
 	if (key == 17)
-		change_cam(rt);
+	{
+		mlx_clear_window(rt->mlx_ptr, rt->win_ptr);
+		select_cam(rt);
+		raytracing(rt);
+		mlx_key_hook(rt->win_ptr, get_keypress, rt);
+		mlx_hook(rt->win_ptr, 17, 0, exit_and_free, rt);
+		mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->img.ptr, 0, 0);
+		mlx_loop(rt->mlx_ptr);
+	}
 	if (key == 53)
 		exit_and_free(rt);
 	return (0);

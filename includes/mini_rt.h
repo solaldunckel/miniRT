@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 18:19:34 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/10 22:55:59 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,14 @@ typedef struct	s_mini_rt
 {
 	int					i;
 	char				*line;
+	char				**split;
 	void				*mlx_ptr;
 	void				*win_ptr;
 	int					col;
 	double				t;
 	int					save;
+	int					cur_cam;
+	int					cam_count;
 	struct s_element	*obj;
 	struct s_image		img;
 	struct s_res		res;
@@ -71,9 +74,11 @@ int				parse_plane(t_mini_rt *rt);
 int				parse_square(t_mini_rt *rt);
 int				parse_cylindre(t_mini_rt *rt);
 int				parse_triangle(t_mini_rt *rt);
-int				ft_strstr_rt(char *str, char *to_find, t_mini_rt *rt);
-int				ft_atoi_rt(char *str, t_mini_rt *rt);
-double			ft_atof_rt(char *str, t_mini_rt *rt);
+double			ft_atof(char *str);
+int				check_split(t_mini_rt *rt);
+void			free_split(char **split);
+t_vec			split_vec(char *str, t_mini_rt *rt);
+t_color			split_rgb(char *str, t_mini_rt *rt);
 
 /*
 ** Events
@@ -92,7 +97,6 @@ int				raytracing(t_mini_rt *rt);
 ** Objects
 */
 void			select_cam(t_mini_rt *rt);
-void 			change_cam(t_mini_rt *rt);
 void			sphere(t_mini_rt *rt, t_element *sphere);
 
 /*

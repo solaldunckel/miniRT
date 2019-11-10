@@ -6,66 +6,86 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:56:12 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/07 14:10:40 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/10 22:56:42 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-int		ft_strstr_rt(char *str, char *to_find, t_mini_rt *rt)
+int			check_split(t_mini_rt *rt)
 {
-	size_t		j;
+	int		i;
 
-	j = 0;
-	while (str[j] == to_find[j])
+	i = 0;
+	while (rt->split[i])
 	{
-		rt->i++;
-		if (str[j + 1] == ' ' && to_find[j + 1] == '\0')
-			return (1);
-		j++;
+		i++;
 	}
-	rt->i -= j;
-	return (0);
+	return (i);
 }
 
-int		ft_atoi_rt(char *str, t_mini_rt *rt)
+void		free_split(char **split)
 {
-	int		atoi;
-	int		negative;
+	int		i;
 
-	atoi = 0;
-	negative = 0;
-	while (ft_is_space(str[rt->i]))
-		rt->i++;
-	if (str[rt->i] == ',')
-		rt->i++;
-	if (str[rt->i] == '-' || str[rt->i] == '+')
+	i = 0;
+	while (split[i])
 	{
-		if (str[rt->i] == '-')
-			negative = 1;
-		rt->i++;
+		free(split[i]);
+		i++;
 	}
-	while (str[rt->i] >= '0' && str[rt->i] <= '9')
-	{
-		atoi = atoi * 10 + str[rt->i] - 48;
-		rt->i++;
-	}
-	return (negative ? -atoi : atoi);
+	free(split);
 }
 
-double	ft_atof_rt(char *str, t_mini_rt *rt)
+t_vec		split_vec(char *str, t_mini_rt *rt)
+{
+	t_vec 	v;
+	char	**split;
+
+	split = ft_split(str, ',');
+	if (check_split(rt) < 3)
+		handle_error("invalid vector parsing", rt);
+	v.x = ft_atof(split[0]);
+	v.y = ft_atof(split[1]);
+	v.z = ft_atof(split[2]);
+	free_split(split);
+	return (v);
+}
+
+t_color		split_rgb(char *str, t_mini_rt *rt)
+{
+	t_color c;
+	char	**split;
+
+	split = ft_split(str, ',');
+	if (check_split(rt) < 3)
+		handle_error("invalid rgb parsing", rt);
+	c.r = ft_atoi(split[0]);
+	c.g = ft_atoi(split[1]);
+	c.b = ft_atoi(split[2]);
+	free_split(split);
+	return (c);
+}
+
+double		ft_atof(char *str)
 {
 	double	atof;
 	int		atoi;
-	int		prec;
+	int		i;
+	int		fac;
 
-	atoi = ft_atoi_rt(str, rt);
-	if (str[rt->i] != '.')
+	fac = 1;
+	atoi = ft_atoi(str);
+	i = ft_intlen(atoi);
+	if (str[i] != '.')
 		return (atoi);
-	rt->i++;
-	atof = ft_atoi_rt(str, rt);
-	prec = ft_intlen(atof);
-	while (prec--)
-		atof = atof / 10;
+	i++;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		fac *= 10;
+		atof = atof * 10 + str[i] - 48;
+		i++;
+	}
+	atof = atof / fac;
 	return (atoi + atof);
 }

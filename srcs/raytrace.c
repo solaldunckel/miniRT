@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 17:58:17 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/10 21:32:22 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,36 @@ void	ray(t_mini_rt *rt)
 	}
 }
 
+void	vec3_normalize(t_vec *v)
+{
+	double len;
+
+	len = v->x * v->x + v->y * v->y + v->z * v->z;
+	if (len > 0)
+	{
+		len = 1 / sqrt(len);
+		v->x *= len;
+		v->y *= len;
+		v->z *= len;
+	}
+}
+
 int		raytracing(t_mini_rt *rt)
 {
 	int		x;
 	int		y;
-	float 	angle;
+	double 	angle;
 
 	y = 0;
-	select_cam(rt);
 	rt->cam->fov = 70;
-	rt->t = 0;
 	angle = tan(M_PI * 0.5 * rt->cam->fov / 180);
-	rt->ray.ori = rt->cam->point;
 	while (y < rt->res.y)
 	{
 		x = 0;
 		while (x < rt->res.x)
 		{
-			rt->ray.dir.x = 2 * ((x + 0.5) / rt->res.x) - 1 * angle;
-			rt->ray.dir.y = 1 - 2 * ((y + 0.5) / rt->res.y) * angle;
+			rt->ray.dir.x = (2 * (x + 0.5) / rt->res.x) - 1 * angle;
+			rt->ray.dir.y = (1 - 2 * (y + 0.5) / rt->res.y) * angle;
 			rt->ray.dir.z = -1;
 			rt->col = 0x000000;
 			ray(rt);
