@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:42:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 21:05:06 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/10 23:28:05 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ int		exit_and_free(t_mini_rt *rt)
 	ft_lstclear(&rt->elem_list, free_element);
 	ft_lstclear(&rt->cam_list, free_element);
 	ft_lstclear(&rt->light_list, free_element);
-	mlx_clear_window(rt->mlx_ptr, rt->win_ptr);
-	mlx_destroy_window(rt->mlx_ptr, rt->win_ptr);
+	if (!rt->save)
+	{
+		mlx_clear_window(rt->mlx_ptr, rt->win_ptr);
+		mlx_destroy_window(rt->mlx_ptr, rt->win_ptr);
+	}
 	mlx_destroy_image(rt->mlx_ptr, rt->img.ptr);
 	exit(1);
 	return (0);

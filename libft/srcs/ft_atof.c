@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strequ.c                                        :+:      :+:    :+:   */
+/*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/06 15:37:41 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 23:17:07 by sdunckel         ###   ########.fr       */
+/*   Created: 2019/11/10 23:17:32 by sdunckel          #+#    #+#             */
+/*   Updated: 2019/11/10 23:17:39 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strequ(char *s1, char *s2)
-{
-	int		i;
+#include "libft.h"
 
-	i = 0;
-	if (!s1 || !s2)
-		return (0);
-	while (s1[i] && s2[i] && s1[i] == s2[i])
+double		ft_atof(char *str)
+{
+	double	atof;
+	int		atoi;
+	int		i;
+	int		fac;
+
+	fac = 1;
+	atof = 0;
+	atoi = ft_atoi(str);
+	i = ft_intlen(atoi);
+	if (str[i] != '.')
+		return (atoi);
+	i++;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		fac *= 10;
+		atof = atof * 10 + str[i] - 48;
 		i++;
-	if (!s1[i] && !s2[i])
-		return (1);
-	return (0);
+	}
+	atof = atof / fac;
+	return (atoi + atof);
 }

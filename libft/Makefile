@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/11/10 12:27:25 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/11/10 23:18:17 by sdunckel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME		= libft.a
 
 SRCS_LIST	= \
 				ft_atoi.c \
+				ft_atof.c \
 				ft_atoi_base.c \
 				ft_bzero.c \
 				ft_calloc.c \

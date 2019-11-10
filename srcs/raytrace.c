@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 21:32:22 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/10 23:26:20 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,6 @@ void	ray(t_mini_rt *rt)
 		//ft_strequ(elem->id, TRIANGLE) ? triangle(rt, elem) : 0;
 		//ft_strequ(elem->id, CYLINDER) ? cylinder(rt, elem) : 0;
 		temp = temp->next;
-	}
-}
-
-void	vec3_normalize(t_vec *v)
-{
-	double len;
-
-	len = v->x * v->x + v->y * v->y + v->z * v->z;
-	if (len > 0)
-	{
-		len = 1 / sqrt(len);
-		v->x *= len;
-		v->y *= len;
-		v->z *= len;
 	}
 }
 

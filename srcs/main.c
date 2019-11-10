@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 22:50:06 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/10 23:31:08 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ int		init_mlx(t_mini_rt *rt)
 {
 	if (!(rt->mlx_ptr = mlx_init()))
 		return (0);
-	if (!(rt->win_ptr = mlx_new_window(rt->mlx_ptr, rt->res.x, rt->res.y,
-		"miniRT")))
-		return (0);
 	if (!(rt->img.ptr = mlx_new_image(rt->mlx_ptr, rt->res.x, rt->res.y)))
 		return (0);
 	if (!(rt->img.add = mlx_get_data_addr(rt->img.ptr, &rt->img.bpp,
 		&rt->img.size_line, &rt->img.endian)))
+		return (0);
+	if (!rt->save && !(rt->win_ptr = mlx_new_window(rt->mlx_ptr, rt->res.x,
+		rt->res.y, "miniRT")))
 		return (0);
 	ft_printf("" BOLDGREEN "Minilibx successfully initialized !\n" RESET);
 	return (1);

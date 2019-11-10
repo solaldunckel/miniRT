@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:56:12 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 22:56:42 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/10 23:18:51 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ t_vec		split_vec(char *str, t_mini_rt *rt)
 
 	split = ft_split(str, ',');
 	if (check_split(rt) < 3)
+	{
+		free_split(split);
 		handle_error("invalid vector parsing", rt);
+	}
 	v.x = ft_atof(split[0]);
 	v.y = ft_atof(split[1]);
 	v.z = ft_atof(split[2]);
@@ -59,33 +62,13 @@ t_color		split_rgb(char *str, t_mini_rt *rt)
 
 	split = ft_split(str, ',');
 	if (check_split(rt) < 3)
+	{
+		free_split(split);
 		handle_error("invalid rgb parsing", rt);
+	}
 	c.r = ft_atoi(split[0]);
 	c.g = ft_atoi(split[1]);
 	c.b = ft_atoi(split[2]);
 	free_split(split);
 	return (c);
-}
-
-double		ft_atof(char *str)
-{
-	double	atof;
-	int		atoi;
-	int		i;
-	int		fac;
-
-	fac = 1;
-	atoi = ft_atoi(str);
-	i = ft_intlen(atoi);
-	if (str[i] != '.')
-		return (atoi);
-	i++;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		fac *= 10;
-		atof = atof * 10 + str[i] - 48;
-		i++;
-	}
-	atof = atof / fac;
-	return (atoi + atof);
 }
