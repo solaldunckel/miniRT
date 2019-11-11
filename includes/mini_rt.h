@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 16:10:03 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 22:54:44 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define BMP_HEADER_SIZE BMP_FILE_HEADER_SIZE + BMP_INFO_HEADER_SIZE
 
 # define R_TO_H(c) (((c.r & 0xff) << 16) + ((c.g & 0xff) << 8) + (c.b & 0xff))
+# define DEG_TO_RAD(x) ((x * M_PI) / 180)
 # define VEC_ADD(v) (v.x + v.y + v.z)
 # define VEC_CREATE(x,y,z) ((t_vec){x,y,z})
 
