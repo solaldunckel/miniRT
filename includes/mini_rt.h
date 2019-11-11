@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 12:03:19 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 12:46:49 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <math.h>
 # include <stdio.h>
 
-# define DEBUG_PARSING 1
+# define DEBUG_PARSING 0
 
 # define CAMERA "CAMERA"
 # define LIGHT "LIGHT"
@@ -47,7 +47,7 @@ typedef struct	s_mini_rt
 	char				**split;
 	void				*mlx_ptr;
 	void				*win_ptr;
-	int					col;
+	int					color;
 	double				t;
 	double				k;
 	int					cur_cam;

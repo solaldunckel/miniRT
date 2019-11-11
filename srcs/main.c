@@ -6,11 +6,27 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 12:06:25 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 12:49:37 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+void	init_rt(t_mini_rt *rt)
+{
+	rt->mlx_ptr = NULL;
+	rt->win_ptr = NULL;
+	rt->elem_list = NULL;
+	rt->cam_list = NULL;
+	rt->light_list = NULL;
+	rt->cur_cam = 0;
+	rt->cam = NULL;
+	rt->obj = NULL;
+	rt->color = 0x000000;
+	rt->t = 0;
+	rt->k = 0;
+	rt->save = 0;
+}
 
 void	select_cam(t_mini_rt *rt)
 {
@@ -34,22 +50,15 @@ void	select_cam(t_mini_rt *rt)
 	}
 }
 
-int		init_mlx(t_mini_rt *rt)
-{
-	if (!(rt->mlx_ptr = mlx_init()))
-		return (0);
-	if (!(rt->img.ptr = mlx_new_image(rt->mlx_ptr, rt->res.x, rt->res.y)))
-		return (0);
-	if (!(rt->img.add = mlx_get_data_addr(rt->img.ptr, &rt->img.bpp,
-		&rt->img.size_line, &rt->img.endian)))
-		return (0);
-	return (1);
-}
-
 void	start_mini_rt(t_mini_rt *rt)
 {
-	if (!(init_mlx(rt)))
+	if (!(rt->mlx_ptr = mlx_init()))
 		handle_error("fail to initialize Minilibx", rt);
+	if (!(rt->img.ptr = mlx_new_image(rt->mlx_ptr, rt->res.x, rt->res.y)))
+		handle_error("fail to create Minilibx image", rt);
+	if (!(rt->img.add = mlx_get_data_addr(rt->img.ptr, &rt->img.bpp,
+		&rt->img.size_line, &rt->img.endian)))
+		handle_error("fail to get Minilibx image data", rt);
 	ft_printf("" BOLDGREEN "Loading miniRT...\n" RESET);
 	select_cam(rt);
 	raytracing(rt);
@@ -68,21 +77,6 @@ void	start_mini_rt(t_mini_rt *rt)
 	mlx_loop(rt->mlx_ptr);
 }
 
-void	init_rt(t_mini_rt *rt)
-{
-	rt->mlx_ptr = NULL;
-	rt->win_ptr = NULL;
-	rt->elem_list = NULL;
-	rt->cam_list = NULL;
-	rt->light_list = NULL;
-	rt->cur_cam = 0;
-	rt->cam = NULL;
-	rt->obj = NULL;
-	rt->col = 0x000000;
-	rt->t = 0;
-	rt->save = 0;
-}
-
 int		main(int argc, char **argv)
 {
 	t_mini_rt	rt;
@@ -94,5 +88,5 @@ int		main(int argc, char **argv)
 		rt.save = 1;
 	parse_rt_file(argv[1], &rt);
 	start_mini_rt(&rt);
-	return (0);
+	return (1);
 }

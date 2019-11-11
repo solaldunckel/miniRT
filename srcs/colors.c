@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:04:25 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 11:51:54 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 12:40:29 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int     color_put(t_mini_rt *rt, int x, int y)
     i = y * rt->img.size_line + rt->img.bpp / 8 * x;
     if (i < 1)
         return (0);
-    rt->img.add[i] = rt->col;
-    rt->img.add[i + 1] = rt->col >> 8;
-    rt->img.add[i + 2] = rt->col >> 16;
+    rt->img.add[i] = rt->color;
+    rt->img.add[i + 1] = rt->color >> 8;
+    rt->img.add[i + 2] = rt->color >> 16;
     return (0);
 }
