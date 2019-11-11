@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:42:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 12:08:00 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 12:52:42 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void 	change_cam(t_mini_rt *rt)
 {
 	rt->img.add = NULL;
 	free(rt->img.add);
+	mlx_destroy_image(rt->mlx_ptr, rt->img.ptr);
 	if (!(rt->img.ptr = mlx_new_image(rt->mlx_ptr, rt->res.x, rt->res.y)))
 		return ;
 	if (!(rt->img.add = mlx_get_data_addr(rt->img.ptr, &rt->img.bpp,

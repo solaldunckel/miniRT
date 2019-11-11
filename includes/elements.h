@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 17:07:03 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 14:22:26 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct	s_element
 	double			fov;
 	struct s_vec	point2;
 	struct s_vec	point3;
+	struct s_vec	dir;
 }				t_element;
 
 #endif

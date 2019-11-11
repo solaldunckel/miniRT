@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 12:46:49 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 14:25:32 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@
 # define BMP_INFO_HEADER_SIZE 40
 # define BMP_HEADER_SIZE BMP_FILE_HEADER_SIZE + BMP_INFO_HEADER_SIZE
 
-# define VEC(v) (v.x + v.y + v.z)
+# define RGB_TO_HEX(c) (((c.r & 0xff) << 16) + ((c.g & 0xff) << 8) + (c.b & 0xff))
+# define VEC_ADD(v) (v.x + v.y + v.z)
+# define VEC_CREATE(x,y,z) ((t_vec){x,y,z})
 
 typedef struct	s_mini_rt
 {

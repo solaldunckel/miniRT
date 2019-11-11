@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:36:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 11:37:10 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 13:07:21 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	plane(t_mini_rt *rt, t_element *plane)
 	double	a;
 	double	b;
 
-	a = VEC(vec_dot(vec_sub(rt->cam->pov, plane->point), plane->orient));
-	b = VEC(vec_dot(rt->ray.dir, plane->orient));
+	a = VEC_ADD(vec_dot(vec_sub(rt->cam->pov, plane->point), plane->orient));
+	b = VEC_ADD(vec_dot(rt->ray.dir, plane->orient));
 	if (b == 0 || (a < 0 && b < 0) || (a > 0 && b > 0))
 	{
 		rt->t = -1;

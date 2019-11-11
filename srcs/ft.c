@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:56:12 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 12:12:11 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 14:32:03 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ int		intersect(double a, double b, double det)
 
 	t1 = (-b - sqrt(det)) / (2 * a);
 	t2 = (-b + sqrt(det)) / (2 * a);
-	return (t1 < t2 ? t1 : t2);
+	if ((t1 <= t2 && t1 >= 0) || (t1 >= 0 && t2 < 0))
+		return (t1);
+	if ((t2 <= t1 && t2 >= 0) || (t2 >= 0 && t1 < 0))
+		return (t2);
+	return (-1);
 }
 
 int			check_split(t_mini_rt *rt)
@@ -36,7 +40,7 @@ int			check_split(t_mini_rt *rt)
 			while (rt->split[i][j])
 			{
 				if (!ft_isdigit(rt->split[i][j]) && rt->split[i][j] != ','
-					&& rt->split[i][j] != '.')
+					&& rt->split[i][j] != '.' && rt->split[i][j] != '-')
 					return (0);
 				j++;
 			}

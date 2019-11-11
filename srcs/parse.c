@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 12:03:06 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 13:16:34 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	parse_rt_file(char *rt_file, t_mini_rt *rt)
 		free_split(rt->split);
 		ft_strdel(&rt->line);
 	}
+	close(fd);
 	if (!(rt->cam_count = ft_lstsize(rt->cam_list)))
 		handle_error("no camera available", rt);
 }
