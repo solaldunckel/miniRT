@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 23:31:08 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 00:59:22 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ int		init_mlx(t_mini_rt *rt)
 	if (!(rt->img.add = mlx_get_data_addr(rt->img.ptr, &rt->img.bpp,
 		&rt->img.size_line, &rt->img.endian)))
 		return (0);
-	if (!rt->save && !(rt->win_ptr = mlx_new_window(rt->mlx_ptr, rt->res.x,
-		rt->res.y, "miniRT")))
-		return (0);
 	ft_printf("" BOLDGREEN "Minilibx successfully initialized !\n" RESET);
 	return (1);
 }
@@ -61,8 +58,11 @@ void	start_mini_rt(t_mini_rt *rt)
 	{
 		create_bmp_image(rt, BMP_FILE_NAME);
 		ft_printf("" BOLDGREEN ">>>> " BMP_FILE_NAME " exported <<<<\n" RESET);
-		exit_and_free(rt);
+		//exit_and_free(rt);
 	}
+	if (!(rt->win_ptr = mlx_new_window(rt->mlx_ptr, rt->res.x,
+		rt->res.y, "miniRT")))
+		handle_error("fail to create Minilibx window", rt);
 	mlx_key_hook(rt->win_ptr, get_keypress, rt);
 	mlx_hook(rt->win_ptr, 17, 0, exit_and_free, rt);
 	mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->img.ptr, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:42:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 23:28:05 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 00:30:04 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,29 @@ void	free_element(void *elem)
 	free(tmp);
 }
 
+void 	change_cam(t_mini_rt *rt)
+{
+	rt->img.add = NULL;
+	free(rt->img.add);
+	if (!(rt->img.ptr = mlx_new_image(rt->mlx_ptr, rt->res.x, rt->res.y)))
+		return ;
+	if (!(rt->img.add = mlx_get_data_addr(rt->img.ptr, &rt->img.bpp,
+		&rt->img.size_line, &rt->img.endian)))
+		return ;
+	mlx_clear_window(rt->mlx_ptr, rt->win_ptr);
+	select_cam(rt);
+	raytracing(rt);
+	mlx_key_hook(rt->win_ptr, get_keypress, rt);
+	mlx_hook(rt->win_ptr, 17, 0, exit_and_free, rt);
+	mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->img.ptr, 0, 0);
+	mlx_loop(rt->mlx_ptr);
+}
+
 int		get_keypress(int key, t_mini_rt *rt)
 {
 	(void)rt;
 	if (key == 17)
-	{
-		mlx_clear_window(rt->mlx_ptr, rt->win_ptr);
-		select_cam(rt);
-		raytracing(rt);
-		mlx_key_hook(rt->win_ptr, get_keypress, rt);
-		mlx_hook(rt->win_ptr, 17, 0, exit_and_free, rt);
-		mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->img.ptr, 0, 0);
-		mlx_loop(rt->mlx_ptr);
-	}
+		change_cam(rt);
 	if (key == 53)
 		exit_and_free(rt);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 23:28:59 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 00:48:44 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct	s_mini_rt
 	void				*win_ptr;
 	int					col;
 	double				t;
+	double				k;
 	int					cur_cam;
 	int					cam_count;
 	struct s_element	*obj;
