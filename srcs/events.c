@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:42:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 12:52:42 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:50:32 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ int		exit_and_free(t_mini_rt *rt)
 
 void	free_element(void *elem)
 {
-	t_element 	*tmp;
+	t_element	*tmp;
 
 	tmp = elem;
 	free(tmp->id);
 	free(tmp);
 }
 
-void 	change_cam(t_mini_rt *rt)
+void	change_cam(t_mini_rt *rt)
 {
 	rt->img.add = NULL;
 	free(rt->img.add);

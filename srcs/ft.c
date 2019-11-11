@@ -6,13 +6,13 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:56:12 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 14:32:03 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:09:14 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-int		intersect(double a, double b, double det)
+int			intersect(double a, double b, double det)
 {
 	double	t1;
 	double	t2;
@@ -65,7 +65,7 @@ void		free_split(char **split)
 
 t_vec		split_vec(char *str, t_mini_rt *rt)
 {
-	t_vec 	v;
+	t_vec	v;
 	char	**split;
 
 	split = ft_split(str, ',');

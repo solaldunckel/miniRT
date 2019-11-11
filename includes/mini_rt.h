@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 14:25:32 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:10:03 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define BMP_INFO_HEADER_SIZE 40
 # define BMP_HEADER_SIZE BMP_FILE_HEADER_SIZE + BMP_INFO_HEADER_SIZE
 
-# define RGB_TO_HEX(c) (((c.r & 0xff) << 16) + ((c.g & 0xff) << 8) + (c.b & 0xff))
+# define R_TO_H(c) (((c.r & 0xff) << 16) + ((c.g & 0xff) << 8) + (c.b & 0xff))
 # define VEC_ADD(v) (v.x + v.y + v.z)
 # define VEC_CREATE(x,y,z) ((t_vec){x,y,z})
 
@@ -108,7 +108,7 @@ void			plane(t_mini_rt *rt, t_element *plane);
 /*
 ** Colors
 */
-int     		color_put(t_mini_rt *rt, int x, int y);
+int				color_put(t_mini_rt *rt, int x, int y);
 int				convert_rgb(t_color color);
 
 /*
@@ -123,6 +123,6 @@ t_vec			vec_dot(t_vec v1, t_vec v2);
 /*
 ** Additional functions
 */
-void 			create_bmp_image(t_mini_rt *rt, char *file_name);
+void			create_bmp_image(t_mini_rt *rt, char *file_name);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 12:49:37 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:05:43 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	select_cam(t_mini_rt *rt)
 			rt->cur_cam++;
 			if (rt->cur_cam == rt->cam_count)
 				rt->cur_cam = 0;
-			return;
+			return ;
 		}
 		count++;
 		tmp = tmp->next;
