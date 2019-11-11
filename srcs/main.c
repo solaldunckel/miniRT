@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 00:59:22 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 12:06:25 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int		init_mlx(t_mini_rt *rt)
 	if (!(rt->img.add = mlx_get_data_addr(rt->img.ptr, &rt->img.bpp,
 		&rt->img.size_line, &rt->img.endian)))
 		return (0);
-	ft_printf("" BOLDGREEN "Minilibx successfully initialized !\n" RESET);
 	return (1);
 }
 
@@ -57,7 +56,7 @@ void	start_mini_rt(t_mini_rt *rt)
 	if (rt->save)
 	{
 		create_bmp_image(rt, BMP_FILE_NAME);
-		ft_printf("" BOLDGREEN ">>>> " BMP_FILE_NAME " exported <<<<\n" RESET);
+		ft_printf("" BOLDGREEN ">> " BMP_FILE_NAME " exported <<\n" RESET);
 		//exit_and_free(rt);
 	}
 	if (!(rt->win_ptr = mlx_new_window(rt->mlx_ptr, rt->res.x,
@@ -92,17 +91,8 @@ int		main(int argc, char **argv)
 	if (argc > 3 || argc == 1 || (argc == 3 && !ft_strequ(argv[2], "-save")))
 		handle_error("wrong arguments", &rt);
 	if (argc == 3 && ft_strequ(argv[2], "-save"))
-	{
-		if (!(parse_rt_file(argv[1], &rt)))
-			handle_error("fail to parse the scene", &rt);
 		rt.save = 1;
-		start_mini_rt(&rt);
-	}
-	if (argc == 2)
-	{
-		if (!(parse_rt_file(argv[1], &rt)))
-			handle_error("fail to parse the scene", &rt);
-		start_mini_rt(&rt);
-	}
+	parse_rt_file(argv[1], &rt);
+	start_mini_rt(&rt);
 	return (0);
 }

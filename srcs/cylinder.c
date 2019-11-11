@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.c                                           :+:      :+:    :+:   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/10 17:10:22 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 11:37:47 by sdunckel         ###   ########.fr       */
+/*   Created: 2019/11/11 11:37:27 by sdunckel          #+#    #+#             */
+/*   Updated: 2019/11/11 11:38:04 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-void	sphere(t_mini_rt *rt, t_element *sphere)
+void	cylinder(t_mini_rt *rt, t_element *cylinder)
 {
 	double	a;
 	double	b;
@@ -21,10 +21,12 @@ void	sphere(t_mini_rt *rt, t_element *sphere)
 	double	t;
 
 	t = 0;
-	a = VEC(vec_dot(rt->ray.dir, rt->ray.dir));
-	b = 2 * VEC(vec_dot(rt->ray.dir, vec_sub(rt->cam->pov, sphere->point)));
-	c = VEC(vec_dot(vec_sub(rt->cam->pov, sphere->point),
-		vec_sub(rt->cam->pov, sphere->point))) - pow(sphere->diameter / 2, 2);
+	a = pow(rt->ray.dir.x, 2) + pow(rt->ray.dir.y, 2);
+	b = 2 * (rt->ray.dir.x * (rt->cam->pov.x - cylinder->point.x)
+		+ rt->ray.dir.y * (rt->cam->pov.y - cylinder->point.y));
+	c = (pow(rt->cam->pov.x - cylinder->point.x, 2)
+		+ pow(rt->cam->pov.y - cylinder->point.y, 2)
+		- pow(cylinder->diameter / 1.5, 2));
 	det = pow(b, 2) - (4 * a * c);
 	if (det < 0)
 	{

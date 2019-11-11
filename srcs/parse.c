@@ -6,13 +6,13 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 22:56:28 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 12:03:06 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-int		parse_rt_file(char *rt_file, t_mini_rt *rt)
+void	parse_rt_file(char *rt_file, t_mini_rt *rt)
 {
 	int		fd;
 
@@ -33,22 +33,20 @@ int		parse_rt_file(char *rt_file, t_mini_rt *rt)
 		free_split(rt->split);
 		ft_strdel(&rt->line);
 	}
-	rt->cam_count = ft_lstsize(rt->cam_list);
-	return (1);
+	if (!(rt->cam_count = ft_lstsize(rt->cam_list)))
+		handle_error("no camera available", rt);
 }
 
 int		parse_res(t_mini_rt *rt)
 {
-	if (check_split(rt) < 3)
+	if (check_split(rt) != 3)
 		handle_error("invalid resolution", rt);
 	rt->res.x = ft_atoi(rt->split[1]);
 	rt->res.y = ft_atoi(rt->split[2]);
 	if (rt->res.x < 1 || rt->res.y < 1)
 		handle_error("resolution too small", rt);
-	if (rt->res.x > 2560)
-		rt->res.x = 2560;
-	if (rt->res.y > 1440)
-		rt->res.y = 1440;
+	rt->res.x > 2560 ? rt->res.x = 2560 : 0;
+	rt->res.y > 1440 ? rt->res.y = 1440 : 0;
 	if (DEBUG_PARSING)
 		printf("resolution 	x : %d 		y : %d\n", rt->res.x, rt->res.y);
 	return (1);
@@ -56,6 +54,8 @@ int		parse_res(t_mini_rt *rt)
 
 int		parse_ambient(t_mini_rt *rt)
 {
+	if (check_split(rt) != 3)
+		handle_error("invalid ambient light", rt);
 	rt->ambient.ratio = ft_atof(rt->split[1]);
 	rt->ambient.color = split_rgb(rt->split[2], rt);
 	if (DEBUG_PARSING)
@@ -70,6 +70,11 @@ int		parse_camera(t_mini_rt *rt)
 
 	if (!(camera = ft_calloc(1, sizeof(t_element))))
 		return (0);
+	if (check_split(rt) != 3)
+	{
+		free(camera);
+		return (0);
+	}
 	camera->id = ft_strdup(CAMERA);
 	camera->pov = split_vec(rt->split[1], rt);
 	camera->orient = split_vec(rt->split[2], rt);
@@ -87,6 +92,11 @@ int		parse_light(t_mini_rt *rt)
 
 	if (!(light = ft_calloc(1, sizeof(t_element))))
 		return (0);
+	if (check_split(rt) != 4)
+	{
+		free(light);
+		return (0);
+	}
 	light->id = ft_strdup(LIGHT);
 	light->point = split_vec(rt->split[1], rt);
 	light->ratio = ft_atof(rt->split[2]);

@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.c                                           :+:      :+:    :+:   */
+/*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/08 14:04:25 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 11:51:54 by sdunckel         ###   ########.fr       */
+/*   Created: 2019/11/11 11:36:50 by sdunckel          #+#    #+#             */
+/*   Updated: 2019/11/11 11:37:10 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-int		convert_rgb(t_color color)
+void	plane(t_mini_rt *rt, t_element *plane)
 {
-    return (((color.r & 0xff) << 16) + ((color.g & 0xff) << 8)
-	+ (color.b & 0xff));
-}
+	double	a;
+	double	b;
 
-int     color_put(t_mini_rt *rt, int x, int y)
-{
-    int i;
-
-    i = y * rt->img.size_line + rt->img.bpp / 8 * x;
-    if (i < 1)
-        return (0);
-    rt->img.add[i] = rt->col;
-    rt->img.add[i + 1] = rt->col >> 8;
-    rt->img.add[i + 2] = rt->col >> 16;
-    return (0);
+	a = VEC(vec_dot(vec_sub(rt->cam->pov, plane->point), plane->orient));
+	b = VEC(vec_dot(rt->ray.dir, plane->orient));
+	if (b == 0 || (a < 0 && b < 0) || (a > 0 && b > 0))
+	{
+		rt->t = -1;
+		return ;
+	}
+	rt->t = -a / b;
 }

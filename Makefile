@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/11/10 22:11:27 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/11/11 11:57:49 by sdunckel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,17 @@ NAME			= miniRT
 SRCS_LIST		= \
 					main.c \
 					parse.c \
-					parse_2.c \
+					parse_objs.c \
 					events.c \
 					raytrace.c \
 					colors.c \
 					bmp.c \
 					vec.c \
 					sphere.c \
+					plane.c \
+					cylinder.c \
+					square.c \
+					triangle.c \
 					ft.c
 
 SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})
@@ -34,7 +38,7 @@ FOLDER			= srcs
 LIBFT 			= libft
 
 CC				= gcc
-CFLAGS 			= #-Wall -Wextra -Werror
+CFLAGS 			= -Wall -Wextra -Werror
 LFLAGS			= -lmlx -framework OpenGL -framework AppKit
 RM				= rm -f
 

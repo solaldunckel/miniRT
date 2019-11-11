@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:42:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 00:30:04 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 12:08:00 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		get_keypress(int key, t_mini_rt *rt)
 
 int		handle_error(char *str, t_mini_rt *rt)
 {
-	ft_printf("" RED "miniRT Error: %s\n" RESET, str);
+	ft_printf("" RED "Error\n>> %s <<\n" RESET, str);
 	ft_lstclear(&rt->elem_list, free_element);
 	ft_lstclear(&rt->cam_list, free_element);
 	ft_lstclear(&rt->light_list, free_element);

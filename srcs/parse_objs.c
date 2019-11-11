@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 23:12:55 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 11:44:46 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ int		parse_sphere(t_mini_rt *rt)
 
 	if (!(sphere = ft_calloc(1, sizeof(t_element))))
 		return (0);
+	if (check_split(rt) != 4)
+	{
+		free(sphere);
+		return (0);
+	}
 	sphere->id = ft_strdup(SPHERE);
 	sphere->point = split_vec(rt->split[1], rt);
 	sphere->diameter = ft_atof(rt->split[2]);
@@ -36,6 +41,11 @@ int		parse_plane(t_mini_rt *rt)
 
 	if (!(plane = ft_calloc(1, sizeof(t_element))))
 		return (0);
+	if (check_split(rt) != 4)
+	{
+		free(plane);
+		return (0);
+	}
 	plane->id = ft_strdup(PLANE);
 	plane->point = split_vec(rt->split[1], rt);
 	plane->orient = split_vec(rt->split[2], rt);
@@ -55,6 +65,11 @@ int		parse_square(t_mini_rt *rt)
 
 	if (!(square = ft_calloc(1, sizeof(t_element))))
 		return (0);
+	if (check_split(rt) != 5)
+	{
+		free(square);
+		return (0);
+	}
 	square->id = ft_strdup(SQUARE);
 	square->point = split_vec(rt->split[1], rt);
 	square->orient = split_vec(rt->split[2], rt);
@@ -75,6 +90,11 @@ int		parse_cylindre(t_mini_rt *rt)
 
 	if (!(cylinder = ft_calloc(1, sizeof(t_element))))
 		return (0);
+	if (check_split(rt) != 6)
+	{
+		free(cylinder);
+		return (0);
+	}
 	cylinder->id = ft_strdup(CYLINDER);
 	cylinder->point = split_vec(rt->split[1], rt);
 	cylinder->orient = split_vec(rt->split[2], rt);
@@ -96,6 +116,11 @@ int		parse_triangle(t_mini_rt *rt)
 
 	if (!(triangle = ft_calloc(1, sizeof(t_element))))
 		return (0);
+	if (check_split(rt) != 5)
+	{
+		free(triangle);
+		return (0);
+	}
 	triangle->id = ft_strdup(TRIANGLE);
 	triangle->point = split_vec(rt->split[1], rt);
 	triangle->point2 = split_vec(rt->split[2], rt);

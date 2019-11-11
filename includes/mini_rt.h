@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 00:48:44 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 12:03:19 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 # define BMP_INFO_HEADER_SIZE 40
 # define BMP_HEADER_SIZE BMP_FILE_HEADER_SIZE + BMP_INFO_HEADER_SIZE
 
+# define VEC(v) (v.x + v.y + v.z)
+
 typedef struct	s_mini_rt
 {
 	int					save;
@@ -50,21 +52,21 @@ typedef struct	s_mini_rt
 	double				k;
 	int					cur_cam;
 	int					cam_count;
-	struct s_element	*obj;
 	struct s_image		img;
 	struct s_res		res;
 	struct s_ambient	ambient;
 	struct s_ray		ray;
+	struct s_element	*obj;
+	struct s_element	*cam;
 	struct s_list		*elem_list;
 	struct s_list		*cam_list;
 	struct s_list		*light_list;
-	struct s_element	*cam;
 }				t_mini_rt;
 
 /*
 ** Parsing functions
 */
-int				parse_rt_file(char *rt_file, t_mini_rt *rt);
+void			parse_rt_file(char *rt_file, t_mini_rt *rt);
 int				parse_res(t_mini_rt *rt);
 int				parse_ambient(t_mini_rt *rt);
 int				parse_camera(t_mini_rt *rt);
@@ -96,13 +98,16 @@ int				raytracing(t_mini_rt *rt);
 ** Objects
 */
 void			select_cam(t_mini_rt *rt);
+int				intersect(double a, double b, double det);
 void			sphere(t_mini_rt *rt, t_element *sphere);
+void			cylinder(t_mini_rt *rt, t_element *cylinder);
+void			plane(t_mini_rt *rt, t_element *plane);
 
 /*
 ** Colors
 */
 int     		color_put(t_mini_rt *rt, int x, int y);
-int				convert_rgb(int r, int g, int b);
+int				convert_rgb(t_color color);
 
 /*
 ** Vectors

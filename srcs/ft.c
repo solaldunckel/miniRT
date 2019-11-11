@@ -6,19 +6,41 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:56:12 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/10 23:18:51 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/11 12:12:11 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
+int		intersect(double a, double b, double det)
+{
+	double	t1;
+	double	t2;
+
+	t1 = (-b - sqrt(det)) / (2 * a);
+	t2 = (-b + sqrt(det)) / (2 * a);
+	return (t1 < t2 ? t1 : t2);
+}
+
 int			check_split(t_mini_rt *rt)
 {
 	int		i;
+	int		j;
 
 	i = 0;
 	while (rt->split[i])
 	{
+		if (i != 0)
+		{
+			j = 0;
+			while (rt->split[i][j])
+			{
+				if (!ft_isdigit(rt->split[i][j]) && rt->split[i][j] != ','
+					&& rt->split[i][j] != '.')
+					return (0);
+				j++;
+			}
+		}
 		i++;
 	}
 	return (i);
