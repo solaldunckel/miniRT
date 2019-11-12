@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/12 13:50:25 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:34:10 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,27 +48,36 @@ void	ray_inter(t_mini_rt *rt, int x, int y)
 	}
 }
 
-int		raytracing(t_mini_rt *rt)
+t_vec	calc_ray(t_mini_rt *rt, int x, int y)
+{
+	t_vec	image_point;
+	t_vec	dir;
+	double	norm_x;
+	double	norm_y;
+
+	norm_x = (((double)x / (double)rt->res.x) - 0.5);
+	norm_y = (((double)y / (double)rt->res.y) - 0.5);
+	rt->res.x < rt->res.y ? norm_x *= rt->aspect : 0;
+	rt->res.x > rt->res.y ? norm_y /= rt->aspect : 0;
+	image_point = vec_add(vec_add(vec_mul(rt->cam_right, norm_x),
+		vec_mul(rt->cam_up, norm_y)), vec_add(rt->ray.ori, rt->cam->orient));
+	dir = vec_normalize(vec_sub(image_point, rt->ray.ori));
+	return (dir);
+}
+
+void	raytracing(t_mini_rt *rt)
 {
 	int		x;
 	int		y;
-	double	angle;
 
-	angle = tan(rt->cam->fov / 2 * M_PI / 180);
 	y = -1;
 	while (++y < rt->res.y)
 	{
 		x = -1;
 		while (++x < rt->res.x)
 		{
-			rt->ray.dir = VEC_CREATE(
-				(2 * (x + 0.5) / (double)rt->res.x - 1) * angle * rt->ratio,
-				-(2 * (y + 0.5) / (double)rt->res.y - 1) * angle,
-				-1);
-			rotate_vector(&rt->ray.dir, &rt->cam->orient);
-			vec_normalize(&rt->ray.dir);
+			rt->ray.dir = calc_ray(rt, x, y);
 			ray_inter(rt, x, y);
 		}
 	}
-	return (0);
 }

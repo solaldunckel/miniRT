@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/12 14:00:23 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:33:16 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ typedef struct	s_mini_rt
 	u_int				color;
 	double				t;
 	double				k;
-	double				ratio;
+	double				aspect;
 	int					cur_cam;
 	int					cam_count;
+	struct s_vec		cam_up;
+	struct s_vec		cam_right;
 	struct s_image		img;
 	struct s_res		res;
 	struct s_ambient	ambient;
@@ -96,7 +98,7 @@ void			free_element(void *elem);
 /*
 ** Raytracing functions
 */
-int				raytracing(t_mini_rt *rt);
+void			raytracing(t_mini_rt *rt);
 
 /*
 ** Objects
@@ -127,7 +129,8 @@ t_vec			vec_mul(t_vec v1, double m);
 t_vec			vec_div(t_vec v1, double d);
 t_vec			vec_dot(t_vec v1, t_vec v2);
 void			rotate_vector(t_vec *v, t_vec *rot);
-void			vec_normalize(t_vec *v);
+t_vec			vec_normalize(t_vec p);
+t_vec			vec_cross(t_vec v1, t_vec v2);
 
 /*
 ** Additional functions
