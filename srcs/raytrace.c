@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/12 18:34:10 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:57:30 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	find_objs(t_mini_rt *rt, t_element *obj)
 	//ft_strequ(obj->id, SQUARE) ? square(rt, obj) : 0;
 	//ft_strequ(obj->id, PLANE) ? plane(rt, obj) : 0;
 	//ft_strequ(obj->id, TRIANGLE) ? triangle(rt, obj) : 0;
-//	ft_strequ(obj->id, CYLINDER) ? cylinder(rt, obj) : 0;
+	ft_strequ(obj->id, CYLINDER) ? cylinder(rt, obj) : 0;
 }
 
 void	ray_inter(t_mini_rt *rt, int x, int y)
@@ -28,12 +28,12 @@ void	ray_inter(t_mini_rt *rt, int x, int y)
 	rt->obj = NULL;
 	rt->color = 0x000000;
 	tmp = rt->objs_list;
-	rt->t = 0;
-	rt->k = 0;
+	rt->t = INT_MAX;
+	rt->k = INT_MAX;
 	while (tmp)
 	{
 		find_objs(rt, tmp->content);
-		if (rt->t > 0 && rt->k < rt->t)
+		if (rt->t > 0 && rt->k > rt->t)
 		{
 			rt->k = rt->t;
 			rt->obj = tmp->content;

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/12 13:58:45 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:57:01 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		parse_res(t_mini_rt *rt)
 	if (rt->res.x < 1 || rt->res.y < 1)
 		handle_error("resolution too small", rt);
 	rt->res.x > 2560 ? rt->res.x = 2560 : 0;
-	rt->res.y > 1440 ? rt->res.y = 1440 : 0;
+	rt->res.y > 1440 ? rt->res.y = 1395 : 0;
 	if (DEBUG_PARSING)
 		printf("resolution 	x : %d 		y : %d\n", rt->res.x, rt->res.y);
 	return (1);

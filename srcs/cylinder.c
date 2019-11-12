@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:37:27 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/12 13:36:02 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/12 19:19:22 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	cylinder(t_mini_rt *rt, t_element *cylinder)
 	double	c;
 	double	det;
 	double	t;
+	t_vec	inter;
 
 	t = 0;
 	a = pow(rt->ray.dir.x, 2) + pow(rt->ray.dir.y, 2);
@@ -34,4 +35,10 @@ void	cylinder(t_mini_rt *rt, t_element *cylinder)
 		return ;
 	}
 	rt->t = intersect(a, b, det);
+	inter = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->t));
+	inter = vec_sub(cylinder->point, inter);
+	inter.x < 0 ? inter.x *= -1 : 0;
+	inter.y < 0 ? inter.y *= -1 : 0;
+	inter.z < 0 ? inter.z *= -1 : 0;
+	inter.x > cylinder->height / 2 || inter.y > cylinder->height / 2 || inter.z > cylinder->height / 2 ? rt->t = INT_MAX : 0;
 }
