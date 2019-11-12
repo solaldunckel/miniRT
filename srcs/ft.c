@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:56:12 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 16:09:14 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/12 12:03:28 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,17 @@ t_vec		split_vec(char *str, t_mini_rt *rt)
 {
 	t_vec	v;
 	char	**split;
+	char	**tmp;
 
 	split = ft_split(str, ',');
-	if (check_split(rt) < 3)
+	tmp = rt->split;
+	rt->split = split;
+	if (check_split(rt) != 3)
 	{
 		free_split(split);
 		handle_error("invalid vector parsing", rt);
 	}
+	rt->split = tmp;
 	v.x = ft_atof(split[0]);
 	v.y = ft_atof(split[1]);
 	v.z = ft_atof(split[2]);
@@ -85,13 +89,17 @@ t_color		split_rgb(char *str, t_mini_rt *rt)
 {
 	t_color c;
 	char	**split;
+	char	**tmp;
 
 	split = ft_split(str, ',');
-	if (check_split(rt) < 3)
+	tmp = rt->split;
+	rt->split = split;
+	if (check_split(rt) != 3)
 	{
 		free_split(split);
 		handle_error("invalid rgb parsing", rt);
 	}
+	rt->split = tmp;
 	c.r = ft_atoi(split[0]);
 	c.g = ft_atoi(split[1]);
 	c.b = ft_atoi(split[2]);

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 13:16:34 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/12 13:07:13 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,13 @@
 void	parse_rt_file(char *rt_file, t_mini_rt *rt)
 {
 	int		fd;
+	int		i;
 
+	i = ft_strlen(rt_file) - 1;
 	if ((fd = open(rt_file, O_RDONLY)) < 0)
 		handle_error("fail to open scene file", rt);
+	if (rt_file[i] != 't' || rt_file[i - 1] != 'r' || rt_file[i - 2] != '.')
+		handle_error("wrong file extension", rt);
 	while (get_next_line(fd, &rt->line) > 0)
 	{
 		rt->split = ft_split(rt->line, ' ');

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 22:54:10 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/12 12:40:59 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int		raytracing(t_mini_rt *rt)
 				(2 * (x + 0.5) / (double)rt->res.x - 1) * angle * ratio,
 				-(2 * (y + 0.5) / (double)rt->res.y - 1) * angle,
 				-1);
+			rotate_vector(&rt->ray.dir, &rt->cam->orient);
+			vec_normalize(&rt->ray.dir);
 			ray_inter(rt, x, y);
 		}
 	}

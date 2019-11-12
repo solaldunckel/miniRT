@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:36:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 13:07:21 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/12 12:40:33 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,6 @@ void	plane(t_mini_rt *rt, t_element *plane)
 		return ;
 	}
 	rt->t = -a / b;
+	if (rt->t < 0)
+		rt->t = -1;
 }

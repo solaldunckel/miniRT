@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 22:54:44 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/12 12:34:47 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct	s_mini_rt
 	char				**split;
 	void				*mlx_ptr;
 	void				*win_ptr;
-	int					color;
+	u_int				color;
 	double				t;
 	double				k;
 	int					cur_cam;
@@ -120,6 +120,8 @@ t_vec			vec_sub(t_vec v1, t_vec v2);
 t_vec			vec_mul(t_vec v1, double m);
 t_vec			vec_div(t_vec v1, double d);
 t_vec			vec_dot(t_vec v1, t_vec v2);
+void			rotate_vector(t_vec *v, t_vec *rot);
+void			vec_normalize(t_vec *v);
 
 /*
 ** Additional functions
