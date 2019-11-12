@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/12 12:34:47 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/12 14:00:23 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <math.h>
 # include <stdio.h>
 
-# define DEBUG_PARSING 0
+# define DEBUG_PARSING 1
 
 # define CAMERA "CAMERA"
 # define LIGHT "LIGHT"
@@ -45,14 +45,15 @@
 
 typedef struct	s_mini_rt
 {
+	void				*mlx_ptr;
+	void				*win_ptr;
 	int					save;
 	char				*line;
 	char				**split;
-	void				*mlx_ptr;
-	void				*win_ptr;
 	u_int				color;
 	double				t;
 	double				k;
+	double				ratio;
 	int					cur_cam;
 	int					cam_count;
 	struct s_image		img;
@@ -61,13 +62,13 @@ typedef struct	s_mini_rt
 	struct s_ray		ray;
 	struct s_element	*obj;
 	struct s_element	*cam;
-	struct s_list		*elem_list;
+	struct s_list		*objs_list;
 	struct s_list		*cam_list;
 	struct s_list		*light_list;
 }				t_mini_rt;
 
 /*
-** Parsing functions
+** Parsing
 */
 void			parse_rt_file(char *rt_file, t_mini_rt *rt);
 int				parse_res(t_mini_rt *rt);
@@ -79,7 +80,7 @@ int				parse_plane(t_mini_rt *rt);
 int				parse_square(t_mini_rt *rt);
 int				parse_cylindre(t_mini_rt *rt);
 int				parse_triangle(t_mini_rt *rt);
-int				check_split(t_mini_rt *rt);
+int				check_split(char **split);
 void			free_split(char **split);
 t_vec			split_vec(char *str, t_mini_rt *rt);
 t_color			split_rgb(char *str, t_mini_rt *rt);
@@ -100,11 +101,16 @@ int				raytracing(t_mini_rt *rt);
 /*
 ** Objects
 */
-void			select_cam(t_mini_rt *rt);
 int				intersect(double a, double b, double det);
 void			sphere(t_mini_rt *rt, t_element *sphere);
 void			cylinder(t_mini_rt *rt, t_element *cylinder);
 void			plane(t_mini_rt *rt, t_element *plane);
+
+/*
+** Camera
+*/
+void			select_cam(t_mini_rt *rt);
+void			change_cam(t_mini_rt *rt);
 
 /*
 ** Colors
@@ -126,6 +132,7 @@ void			vec_normalize(t_vec *v);
 /*
 ** Additional functions
 */
+void			setup_rt(t_mini_rt *rt);
 void			create_bmp_image(t_mini_rt *rt, char *file_name);
 
 #endif

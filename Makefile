@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/11/12 00:28:22 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/11/12 13:45:09 by sdunckel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS_LIST		= \
 					main.c \
 					parse.c \
 					parse_objs.c \
+					parse_utils.c \
 					events.c \
 					raytrace.c \
 					colors.c \
@@ -27,6 +28,7 @@ SRCS_LIST		= \
 					cylinder.c \
 					square.c \
 					triangle.c \
+					camera.c \
 					ft.c
 
 SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})

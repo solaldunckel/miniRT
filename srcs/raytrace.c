@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/12 12:40:59 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/12 13:50:25 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	find_objs(t_mini_rt *rt, t_element *obj)
 {
 	ft_strequ(obj->id, SPHERE) ? sphere(rt, obj) : 0;
 	//ft_strequ(obj->id, SQUARE) ? square(rt, obj) : 0;
-	ft_strequ(obj->id, PLANE) ? plane(rt, obj) : 0;
+	//ft_strequ(obj->id, PLANE) ? plane(rt, obj) : 0;
 	//ft_strequ(obj->id, TRIANGLE) ? triangle(rt, obj) : 0;
 //	ft_strequ(obj->id, CYLINDER) ? cylinder(rt, obj) : 0;
 }
@@ -27,7 +27,7 @@ void	ray_inter(t_mini_rt *rt, int x, int y)
 
 	rt->obj = NULL;
 	rt->color = 0x000000;
-	tmp = rt->elem_list;
+	tmp = rt->objs_list;
 	rt->t = 0;
 	rt->k = 0;
 	while (tmp)
@@ -53,22 +53,16 @@ int		raytracing(t_mini_rt *rt)
 	int		x;
 	int		y;
 	double	angle;
-	double	ratio;
 
-	rt->cam->fov = 70;
-	rt->k = 0;
-	rt->t = 0;
 	angle = tan(rt->cam->fov / 2 * M_PI / 180);
-	ratio = (double)rt->res.x / (double)rt->res.y;
 	y = -1;
-	rt->ray.ori = VEC_CREATE(rt->cam->pov.x, rt->cam->pov.y, rt->cam->pov.z);
 	while (++y < rt->res.y)
 	{
 		x = -1;
 		while (++x < rt->res.x)
 		{
 			rt->ray.dir = VEC_CREATE(
-				(2 * (x + 0.5) / (double)rt->res.x - 1) * angle * ratio,
+				(2 * (x + 0.5) / (double)rt->res.x - 1) * angle * rt->ratio,
 				-(2 * (y + 0.5) / (double)rt->res.y - 1) * angle,
 				-1);
 			rotate_vector(&rt->ray.dir, &rt->cam->orient);
