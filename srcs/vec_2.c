@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 00:24:57 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/12 18:31:51 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:36:42 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ t_vec	vec_cross(t_vec v1, t_vec v2)
 t_vec	vec_normalize(t_vec v)
 {
 	t_vec	norm;
-    double	len;
+	double	len;
 
 	len = sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
-    norm.x = v.x / len;
-    norm.y = v.y / len;
-    norm.z = v.z / len;
+	norm.x = v.x / len;
+	norm.y = v.y / len;
+	norm.z = v.z / len;
 	return (norm);
 }
