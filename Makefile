@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/11/12 13:45:09 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/11/14 13:19:49 by sdunckel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS_LIST		= \
 					square.c \
 					triangle.c \
 					camera.c \
+					lights.c \
 					ft.c
 
 SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/11 14:22:26 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/14 13:41:17 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ typedef struct	s_ray
 	struct s_vec	dir;
 }				t_ray;
 
+typedef struct	s_solve
+{
+	double		a;
+	double		b;
+	double		c;
+	double		det;
+	double		t1;
+	double		t2;
+}				t_solve;
+
 typedef struct	s_ambient
 {
 	double			ratio;
@@ -56,7 +66,7 @@ typedef struct	s_image
 
 typedef struct	s_element
 {
-	char			*id;
+	int				id;
 	struct s_vec	pov;
 	struct s_vec	point;
 	struct s_color	color;

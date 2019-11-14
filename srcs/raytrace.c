@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/12 18:57:30 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/14 15:41:26 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void	find_objs(t_mini_rt *rt, t_element *obj)
 {
-	ft_strequ(obj->id, SPHERE) ? sphere(rt, obj) : 0;
+	if (obj->id == SPHERE)
+		sphere(rt, obj);
+	else if (obj->id == PLANE)
+		plane(rt, obj);
 	//ft_strequ(obj->id, SQUARE) ? square(rt, obj) : 0;
-	//ft_strequ(obj->id, PLANE) ? plane(rt, obj) : 0;
 	//ft_strequ(obj->id, TRIANGLE) ? triangle(rt, obj) : 0;
-	ft_strequ(obj->id, CYLINDER) ? cylinder(rt, obj) : 0;
+	//ft_strequ(obj->id, CYLINDER) ? cylinder(rt, obj) : 0;
 }
 
 void	ray_inter(t_mini_rt *rt, int x, int y)
@@ -26,25 +28,24 @@ void	ray_inter(t_mini_rt *rt, int x, int y)
 	t_list		*tmp;
 
 	rt->obj = NULL;
-	rt->color = 0x000000;
 	tmp = rt->objs_list;
 	rt->t = INT_MAX;
 	rt->k = INT_MAX;
 	while (tmp)
 	{
 		find_objs(rt, tmp->content);
-		if (rt->t > 0 && rt->k > rt->t)
+		if (rt->t > 0 && rt->t < rt->k)
 		{
 			rt->k = rt->t;
 			rt->obj = tmp->content;
 		}
 		tmp = tmp->next;
 	}
-	if (rt->obj)
+	if (rt->obj != NULL)
 	{
-		// calcul de couleur sur le dernier objet ???
-		rt->color = R_TO_H(rt->obj->color);
-		color_put(rt, x, y);
+		rt->color = rt->obj->color;
+		apply_lights(rt);
+		color_put(rt, x, y, R_TO_H(rt->color));
 	}
 }
 
@@ -55,8 +56,8 @@ t_vec	calc_ray(t_mini_rt *rt, int x, int y)
 	double	norm_x;
 	double	norm_y;
 
-	norm_x = (((double)x / (double)rt->res.x) - 0.5);
-	norm_y = (((double)y / (double)rt->res.y) - 0.5);
+	norm_x = ((x / (double)rt->res.x) - 0.5);
+	norm_y = ((y / (double)rt->res.y) - 0.5);
 	rt->res.x < rt->res.y ? norm_x *= rt->aspect : 0;
 	rt->res.x > rt->res.y ? norm_y /= rt->aspect : 0;
 	image_point = vec_add(vec_add(vec_mul(rt->cam_right, norm_x),
@@ -67,8 +68,8 @@ t_vec	calc_ray(t_mini_rt *rt, int x, int y)
 
 void	raytracing(t_mini_rt *rt)
 {
-	int		x;
-	int		y;
+	double	x;
+	double	y;
 
 	y = -1;
 	while (++y < rt->res.y)

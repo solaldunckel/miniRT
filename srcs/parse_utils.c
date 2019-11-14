@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/12 14:06:58 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/14 14:14:47 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		free_split(char **split)
 	split = NULL;
 }
 
-t_vec		split_vec(char *str, t_mini_rt *rt)
+t_vec		split_vec(char *str, t_mini_rt *rt, int orient)
 {
 	t_vec	v;
 	char	**split;
@@ -65,6 +65,10 @@ t_vec		split_vec(char *str, t_mini_rt *rt)
 	v.y = ft_atof(split[1]);
 	v.z = ft_atof(split[2]);
 	free_split(split);
+	if ((orient && (v.x > 1 || v.y > 1 || v.z > 1 || v.x < -1 || v.y < -1
+		|| v.z < -1)) || (!orient && (v.x > 360 || v.y > 360 || v.z > 360
+		|| v.x < -360 || v.y < -360 || v.z < -360)))
+		handle_error("invalid rgb parsing", rt);
 	return (v);
 }
 
@@ -83,5 +87,7 @@ t_color		split_rgb(char *str, t_mini_rt *rt)
 	c.g = ft_atoi(split[1]);
 	c.b = ft_atoi(split[2]);
 	free_split(split);
+	if (c.r > 255 || c.g > 255 || c.b > 255 || c.r < 0 || c.g < 0 || c.b < 0)
+		handle_error("invalid rgb parsing", rt);
 	return (c);
 }
