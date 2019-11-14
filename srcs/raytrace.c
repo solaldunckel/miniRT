@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/14 15:41:26 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/14 18:49:18 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	find_objs(t_mini_rt *rt, t_element *obj)
 {
 	if (obj->id == SPHERE)
-		sphere(rt, obj);
+		sphere(rt, obj, rt->ray.ori, rt->ray.dir);
 	else if (obj->id == PLANE)
 		plane(rt, obj);
 	//ft_strequ(obj->id, SQUARE) ? square(rt, obj) : 0;

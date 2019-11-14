@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/14 15:58:38 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/14 18:18:46 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void			raytracing(t_mini_rt *rt);
 ** Objects
 */
 int				intersect(double a, double b, double det);
-void			sphere(t_mini_rt *rt, t_element *sphere);
+void			sphere(t_mini_rt *rt, t_element *sphere, t_vec ori, t_vec dir);
 void			cylinder(t_mini_rt *rt, t_element *cylinder);
 void			plane(t_mini_rt *rt, t_element *plane);
 

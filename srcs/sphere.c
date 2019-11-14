@@ -6,21 +6,20 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 17:10:22 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/14 14:11:52 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/14 18:11:33 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-void	sphere(t_mini_rt *rt, t_element *sphere)
+void	sphere(t_mini_rt *rt, t_element *sphere, t_vec ori, t_vec dir)
 {
 	t_solve	s;
 
-	s.a = VEC_ADD(vec_dot(rt->ray.dir, rt->ray.dir));
-	s.b = 2 * VEC_ADD(vec_dot(rt->ray.dir,
-					vec_sub(rt->ray.ori, sphere->point)));
-	s.c = VEC_ADD(vec_dot(vec_sub(rt->ray.ori, sphere->point),
-		vec_sub(rt->ray.ori, sphere->point))) - pow(sphere->diameter / 2, 2);
+	s.a = VEC_ADD(vec_dot(dir, dir));
+	s.b = 2 * VEC_ADD(vec_dot(dir, vec_sub(ori, sphere->point)));
+	s.c = VEC_ADD(vec_dot(vec_sub(ori, sphere->point),
+		vec_sub(ori, sphere->point))) - pow(sphere->diameter / 2, 2);
 	s.det = pow(s.b, 2) - (4 * s.a * s.c);
 	if (s.det < 0)
 		return ;
