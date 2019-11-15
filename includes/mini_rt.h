@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 17:23:04 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:09:27 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define SQUARE 3
 # define CYLINDER 4
 # define TRIANGLE 5
+# define CIRCLE 6
 
 # define BMP_FILE_NAME "img.bmp"
 # define BMP_FILE_HEADER_SIZE 14
@@ -85,6 +86,7 @@ char			**free_split(char **split);
 t_vec			split_vec(char *str, t_mini_rt *rt, int orient);
 t_color			split_rgb(char *str, t_mini_rt *rt);
 void			check_extension(t_mini_rt *rt, char *rt_file);
+void			create_circle(t_mini_rt *rt, t_element *cylinder, double t);
 /*
 ** Events
 */
@@ -103,8 +105,10 @@ void			raytracing(t_mini_rt *rt);
 */
 int				intersect(double a, double b, double det);
 void			sphere(t_mini_rt *rt, t_element *sphere, t_vec ori, t_vec dir);
-void			cylinder(t_mini_rt *rt, t_element *cylinder);
+void			cylinder(t_mini_rt *rt, t_element *cylinder, t_vec ori,
+t_vec dir);
 void			plane(t_mini_rt *rt, t_element *plane, t_vec ori, t_vec dir);
+void			circle(t_mini_rt *rt, t_element *circle, t_vec ori, t_vec dir);
 
 /*
 ** Camera

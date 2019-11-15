@@ -6,13 +6,28 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 18:16:22 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:34:35 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-t_color		color_average(t_color color1, t_color color2)
+static	void	find_shadow(t_mini_rt *rt, t_element *obj, t_vec p, t_vec l)
+{
+	if (obj->id == SPHERE)
+		sphere(rt, obj, p, l);
+	else if (obj->id == PLANE)
+		plane(rt, obj, p, l);
+	else if (obj->id == CYLINDER)
+		cylinder(rt, obj, p, l);
+	else if (obj->id == CIRCLE)
+		circle(rt, obj, p, l);
+	//ft_strequ(obj->id, SQUARE) ? square(rt, obj) : 0;
+	//ft_strequ(obj->id, TRIANGLE) ? triangle(rt, obj) : 0;
+	//ft_strequ(obj->id, CYLINDER) ? cylinder(rt, obj) : 0;
+}
+
+t_color			color_average(t_color color1, t_color color2)
 {
 	t_color		color;
 
@@ -22,7 +37,7 @@ t_color		color_average(t_color color1, t_color color2)
 	return (color);
 }
 
-void		apply_intensity(t_mini_rt *rt, double intensity)
+void			apply_intensity(t_mini_rt *rt, double intensity)
 {
 	if (intensity > 1 || intensity < 0)
 		return ;
@@ -50,11 +65,11 @@ int			apply_shadows(t_mini_rt *rt, t_vec P, t_vec L)
 		obj = tmp->content;
 		if (save == obj)
 		{
+			save->id == CYLINDER ? tmp = tmp->next->next : 0;
 			tmp = tmp->next;
 			continue ;
 		}
-		if (obj->id == SPHERE)
-			sphere(rt, tmp->content, P, L);
+		find_shadow(rt, tmp->content, P, L);
 		if (rt->t > 0 && rt->t < rt->k)
 		{
 			rt->k = rt->t;
@@ -67,7 +82,7 @@ int			apply_shadows(t_mini_rt *rt, t_vec P, t_vec L)
 	return (1);
 }
 
-void		apply_lights(t_mini_rt *rt)
+void			apply_lights(t_mini_rt *rt)
 {
 	t_list		*tmp;
 	t_element	*light;
@@ -87,11 +102,11 @@ void		apply_lights(t_mini_rt *rt)
 		light = tmp->content;
 		L = vec_normalize(vec_sub(light->point, P));
 		dot = VEC_ADD(vec_dot(N, L));
-		if (!apply_shadows(rt, P, L))
-		{
-			tmp = tmp->next;
-			continue ;
-		}
+		//if (!apply_shadows(rt, P, L))
+		//{
+		//	tmp = tmp->next;
+		//	continue ;
+		//}
 		if (dot > 0)
 			intensity += light->ratio * dot / (vec_len(N) * vec_len(L));
 		tmp = tmp->next;

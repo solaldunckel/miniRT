@@ -6,11 +6,25 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 17:21:18 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/15 19:30:38 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+void	create_circle(t_mini_rt *rt, t_element *cylinder, double t)
+{
+	t_element		*circle;
+
+	if (!(circle = ft_calloc(1, sizeof(t_element))))
+		handle_error("fail to malloc", rt);
+	circle->id = 6;
+	circle->point = vec_add(cylinder->point, vec_mul(cylinder->orient, t));
+	circle->orient = cylinder->orient;
+	circle->diameter = cylinder->diameter;
+	circle->color = cylinder->color;
+	ft_lstadd_back(&rt->objs_list, ft_lstnew(circle));
+}
 
 int			check_split(char **split)
 {

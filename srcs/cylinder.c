@@ -6,68 +6,56 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:37:27 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 17:05:31 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:16:45 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-/*static	void	circle_check(t_mini_rt *rt, t_element *cylinder)
+static	void	inter(t_mini_rt *rt, t_element *cylinder, t_solve s,
+t_mini_rt rtt)
 {
-	t_element	circle1;
-	t_element	circle2;
-
-	circle1.diameter = cylinder->diameter;
-	circle2.diameter = cylinder->diameter;
-}*/
-
-static	void	inter(t_mini_rt *rt, t_element *cylinder, double tsave2,
-t_solve s)
-{
-	double 		tsave;
 	t_element	plan;
 	t_vec		inter;
+	double		t;
 
 	s.t1 = (-s.b - sqrt(s.det)) / (2 * s.a);
 	s.t2 = (-s.b + sqrt(s.det)) / (2 * s.a);
+	t = INT_MAX;
 	if (s.t1 >= 0 && rt->t > s.t1)
-		rt->t = s.t1;
+		t = s.t1;
 	else if (s.t2 >= 0 && rt->t > s.t2)
-		rt->t = s.t2;
-	tsave = rt->t;
-	inter = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->t));
+		t = s.t2;
+	if (t == INT_MAX)
+		return ;
+	inter = vec_add(rtt.ray.ori, vec_mul(rtt.ray.dir, t));
 	plan.orient = cylinder->orient;
 	plan.point = cylinder->point;
-	plane(rt, &plan, inter, cylinder->orient);
-	rt->t > cylinder->height / 2 || rt->t > cylinder->height / 2 ||
-	rt->t > cylinder->height / 2 ? rt->t = tsave2 : 0;
-	rt->t <= cylinder->height / 2 || rt->t <= cylinder->height / 2 ||
-	rt->t <= cylinder->height / 2 ? rt->t = tsave : 0;
-	plane(rt, &plan, inter, vec_mul(cylinder->orient, -1));
-	rt->t > cylinder->height / 2 || rt->t > cylinder->height / 2 ||
-	rt->t > cylinder->height / 2 ? rt->t = tsave2 : 0;
-	rt->t <= cylinder->height / 2 || rt->t <= cylinder->height / 2 ||
-	rt->t <= cylinder->height / 2 ? rt->t = tsave : 0;
+	rtt.t = INT_MAX;
+	plane(&rtt, &plan, inter, cylinder->orient);
+	rtt.t <= cylinder->height / 2 ? rt->t = t : 0;
+	plane(&rtt, &plan, inter, vec_mul(cylinder->orient, -1));
+	rtt.t <= cylinder->height / 2 ? rt->t = t : 0;
 }
 
-void			cylinder(t_mini_rt *rt, t_element *cylinder)
+void			cylinder(t_mini_rt *rt, t_element *cylinder, t_vec ori,
+t_vec dir)
 {
 	t_solve		s;
-	double		tsave2;
+	t_mini_rt	rtt;
 
-
-	s.a = VEC_ADD(vec_dot(vec_cross(rt->ray.dir, cylinder->orient),
-	vec_cross(rt->ray.dir, cylinder->orient)));
-	s.b = 2 * VEC_ADD(vec_dot(vec_cross(rt->ray.dir, cylinder->orient),
-	vec_cross(vec_sub(rt->ray.ori, cylinder->point), cylinder->orient)));
-	s.c = VEC_ADD(vec_dot(vec_cross(vec_sub(rt->ray.ori, cylinder->point),
-	cylinder->orient), vec_cross(vec_sub(rt->ray.ori, cylinder->point),
+	rtt.ray.ori = ori;
+	rtt.ray.dir = dir;
+	s.a = VEC_ADD(vec_dot(vec_cross(rtt.ray.dir, cylinder->orient),
+	vec_cross(rtt.ray.dir, cylinder->orient)));
+	s.b = 2 * VEC_ADD(vec_dot(vec_cross(rtt.ray.dir, cylinder->orient),
+	vec_cross(vec_sub(rtt.ray.ori, cylinder->point), cylinder->orient)));
+	s.c = VEC_ADD(vec_dot(vec_cross(vec_sub(rtt.ray.ori, cylinder->point),
+	cylinder->orient), vec_cross(vec_sub(rtt.ray.ori, cylinder->point),
 	cylinder->orient))) - (pow(cylinder->diameter / 2, 2)
 	* VEC_ADD(vec_dot(cylinder->orient, cylinder->orient)));
 	s.det = pow(s.b, 2) - (4 * s.a * s.c);
-	tsave2 = rt->t;
 	if (s.det < 0)
 		return ;
-	inter(rt, cylinder, tsave2, s);
-	//circle_check(rt, cylinder);
+	inter(rt, cylinder, s, rtt);
 }

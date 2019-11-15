@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/14 14:11:14 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/15 19:33:00 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int		parse_cylindre(t_mini_rt *rt)
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(cylinder));
 	if (cylinder->height < 0 || cylinder->diameter < 0)
 		handle_error("square parsing error", rt);
+	create_circle(rt, cylinder, cylinder->height / 2);
+	create_circle(rt, cylinder, cylinder->height / -2);
 	return (1);
 }
 
