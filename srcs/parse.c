@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 17:21:51 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:51:32 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	parse_rt_file(char *rt_file, t_mini_rt *rt)
 		handle_error("fail to open scene file", rt);
 	while (get_next_line(fd, &rt->line) > 0)
 	{
-		rt->split = ft_split(rt->line, ' ');
+		rt->split = ft_ssplit(rt->line, " \t\v\n\r\f");
 		ft_strequ(rt->split[0], "R") ? parse_res(rt) : 0;
 		ft_strequ(rt->split[0], "A") ? parse_ambient(rt) : 0;
 		ft_strequ(rt->split[0], "c") ? parse_camera(rt) : 0;

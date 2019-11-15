@@ -6,13 +6,13 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 19:30:38 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/15 22:02:45 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-void	create_circle(t_mini_rt *rt, t_element *cylinder, double t)
+void		create_circle(t_mini_rt *rt, t_element *cylinder, double t)
 {
 	t_element		*circle;
 
@@ -50,7 +50,7 @@ int			check_split(char **split)
 	return (i);
 }
 
-char	**free_split(char **split)
+char		**free_split(char **split)
 {
 	int		i;
 
@@ -80,10 +80,9 @@ t_vec		split_vec(char *str, t_mini_rt *rt, int orient)
 	v.y = ft_atof(split[1]);
 	v.z = ft_atof(split[2]);
 	free_split(split);
-	if ((orient && (v.x > 1 || v.y > 1 || v.z > 1 || v.x < -1 || v.y < -1
-		|| v.z < -1)) || (!orient && (v.x > 360 || v.y > 360 || v.z > 360
-		|| v.x < -360 || v.y < -360 || v.z < -360)))
-		handle_error("invalid rgb parsing", rt);
+	if (orient && (v.x > 1 || v.y > 1 || v.z > 1 || v.x < -1 || v.y < -1
+		|| v.z < -1))
+		handle_error("invalid vector parsing", rt);
 	return (v);
 }
 

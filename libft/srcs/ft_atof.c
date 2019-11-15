@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 23:17:32 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 14:01:02 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:22:31 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,28 @@
 double		ft_atof(char *str)
 {
 	double	atof;
+	int		atoi;
 	int		i;
-	int		j;
-	int		neg;
+	int		fac;
 
-	j = 0;
+	fac = 1;
 	atof = 0;
 	i = 0;
-	neg = 1;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\v' || str[i] == '\n'
-		|| str[i] == '\r' || str[i] == '\f')
+	while (ft_is_space(str[i]))
 		i++;
 	if (str[i] == '-')
-	{
-		neg = -1;
-		i++;
-	}
+		fac = -1;
+	atoi = ft_atoi(str);
+	i = ft_intlen(atoi);
+	if (str[i] != '.')
+		return (atoi);
+	i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		atof = atof * 10 + str[i++] - 48;
-		if (str[i] == '.')
-			j = i++;
+		fac *= 10;
+		atof = atof * 10 + str[i] - 48;
+		i++;
 	}
-	while (j && str[++j])
-		neg *= 10;
-	return (atof / neg);
+	atof = atof / fac;
+	return (atoi + atof);
 }

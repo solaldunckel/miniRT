@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 21:09:27 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/15 22:03:40 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void			cylinder(t_mini_rt *rt, t_element *cylinder, t_vec ori,
 t_vec dir);
 void			plane(t_mini_rt *rt, t_element *plane, t_vec ori, t_vec dir);
 void			circle(t_mini_rt *rt, t_element *circle, t_vec ori, t_vec dir);
-
+void			triangle(t_mini_rt *rt, t_element *triangle, t_vec ori, t_vec dir);
 /*
 ** Camera
 */

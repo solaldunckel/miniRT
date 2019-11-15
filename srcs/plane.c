@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:36:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 20:07:07 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:58:06 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	plane(t_mini_rt *rt, t_element *plane, t_vec ori, t_vec dir)
 		return ;
 	t = -a / b;
 	if (t < 0 || rt->t < t)
-		return;
+		return ;
 	rt->t = t;
 }

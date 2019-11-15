@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 21:08:40 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/15 22:05:31 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ void	find_objs(t_mini_rt *rt, t_element *obj)
 		cylinder(rt, obj, rt->ray.ori, rt->ray.dir);
 	else if (obj->id == CIRCLE)
 		circle(rt, obj, rt->ray.ori, rt->ray.dir);
-	//ft_strequ(obj->id, SQUARE) ? square(rt, obj) : 0;
-	//ft_strequ(obj->id, TRIANGLE) ? triangle(rt, obj) : 0;
-	//ft_strequ(obj->id, CYLINDER) ? cylinder(rt, obj) : 0;
+	else if (obj->id == TRIANGLE)
+		triangle(rt, obj, rt->ray.ori, rt->ray.dir);
+	// else if (obj->id == SQUARE)
+	// 	square(rt, obj, rt->ray.ori, rt->ray.dir);
 }
 
 void	ray_inter(t_mini_rt *rt, int x, int y)

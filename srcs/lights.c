@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 21:34:35 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:58:42 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void			apply_intensity(t_mini_rt *rt, double intensity)
 	// rt->color.b > 255 ? rt->color.r = 255 : 0;
 }
 
-int			apply_shadows(t_mini_rt *rt, t_vec P, t_vec L)
+int				apply_shadows(t_mini_rt *rt, t_vec P, t_vec L)
 {
 	t_list		*tmp;
 	t_element	*obj;
