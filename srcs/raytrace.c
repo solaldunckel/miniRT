@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/14 18:49:18 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:32:05 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	find_objs(t_mini_rt *rt, t_element *obj)
 	if (obj->id == SPHERE)
 		sphere(rt, obj, rt->ray.ori, rt->ray.dir);
 	else if (obj->id == PLANE)
-		plane(rt, obj);
+		plane(rt, obj, rt->ray.ori, rt->ray.dir);
+	else if (obj->id == CYLINDER)
+		cylinder(rt, obj);
 	//ft_strequ(obj->id, SQUARE) ? square(rt, obj) : 0;
 	//ft_strequ(obj->id, TRIANGLE) ? triangle(rt, obj) : 0;
 	//ft_strequ(obj->id, CYLINDER) ? cylinder(rt, obj) : 0;
@@ -56,8 +58,8 @@ t_vec	calc_ray(t_mini_rt *rt, int x, int y)
 	double	norm_x;
 	double	norm_y;
 
-	norm_x = ((x / (double)rt->res.x) - 0.5);
-	norm_y = ((y / (double)rt->res.y) - 0.5);
+	norm_x = (((double)x / (double)rt->res.x) - 0.5);
+	norm_y = (((double)y / (double)rt->res.y) - 0.5);
 	rt->res.x < rt->res.y ? norm_x *= rt->aspect : 0;
 	rt->res.x > rt->res.y ? norm_y /= rt->aspect : 0;
 	image_point = vec_add(vec_add(vec_mul(rt->cam_right, norm_x),

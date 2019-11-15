@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/14 18:49:47 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/14 22:44:54 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			apply_shadows(t_mini_rt *rt, t_vec P, t_vec L)
 		obj = tmp->content;
 		if (obj->id == SPHERE)
 			sphere(rt, tmp->content, P, L);
-		if (rt->t > 0 && rt->t < rt->k)
+		//if (rt->t > 0 && rt->t < rt->k)
 		{
 			rt->k = rt->t;
 			rt->obj = tmp->content;
@@ -79,11 +79,11 @@ void		apply_lights(t_mini_rt *rt)
 		light = tmp->content;
 		L = vec_sub(light->point, P);
 		dot = VEC_ADD(vec_dot(N, L));
-		if (!apply_shadows(rt, P, L))
-		{
-			tmp = tmp->next;
-			continue ;
-		}
+		//if (!apply_shadows(rt, P, L))
+		//{
+		//	tmp = tmp->next;
+		//	continue ;
+		//}
 		if (dot > 0)
 			intensity += light->ratio * dot / (vec_len(N) * vec_len(L));
 		tmp = tmp->next;
