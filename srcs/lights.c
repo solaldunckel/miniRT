@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/14 22:44:54 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/15 18:16:22 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_color		color_average(t_color color1, t_color color2)
 
 void		apply_intensity(t_mini_rt *rt, double intensity)
 {
-	if (intensity > 1)
+	if (intensity > 1 || intensity < 0)
 		return ;
 	rt->color.r = rt->color.r * intensity;
 	rt->color.g = rt->color.g * intensity;
@@ -38,7 +38,9 @@ int			apply_shadows(t_mini_rt *rt, t_vec P, t_vec L)
 {
 	t_list		*tmp;
 	t_element	*obj;
+	t_element	*save;
 
+	save = rt->obj;
 	rt->obj = NULL;
 	tmp = rt->objs_list;
 	rt->t = INT_MAX;
@@ -46,9 +48,14 @@ int			apply_shadows(t_mini_rt *rt, t_vec P, t_vec L)
 	while (tmp)
 	{
 		obj = tmp->content;
+		if (save == obj)
+		{
+			tmp = tmp->next;
+			continue ;
+		}
 		if (obj->id == SPHERE)
 			sphere(rt, tmp->content, P, L);
-		//if (rt->t > 0 && rt->t < rt->k)
+		if (rt->t > 0 && rt->t < rt->k)
 		{
 			rt->k = rt->t;
 			rt->obj = tmp->content;
@@ -71,19 +78,20 @@ void		apply_lights(t_mini_rt *rt)
 	t_vec		L;
 
 	intensity = rt->ambient.ratio;
-	P = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->t));
-	N = vec_normalize(vec_sub(P, rt->obj->point));
+	P = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->k));
+	rt->obj->id == SPHERE || rt->obj->id == CYLINDER ? N = vec_normalize(vec_sub(P, rt->obj->point)) : VEC_CREATE(0,0,0);
+	rt->obj->id == PLANE ? N = rt->obj->orient : VEC_CREATE(0,0,0);
 	tmp = rt->light_list;
 	while (tmp)
 	{
 		light = tmp->content;
-		L = vec_sub(light->point, P);
+		L = vec_normalize(vec_sub(light->point, P));
 		dot = VEC_ADD(vec_dot(N, L));
-		//if (!apply_shadows(rt, P, L))
-		//{
-		//	tmp = tmp->next;
-		//	continue ;
-		//}
+		if (!apply_shadows(rt, P, L))
+		{
+			tmp = tmp->next;
+			continue ;
+		}
 		if (dot > 0)
 			intensity += light->ratio * dot / (vec_len(N) * vec_len(L));
 		tmp = tmp->next;

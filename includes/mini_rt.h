@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 14:19:33 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/15 17:23:04 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int				parse_square(t_mini_rt *rt);
 int				parse_cylindre(t_mini_rt *rt);
 int				parse_triangle(t_mini_rt *rt);
 int				check_split(char **split);
-void			free_split(char **split);
+char			**free_split(char **split);
 t_vec			split_vec(char *str, t_mini_rt *rt, int orient);
 t_color			split_rgb(char *str, t_mini_rt *rt);
 void			check_extension(t_mini_rt *rt, char *rt_file);

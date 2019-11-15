@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/14 14:33:08 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/15 17:21:51 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	parse_rt_file(char *rt_file, t_mini_rt *rt)
 		ft_strequ(rt->split[0], "sq") ? parse_square(rt) : 0;
 		ft_strequ(rt->split[0], "cy") ? parse_cylindre(rt) : 0;
 		ft_strequ(rt->split[0], "tr") ? parse_triangle(rt) : 0;
-		free_split(rt->split);
+		rt->split = free_split(rt->split);
 		ft_strdel(&rt->line);
 	}
 	close(fd);

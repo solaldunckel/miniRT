@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/14 14:14:47 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/15 17:21:18 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			check_split(char **split)
 	return (i);
 }
 
-void		free_split(char **split)
+char	**free_split(char **split)
 {
 	int		i;
 
@@ -48,6 +48,7 @@ void		free_split(char **split)
 	}
 	free(split);
 	split = NULL;
+	return (split);
 }
 
 t_vec		split_vec(char *str, t_mini_rt *rt, int orient)
