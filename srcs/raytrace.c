@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/16 19:44:58 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/16 20:12:18 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	raytracing(t_mini_rt *rt)
 	double	aax;
 	double	aay;
 
-	aliasing = 4;
+	aliasing = 1;
 	j = -1;
 	while (++j < rt->res.y)
 	{

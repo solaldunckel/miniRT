@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/16 13:05:17 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/16 21:33:20 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_color			apply_lights(t_mini_rt *rt)
 	p = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->k));
 	if (rt->obj->id == PLANE || rt->obj->id == CIRCLE || rt->obj->id == TRIANGLE
 		|| rt->obj->id == SQUARE)
-		n = vec_normalize(p);
+		n = rt->obj->orient;
 	else
 		n = vec_normalize(vec_sub(p, rt->obj->point));
 	tmp = rt->light_list;

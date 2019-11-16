@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 23:17:32 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 16:22:31 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/16 21:01:13 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ double		ft_atof(char *str)
 	i = 0;
 	while (ft_is_space(str[i]))
 		i++;
-	if (str[i] == '-')
-		fac = -1;
+	str[i] == '-' ? fac = -1 : 0;
 	atoi = ft_atoi(str);
 	i = ft_intlen(atoi);
+	fac == -1 ? i++ : 0;
 	if (str[i] != '.')
 		return (atoi);
 	i++;
