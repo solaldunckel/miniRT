@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 22:03:40 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/16 14:44:43 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@
 # define BMP_HEADER_SIZE BMP_FILE_HEADER_SIZE + BMP_INFO_HEADER_SIZE
 
 # define R_TO_H(c) (((c.r & 0xff) << 16) + ((c.g & 0xff) << 8) + (c.b & 0xff))
-# define DEG_TO_RAD(x) ((x * M_PI) / 180)
 # define VEC_ADD(v) (v.x + v.y + v.z)
 # define VEC_CREATE(x,y,z) ((t_vec){x,y,z})
 
@@ -50,19 +49,19 @@ typedef struct	s_mini_rt
 	char				*line;
 	char				**split;
 	struct s_color		color;
+	double				intensity;
 	double				t;
 	double				k;
 	double				aspect;
 	int					cur_cam;
 	int					cam_count;
-	struct s_vec		cam_up;
-	struct s_vec		cam_right;
 	struct s_image		img;
 	struct s_ray		ray;
 	struct s_res		res;
 	struct s_ambient	ambient;
 	struct s_element	*obj;
-	struct s_element	*cam;
+	struct s_element	*obj2;
+	struct s_camera		*cam;
 	struct s_list		*objs_list;
 	struct s_list		*cam_list;
 	struct s_list		*light_list;
@@ -86,7 +85,8 @@ char			**free_split(char **split);
 t_vec			split_vec(char *str, t_mini_rt *rt, int orient);
 t_color			split_rgb(char *str, t_mini_rt *rt);
 void			check_extension(t_mini_rt *rt, char *rt_file);
-void			create_circle(t_mini_rt *rt, t_element *cylinder, double t);
+
+
 /*
 ** Events
 */
@@ -103,16 +103,20 @@ void			raytracing(t_mini_rt *rt);
 /*
 ** Objects
 */
-int				intersect(double a, double b, double det);
 void			sphere(t_mini_rt *rt, t_element *sphere, t_vec ori, t_vec dir);
 void			cylinder(t_mini_rt *rt, t_element *cylinder, t_vec ori,
-t_vec dir);
+					t_vec dir);
 void			plane(t_mini_rt *rt, t_element *plane, t_vec ori, t_vec dir);
 void			circle(t_mini_rt *rt, t_element *circle, t_vec ori, t_vec dir);
-void			triangle(t_mini_rt *rt, t_element *triangle, t_vec ori, t_vec dir);
+void			triangle(t_mini_rt *rt, t_element *triangle, t_vec ori,
+					t_vec dir);
+void			square(t_mini_rt *rt, t_element *plane, t_vec ori, t_vec dir);
+void			create_circle(t_mini_rt *rt, t_element *cylinder, double t);
+
 /*
 ** Camera
 */
+void 			create_all_cam(t_mini_rt *rt);
 void			select_cam(t_mini_rt *rt);
 void			change_cam(t_mini_rt *rt);
 
@@ -120,9 +124,9 @@ void			change_cam(t_mini_rt *rt);
 ** Colors
 */
 int				color_put(t_mini_rt *rt, int x, int y, int color);
-int				convert_rgb(t_color color);
-//void			apply_intensity(t_mini_rt *rt, double intensity);
-void			apply_lights(t_mini_rt *rt);
+t_color			color_average(t_color color1, t_color color2);
+t_color			apply_lights(t_mini_rt *rt);
+int				apply_shadows(t_mini_rt *rt, t_vec ori, t_vec dir);
 
 /*
 ** Vectors
@@ -132,7 +136,6 @@ t_vec			vec_sub(t_vec v1, t_vec v2);
 t_vec			vec_mul(t_vec v1, double m);
 t_vec			vec_div(t_vec v1, double d);
 t_vec			vec_dot(t_vec v1, t_vec v2);
-void			rotate_vector(t_vec *v, t_vec *rot);
 t_vec			vec_cross(t_vec v1, t_vec v2);
 t_vec			vec_normalize(t_vec p);
 double			vec_len(t_vec v);

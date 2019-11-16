@@ -6,27 +6,31 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:04:25 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/14 15:33:15 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/16 12:51:19 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-int		convert_rgb(t_color color)
-{
-	return (((color.r & 0xff) << 16) + ((color.g & 0xff) << 8)
-	+ (color.b & 0xff));
-}
-
-int		color_put(t_mini_rt *rt, int x, int y, int color)
+int			color_put(t_mini_rt *rt, int x, int y, int color)
 {
 	int i;
 
-	i = y * rt->img.size_line + rt->img.bpp / 8 * x;
+	i = y * rt->cam->img.size_line + rt->cam->img.bpp / 8 * x;
 	if (i < 1)
 		return (0);
-	rt->img.add[i] = color;
-	rt->img.add[i + 1] = color >> 8;
-	rt->img.add[i + 2] = color >> 16;
+	rt->cam->img.add[i] = color;
+	rt->cam->img.add[i + 1] = color >> 8;
+	rt->cam->img.add[i + 2] = color >> 16;
 	return (0);
+}
+
+t_color		color_average(t_color color1, t_color color2)
+{
+	t_color		color;
+
+	color.r = (color1.r + color2.r) / 2;
+	color.g = (color1.g + color2.g) / 2;
+	color.b = (color1.b + color2.b) / 2;
+	return (color);
 }

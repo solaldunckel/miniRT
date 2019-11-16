@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 21:51:32 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/16 01:33:27 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int		parse_ambient(t_mini_rt *rt)
 
 int		parse_camera(t_mini_rt *rt)
 {
-	t_element		*camera;
+	t_camera		*camera;
 
-	if (!(camera = ft_calloc(1, sizeof(t_element))))
+	if (!(camera = ft_calloc(1, sizeof(t_camera))))
 		handle_error("fail to malloc", rt);
 	if (check_split(rt->split) != 3)
 	{

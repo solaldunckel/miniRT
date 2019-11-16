@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/14 13:41:17 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/16 01:43:41 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,25 @@ typedef struct	s_image
 	int				endian;
 }				t_image;
 
+typedef struct	s_camera
+{
+	struct s_vec	pov;
+	struct s_vec	orient;
+	double			fov;
+	struct s_image	img;
+	struct s_vec	up;
+	struct s_vec	right;
+}				t_camera;
+
 typedef struct	s_element
 {
 	int				id;
-	struct s_vec	pov;
 	struct s_vec	point;
 	struct s_color	color;
 	struct s_vec	orient;
 	double			ratio;
 	double			diameter;
 	double			height;
-	double			fov;
 	struct s_vec	point2;
 	struct s_vec	point3;
 	struct s_vec	dir;

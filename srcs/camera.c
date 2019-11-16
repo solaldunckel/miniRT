@@ -6,11 +6,40 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:47 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/12 13:46:39 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/16 13:46:17 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+void 	create_all_cam(t_mini_rt *rt)
+{
+	t_list		*tmp;
+	t_camera	*cam;
+	int			count;
+
+	count = 1;
+	tmp = rt->cam_list;
+	while (tmp)
+	{
+		cam = tmp->content;
+		rt->cam = cam;
+		if (!(cam->img.ptr = mlx_new_image(rt->mlx_ptr, rt->res.x, rt->res.y)))
+			handle_error("fail to create Minilibx image", rt);
+		if (!(cam->img.add = mlx_get_data_addr(cam->img.ptr, &cam->img.bpp,
+			&cam->img.size_line, &cam->img.endian)))
+			handle_error("fail to get Minilibx image data", rt);
+		setup_rt(rt);
+		raytracing(rt);
+		if (count++ && rt->save)
+			return ;
+		count > 2 ? ft_printf("" BOLDGREEN "-> %d/%d cameras rendered ! <-\n"
+			RESET, count - 1, rt->cam_count) : 0;
+		 rt->cam_count > 1 && count == 2 ? ft_printf("" BOLDGREEN "-> %d/%d"
+		 " camera rendered ! <-\n" RESET, count - 1, rt->cam_count) : 0;
+		tmp = tmp->next;
+	}
+}
 
 void	select_cam(t_mini_rt *rt)
 {
@@ -36,20 +65,10 @@ void	select_cam(t_mini_rt *rt)
 
 void	change_cam(t_mini_rt *rt)
 {
-	rt->img.add = NULL;
-	free(rt->img.add);
-	mlx_destroy_image(rt->mlx_ptr, rt->img.ptr);
-	if (!(rt->img.ptr = mlx_new_image(rt->mlx_ptr, rt->res.x, rt->res.y)))
-		return ;
-	if (!(rt->img.add = mlx_get_data_addr(rt->img.ptr, &rt->img.bpp,
-		&rt->img.size_line, &rt->img.endian)))
-		return ;
-	mlx_clear_window(rt->mlx_ptr, rt->win_ptr);
-	select_cam(rt);
-	setup_rt(rt);
-	raytracing(rt);
-	mlx_key_hook(rt->win_ptr, get_keypress, rt);
-	mlx_hook(rt->win_ptr, 17, 0, exit_and_free, rt);
-	mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->img.ptr, 0, 0);
-	mlx_loop(rt->mlx_ptr);
+	if (rt->cam_count > 1)
+	{
+		mlx_clear_window(rt->mlx_ptr, rt->win_ptr);
+		select_cam(rt);
+		mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->cam->img.ptr, 0, 0);
+	}
 }
