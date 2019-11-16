@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/16 13:52:14 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/16 19:44:58 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,41 @@ void	raytracing(t_mini_rt *rt)
 {
 	double	i;
 	double	j;
+	t_color fc;
+	int		aliasing;
+	int		aa;
+	double	aax;
+	double	aay;
 
+	aliasing = 4;
 	j = -1;
 	while (++j < rt->res.y)
 	{
 		i = -1;
 		while (++i < rt->res.x)
 		{
-			rt->ray.dir = calc_ray(rt, i , j);
-			rt->color = ray_intersect(rt);
+			aa = 0;
+			aay =  -((double)aliasing - 1) / (double)aliasing;
+			fc.r = 0;
+			fc.g = 0;
+			fc.b = 0;
+			while (aa < (aliasing * aliasing))
+			{
+				aax = -((double)aliasing - 1) / (double)aliasing;
+				while (aax <= ((double)aliasing - 1) / (double)aliasing)
+				{
+					rt->ray.dir = calc_ray(rt, i + aax, j + aay);
+					//printf("aax : %f / aay : %f\n", aax, aay);
+					rt->color = ray_intersect(rt);
+					fc = color_add(fc, rt->color);
+					aax += 1 / ((double)aliasing - 1);
+					aa++;
+				}
+				aay += 1 / ((double)aliasing - 1);
+			}
+			fc = color_div(fc, aa);
 			if (rt->obj)
-				color_put(rt, i, j, R_TO_H(rt->color));
+				color_put(rt, i, j, R_TO_H(fc));
 		}
 	}
 }
