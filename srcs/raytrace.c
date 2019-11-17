@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/16 20:12:18 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/17 17:13:08 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,45 +72,55 @@ t_vec	calc_ray(t_mini_rt *rt, double x, double y)
 	return (dir);
 }
 
-void	raytracing(t_mini_rt *rt)
+t_color	anti_aliasing(t_mini_rt *rt, double i, double j)
 {
-	double	i;
-	double	j;
-	t_color fc;
-	int		aliasing;
+	t_color color;
 	int		aa;
 	double	aax;
 	double	aay;
 
-	aliasing = 1;
+	aa = 0;
+	aay =  -(rt->anti_aliasing - 1) / rt->anti_aliasing;
+	color.r = 0;
+	color.g = 0;
+	color.b = 0;
+	while (aa < (pow(rt->anti_aliasing, 2)))
+	{
+		aax = -(rt->anti_aliasing - 1) / rt->anti_aliasing;
+		while (aax <= (rt->anti_aliasing - 1) / rt->anti_aliasing)
+		{
+			rt->ray.dir = calc_ray(rt, i + aax, j + aay);
+			rt->color = ray_intersect(rt);
+			color = color_add(color, rt->color);
+			aax += 1 / (rt->anti_aliasing - 1);
+			aa++;
+		}
+		aay += 1 / ((double)rt->anti_aliasing - 1);
+	}
+	color = color_div(color, aa);
+	return (color);
+}
+
+void	raytracing(t_mini_rt *rt)
+{
+	double	i;
+	double	j;
+
 	j = -1;
 	while (++j < rt->res.y)
 	{
 		i = -1;
 		while (++i < rt->res.x)
 		{
-			aa = 0;
-			aay =  -((double)aliasing - 1) / (double)aliasing;
-			fc.r = 0;
-			fc.g = 0;
-			fc.b = 0;
-			while (aa < (aliasing * aliasing))
+			if (rt->anti_aliasing > 1)
+				rt->color = anti_aliasing(rt, i, j);
+			else
 			{
-				aax = -((double)aliasing - 1) / (double)aliasing;
-				while (aax <= ((double)aliasing - 1) / (double)aliasing)
-				{
-					rt->ray.dir = calc_ray(rt, i + aax, j + aay);
-					//printf("aax : %f / aay : %f\n", aax, aay);
-					rt->color = ray_intersect(rt);
-					fc = color_add(fc, rt->color);
-					aax += 1 / ((double)aliasing - 1);
-					aa++;
-				}
-				aay += 1 / ((double)aliasing - 1);
+				rt->ray.dir = calc_ray(rt, i, j);
+				rt->color = ray_intersect(rt);
 			}
-			fc = color_div(fc, aa);
-			if (rt->obj)
-				color_put(rt, i, j, R_TO_H(fc));
+			rt->sepia ? apply_sepia(rt) : 0;
+			rt->obj ? color_put(rt, i, j) : 0;
 		}
 	}
 }

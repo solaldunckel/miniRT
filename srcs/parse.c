@@ -6,11 +6,39 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/16 21:14:34 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/17 17:05:57 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+void		check_id(t_mini_rt *rt)
+{
+	if (ft_strequ(rt->split[0], "R"))
+		parse_res(rt);
+	else if (ft_strequ(rt->split[0], "A"))
+		parse_ambient(rt);
+	else if (ft_strequ(rt->split[0], "c"))
+		parse_camera(rt);
+	else if (ft_strequ(rt->split[0], "l"))
+		parse_light(rt);
+	else if (ft_strequ(rt->split[0], "sp"))
+		parse_sphere(rt);
+	else if (ft_strequ(rt->split[0], "pl"))
+		parse_plane(rt);
+	else if (ft_strequ(rt->split[0], "sq"))
+		parse_square(rt);
+	else if (ft_strequ(rt->split[0], "cy"))
+		parse_cylindre(rt);
+	else if (ft_strequ(rt->split[0], "tr"))
+		parse_triangle(rt);
+	else if (ft_strequ(rt->split[0], "AA"))
+		parse_antialiasing(rt);
+	else if (ft_strequ(rt->split[0], "SEPIA"))
+		rt->sepia = 1;
+	// else
+	// 	handle_error("unrecognized id", rt);
+}
 
 void	parse_rt_file(char *rt_file, t_mini_rt *rt)
 {
@@ -21,15 +49,8 @@ void	parse_rt_file(char *rt_file, t_mini_rt *rt)
 	while (get_next_line(fd, &rt->line) > 0)
 	{
 		rt->split = ft_ssplit(rt->line, " \t\v\n\r\f");
-		ft_strequ(rt->split[0], "R") ? parse_res(rt) : 0;
-		ft_strequ(rt->split[0], "A") ? parse_ambient(rt) : 0;
-		ft_strequ(rt->split[0], "c") ? parse_camera(rt) : 0;
-		ft_strequ(rt->split[0], "l") ? parse_light(rt) : 0;
-		ft_strequ(rt->split[0], "sp") ? parse_sphere(rt) : 0;
-		ft_strequ(rt->split[0], "pl") ? parse_plane(rt) : 0;
-		ft_strequ(rt->split[0], "sq") ? parse_square(rt) : 0;
-		ft_strequ(rt->split[0], "cy") ? parse_cylindre(rt) : 0;
-		ft_strequ(rt->split[0], "tr") ? parse_triangle(rt) : 0;
+		if (rt->split[0])
+			check_id(rt);
 		rt->split = free_split(rt->split);
 		ft_strdel(&rt->line);
 	}

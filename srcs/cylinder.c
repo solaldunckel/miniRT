@@ -6,13 +6,13 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:37:27 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/16 14:46:14 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/17 17:25:00 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-void		create_circle(t_mini_rt *rt, t_element *cylinder, double t)
+void			create_circle(t_mini_rt *rt, t_element *cylinder, double t)
 {
 	t_element		*circle;
 

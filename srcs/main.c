@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/16 14:52:05 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/17 16:48:26 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	init_rt(t_mini_rt *rt)
 	rt->res.x = 0;
 	rt->res.y = 0;
 	rt->save = 0;
+	rt->sepia = 0;
+	rt->anti_aliasing = 1;
 }
 
 void	setup_rt(t_mini_rt *rt)

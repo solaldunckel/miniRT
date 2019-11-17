@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/16 18:59:12 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/17 16:47:16 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 # include <math.h>
 # include <stdio.h>
 
-# define DEBUG_PARSING 1
-
 # define SPHERE 1
 # define PLANE 2
 # define SQUARE 3
@@ -37,7 +35,6 @@
 # define BMP_INFO_HEADER_SIZE 40
 # define BMP_HEADER_SIZE BMP_FILE_HEADER_SIZE + BMP_INFO_HEADER_SIZE
 
-# define R_TO_H(c) (((c.r & 0xff) << 16) + ((c.g & 0xff) << 8) + (c.b & 0xff))
 # define VEC_ADD(v) (v.x + v.y + v.z)
 # define VEC_CREATE(x,y,z) ((t_vec){x,y,z})
 
@@ -55,6 +52,8 @@ typedef struct	s_mini_rt
 	double				aspect;
 	int					cur_cam;
 	int					cam_count;
+	double				anti_aliasing;
+	int					sepia;
 	struct s_image		img;
 	struct s_ray		ray;
 	struct s_res		res;
@@ -80,6 +79,7 @@ int				parse_plane(t_mini_rt *rt);
 int				parse_square(t_mini_rt *rt);
 int				parse_cylindre(t_mini_rt *rt);
 int				parse_triangle(t_mini_rt *rt);
+int				parse_antialiasing(t_mini_rt *rt);
 int				check_split(char **split);
 char			**free_split(char **split);
 t_vec			split_vec(char *str, t_mini_rt *rt, int orient);
@@ -123,12 +123,13 @@ void			change_cam(t_mini_rt *rt);
 /*
 ** Colors
 */
-int				color_put(t_mini_rt *rt, int x, int y, int color);
+int				color_put(t_mini_rt *rt, int x, int y);
 t_color			color_average(t_color color1, t_color color2);
 t_color			color_add(t_color color1, t_color color2);
 t_color			color_div(t_color color, int average);
 t_color			apply_lights(t_mini_rt *rt);
 int				apply_shadows(t_mini_rt *rt, t_vec ori, t_vec dir);
+void 			apply_sepia(t_mini_rt *rt);
 
 /*
 ** Vectors
