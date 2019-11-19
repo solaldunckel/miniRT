@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/16 21:37:05 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/19 11:15:17 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,9 @@ int		parse_triangle(t_mini_rt *rt)
 	triangle->point2 = split_vec(rt->split[2], rt, 0);
 	triangle->point3 = split_vec(rt->split[3], rt, 0);
 	triangle->color = split_rgb(rt->split[4], rt);
-	triangle->orient = vec_normalize(vec_cross(vec_sub(triangle->point, triangle->point2), vec_sub(triangle->point, triangle->point3)));
+	triangle->orient = vec_normalize(vec_cross(
+		vec_sub(triangle->point2, triangle->point),
+		vec_sub(triangle->point3, triangle->point)));
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(triangle));
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:47 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/16 13:46:17 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/19 12:48:14 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,17 @@
 void 	create_all_cam(t_mini_rt *rt)
 {
 	t_list		*tmp;
-	t_camera	*cam;
 	int			count;
 
 	count = 1;
 	tmp = rt->cam_list;
 	while (tmp)
 	{
-		cam = tmp->content;
-		rt->cam = cam;
-		if (!(cam->img.ptr = mlx_new_image(rt->mlx_ptr, rt->res.x, rt->res.y)))
+		rt->cam = tmp->content;
+		if (!(rt->cam->img.ptr = mlx_new_image(rt->mlx_ptr, rt->res.x, rt->res.y)))
 			handle_error("fail to create Minilibx image", rt);
-		if (!(cam->img.add = mlx_get_data_addr(cam->img.ptr, &cam->img.bpp,
-			&cam->img.size_line, &cam->img.endian)))
+		if (!(rt->cam->img.add = mlx_get_data_addr(rt->cam->img.ptr,
+			&rt->cam->img.bpp, &rt->cam->img.size_line, &rt->cam->img.endian)))
 			handle_error("fail to get Minilibx image data", rt);
 		setup_rt(rt);
 		raytracing(rt);
@@ -35,7 +33,7 @@ void 	create_all_cam(t_mini_rt *rt)
 			return ;
 		count > 2 ? ft_printf("" BOLDGREEN "-> %d/%d cameras rendered ! <-\n"
 			RESET, count - 1, rt->cam_count) : 0;
-		 rt->cam_count > 1 && count == 2 ? ft_printf("" BOLDGREEN "-> %d/%d"
+		rt->cam_count > 1 && count == 2 ? ft_printf("" BOLDGREEN "-> %d/%d"
 		 " camera rendered ! <-\n" RESET, count - 1, rt->cam_count) : 0;
 		tmp = tmp->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/17 16:48:49 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/19 12:15:00 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@ t_color			apply_lights(t_mini_rt *rt)
 	rt->intensity = rt->ambient.ratio;
 	color = rt->ambient.color;
 	p = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->k));
-	if (rt->obj->id == PLANE || rt->obj->id == CIRCLE || rt->obj->id == TRIANGLE
-		|| rt->obj->id == SQUARE)
+	if (rt->obj->id == PLANE)
+		n = vec_abs(rt->obj->orient);
+	else if (rt->obj->id == CIRCLE)
 		n = rt->obj->orient;
+	else if (rt->obj->id == SQUARE)
+		n = vec_abs(rt->obj->orient);
 	else
 		n = vec_normalize(vec_sub(p, rt->obj->point));
 	tmp = rt->light_list;
@@ -46,14 +49,14 @@ t_color			apply_lights(t_mini_rt *rt)
 		light = tmp->content;
 		l = vec_normalize(vec_sub(light->point, p));
 		dot = VEC_ADD(vec_dot(n, l));
-		// if (!apply_shadows(rt, p, l))
-		// {
-		// 	tmp = tmp->next;
-		// 	continue ;
-		// }
+		if (apply_shadows(rt, p, l))
+		{
+			tmp = tmp->next;
+			continue;
+		}
 		if (dot > 0)
 		{
-			rt->intensity += light->ratio * dot / (vec_len(n) * vec_len(l));
+			rt->intensity += light->ratio * dot / vec_len(l);
 			color = color_average(color, light->color);
 		}
 		tmp = tmp->next;

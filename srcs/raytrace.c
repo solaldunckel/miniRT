@@ -6,26 +6,26 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/17 17:13:08 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/19 12:34:58 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-void	find_objs(t_mini_rt *rt, t_element *obj)
+void	find_objs(t_mini_rt *rt, t_element *obj, t_vec ori, t_vec dir)
 {
 	if (obj->id == SPHERE)
-		sphere(rt, obj, rt->ray.ori, rt->ray.dir);
+		sphere(rt, obj, ori, dir);
 	else if (obj->id == PLANE)
-		plane(rt, obj, rt->ray.ori, rt->ray.dir);
+		plane(rt, obj, ori, dir);
 	else if (obj->id == CYLINDER)
-		cylinder(rt, obj, rt->ray.ori, rt->ray.dir);
+		cylinder(rt, obj, ori, dir);
 	else if (obj->id == CIRCLE)
-		circle(rt, obj, rt->ray.ori, rt->ray.dir);
+		circle(rt, obj, ori, dir);
 	else if (obj->id == TRIANGLE)
-		triangle(rt, obj, rt->ray.ori, rt->ray.dir);
+		triangle(rt, obj, ori, dir);
 	else if (obj->id == SQUARE)
-	 	square(rt, obj, rt->ray.ori, rt->ray.dir);
+	 	square(rt, obj, ori, dir);
 }
 
 t_color	ray_intersect(t_mini_rt *rt)
@@ -42,7 +42,7 @@ t_color	ray_intersect(t_mini_rt *rt)
 	tmp = rt->objs_list;
 	while (tmp)
 	{
-		find_objs(rt, tmp->content);
+		find_objs(rt, tmp->content, rt->ray.ori, rt->ray.dir);
 		if (rt->t > 0 && rt->t < rt->k)
 		{
 			rt->k = rt->t;

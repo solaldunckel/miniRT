@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/17 16:47:16 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/19 12:27:09 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void			free_element(void *elem);
 ** Raytracing functions
 */
 void			raytracing(t_mini_rt *rt);
+void			find_objs(t_mini_rt *rt, t_element *obj, t_vec ori, t_vec dir);
 
 /*
 ** Objects
@@ -142,6 +143,8 @@ t_vec			vec_dot(t_vec v1, t_vec v2);
 t_vec			vec_cross(t_vec v1, t_vec v2);
 t_vec			vec_normalize(t_vec p);
 double			vec_len(t_vec v);
+t_vec			vec_abs(t_vec v1);
+t_vec			vec_reverse(t_vec v1);
 
 /*
 ** Additional functions
