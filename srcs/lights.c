@@ -6,11 +6,34 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/19 12:15:00 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/19 17:36:38 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+static	int		plane_side(t_mini_rt *rt, t_element *light, t_vec ori,
+t_vec dir)
+{
+	t_element	cam_plane;
+
+	if (rt->obj->id != PLANE && rt->obj->id != CIRCLE && rt->obj->id != SQUARE
+	&& rt->obj->id != TRIANGLE)
+		return (1);
+	rt->t = INT_MAX;
+	light->orient = dir;
+	plane(rt, light, ori, dir);
+	rt->k = rt->t;
+	cam_plane.point = rt->ray.ori;
+	cam_plane.orient = dir;
+	rt->t = INT_MAX;
+	plane(rt, &cam_plane, ori, dir);
+	if (rt->t == INT_MAX && rt->k == INT_MAX)
+		return (-1);
+	if (rt->t != INT_MAX && rt->k != INT_MAX)
+		return (1);
+	return (0);
+}
 
 void			apply_intensity(t_mini_rt *rt, double intensity, t_color *color)
 {
@@ -35,12 +58,9 @@ t_color			apply_lights(t_mini_rt *rt)
 	rt->intensity = rt->ambient.ratio;
 	color = rt->ambient.color;
 	p = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->k));
-	if (rt->obj->id == PLANE)
-		n = vec_abs(rt->obj->orient);
-	else if (rt->obj->id == CIRCLE)
+	//det = VEC_ADD(vec_dot(rt->obj->orient, ))
+	if (rt->obj->id == PLANE || rt->obj->id == CIRCLE || rt->obj->id == SQUARE)
 		n = rt->obj->orient;
-	else if (rt->obj->id == SQUARE)
-		n = vec_abs(rt->obj->orient);
 	else
 		n = vec_normalize(vec_sub(p, rt->obj->point));
 	tmp = rt->light_list;
@@ -49,7 +69,9 @@ t_color			apply_lights(t_mini_rt *rt)
 		light = tmp->content;
 		l = vec_normalize(vec_sub(light->point, p));
 		dot = VEC_ADD(vec_dot(n, l));
-		if (apply_shadows(rt, p, l))
+		dot *= plane_side(rt, light, rt->obj->point, n);
+		light->orient = l;
+		if (apply_shadows(rt, p, l, light))
 		{
 			tmp = tmp->next;
 			continue;

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/19 12:27:09 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/19 15:05:44 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,8 @@ t_color			color_average(t_color color1, t_color color2);
 t_color			color_add(t_color color1, t_color color2);
 t_color			color_div(t_color color, int average);
 t_color			apply_lights(t_mini_rt *rt);
-int				apply_shadows(t_mini_rt *rt, t_vec ori, t_vec dir);
+int				apply_shadows(t_mini_rt *rt, t_vec ori, t_vec dir,
+t_element *light);
 void 			apply_sepia(t_mini_rt *rt);
 
 /*
