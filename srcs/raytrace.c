@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/19 12:34:58 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/19 17:48:21 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	find_objs(t_mini_rt *rt, t_element *obj, t_vec ori, t_vec dir)
 	else if (obj->id == TRIANGLE)
 		triangle(rt, obj, ori, dir);
 	else if (obj->id == SQUARE)
-	 	square(rt, obj, ori, dir);
+		square(rt, obj, ori, dir);
 }
 
 t_color	ray_intersect(t_mini_rt *rt)
@@ -80,7 +80,7 @@ t_color	anti_aliasing(t_mini_rt *rt, double i, double j)
 	double	aay;
 
 	aa = 0;
-	aay =  -(rt->anti_aliasing - 1) / rt->anti_aliasing;
+	aay = -(rt->anti_aliasing - 1) / rt->anti_aliasing;
 	color.r = 0;
 	color.g = 0;
 	color.b = 0;

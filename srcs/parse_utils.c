@@ -6,11 +6,39 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/16 14:45:29 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/19 18:23:57 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+void		check_id(t_mini_rt *rt)
+{
+	if (ft_strequ(rt->split[0], "R"))
+		parse_res(rt);
+	else if (ft_strequ(rt->split[0], "A"))
+		parse_ambient(rt);
+	else if (ft_strequ(rt->split[0], "c"))
+		parse_camera(rt);
+	else if (ft_strequ(rt->split[0], "l"))
+		parse_light(rt);
+	else if (ft_strequ(rt->split[0], "sp"))
+		parse_sphere(rt);
+	else if (ft_strequ(rt->split[0], "pl"))
+		parse_plane(rt);
+	else if (ft_strequ(rt->split[0], "sq"))
+		parse_square(rt);
+	else if (ft_strequ(rt->split[0], "cy"))
+		parse_cylindre(rt);
+	else if (ft_strequ(rt->split[0], "tr"))
+		parse_triangle(rt);
+	else if (ft_strequ(rt->split[0], "AA"))
+		parse_antialiasing(rt);
+	else if (ft_strequ(rt->split[0], "SEPIA"))
+		rt->sepia = 1;
+	// else
+	// 	handle_error("unrecognized id", rt);
+}
 
 int			check_split(char **split)
 {
@@ -57,7 +85,7 @@ t_vec		split_vec(char *str, t_mini_rt *rt, int orient)
 	char	**split;
 
 	split = ft_split(str, ',');
-	if (check_split(split) != 3)
+	if (check_split(split) != 3 || ft_str_c_count(str, ',') != 2)
 	{
 		free_split(split);
 		handle_error("invalid vector parsing", rt);
@@ -78,7 +106,7 @@ t_color		split_rgb(char *str, t_mini_rt *rt)
 	char	**split;
 
 	split = ft_split(str, ',');
-	if (check_split(split) != 3)
+	if (check_split(split) != 3 || ft_str_c_count(str, ',') != 2)
 	{
 		free_split(split);
 		handle_error("invalid rgb parsing", rt);

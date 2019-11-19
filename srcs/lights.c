@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/19 17:36:38 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/19 18:23:13 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,34 +35,13 @@ t_vec dir)
 	return (0);
 }
 
-void			apply_intensity(t_mini_rt *rt, double intensity, t_color *color)
-{
-	(void)rt;
-	if (intensity > 1)
-		return ;
-	color->r = color->r * intensity;
-	color->g = color->g * intensity;
-	color->b = color->b * intensity;
-}
-
-t_color			apply_lights(t_mini_rt *rt)
+static	t_color	rotate_color(t_mini_rt *rt, t_vec p, t_vec n, t_color color)
 {
 	t_list		*tmp;
 	t_element	*light;
 	double		dot;
-	t_vec		p;
-	t_vec		n;
 	t_vec		l;
-	t_color		color;
 
-	rt->intensity = rt->ambient.ratio;
-	color = rt->ambient.color;
-	p = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->k));
-	//det = VEC_ADD(vec_dot(rt->obj->orient, ))
-	if (rt->obj->id == PLANE || rt->obj->id == CIRCLE || rt->obj->id == SQUARE)
-		n = rt->obj->orient;
-	else
-		n = vec_normalize(vec_sub(p, rt->obj->point));
 	tmp = rt->light_list;
 	while (tmp)
 	{
@@ -76,13 +55,38 @@ t_color			apply_lights(t_mini_rt *rt)
 			tmp = tmp->next;
 			continue;
 		}
-		if (dot > 0)
-		{
-			rt->intensity += light->ratio * dot / vec_len(l);
+		dot > 0 ? rt->intensity += light->ratio * dot / vec_len(l) : 0;
+		if (dot < 0)
 			color = color_average(color, light->color);
-		}
 		tmp = tmp->next;
 	}
+	return (color);
+}
+
+void			apply_intensity(t_mini_rt *rt, double intensity, t_color *color)
+{
+	(void)rt;
+	if (intensity > 1)
+		return ;
+	color->r = color->r * intensity;
+	color->g = color->g * intensity;
+	color->b = color->b * intensity;
+}
+
+t_color			apply_lights(t_mini_rt *rt)
+{
+	t_vec		p;
+	t_vec		n;
+	t_color		color;
+
+	rt->intensity = rt->ambient.ratio;
+	color = rt->ambient.color;
+	p = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->k));
+	if (rt->obj->id == PLANE || rt->obj->id == CIRCLE || rt->obj->id == SQUARE)
+		n = rt->obj->orient;
+	else
+		n = vec_normalize(vec_sub(p, rt->obj->point));
+	color = rotate_color(rt, p, n, color);
 	color = color_average(color, rt->obj->color);
 	apply_intensity(rt, rt->intensity, &color);
 	return (color);

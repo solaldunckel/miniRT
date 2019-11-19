@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 12:41:20 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/16 03:01:09 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/19 17:50:31 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	bitmap_file_header(t_mini_rt *rt, int padding_size, int fd)
 
 	if (!(file_header = ft_calloc(BMP_FILE_HEADER_SIZE, sizeof(unsigned char))))
 		handle_error("fail to malloc", rt);
-	file_size = BMP_HEADER_SIZE + (rt->cam->img.bpp / 8 * rt->res.x + padding_size)
-				* rt->res.y;
+	file_size = BMP_HEADER_SIZE + (rt->cam->img.bpp / 8 * rt->res.x +
+		padding_size) * rt->res.y;
 	file_header[0] = (unsigned char)('B');
 	file_header[1] = (unsigned char)('M');
 	file_header[2] = (unsigned char)(file_size);

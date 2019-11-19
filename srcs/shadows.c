@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 23:24:13 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/19 17:32:17 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/19 17:45:41 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_element *light)
 		obj = tmp->content;
 		if (rt->obj == obj)
 		{
-			obj->id == CYLINDRE ? tmp = tmp->next->next : 0;
+			obj->id == CYLINDER ? tmp = tmp->next->next : 0;
 			tmp = tmp->next;
 			continue ;
 		}

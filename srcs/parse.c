@@ -6,39 +6,11 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/17 17:05:57 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/19 17:54:30 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-
-void		check_id(t_mini_rt *rt)
-{
-	if (ft_strequ(rt->split[0], "R"))
-		parse_res(rt);
-	else if (ft_strequ(rt->split[0], "A"))
-		parse_ambient(rt);
-	else if (ft_strequ(rt->split[0], "c"))
-		parse_camera(rt);
-	else if (ft_strequ(rt->split[0], "l"))
-		parse_light(rt);
-	else if (ft_strequ(rt->split[0], "sp"))
-		parse_sphere(rt);
-	else if (ft_strequ(rt->split[0], "pl"))
-		parse_plane(rt);
-	else if (ft_strequ(rt->split[0], "sq"))
-		parse_square(rt);
-	else if (ft_strequ(rt->split[0], "cy"))
-		parse_cylindre(rt);
-	else if (ft_strequ(rt->split[0], "tr"))
-		parse_triangle(rt);
-	else if (ft_strequ(rt->split[0], "AA"))
-		parse_antialiasing(rt);
-	else if (ft_strequ(rt->split[0], "SEPIA"))
-		rt->sepia = 1;
-	// else
-	// 	handle_error("unrecognized id", rt);
-}
 
 void	parse_rt_file(char *rt_file, t_mini_rt *rt)
 {

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/17 16:48:26 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/19 17:50:54 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	setup_rt(t_mini_rt *rt)
 	rt->t = 0;
 }
 
-void 	create_window(t_mini_rt *rt)
+void	create_window(t_mini_rt *rt)
 {
 	if (!(rt->win_ptr = mlx_new_window(rt->mlx_ptr, rt->res.x,
 		rt->res.y, "miniRT")))

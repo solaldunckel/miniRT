@@ -6,17 +6,19 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:42:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/17 17:10:23 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/19 18:21:07 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-void		check_extension(t_mini_rt *rt, char *rt_file)
+void	check_extension(t_mini_rt *rt, char *rt_file)
 {
 	int		i;
 
 	i = ft_strlen(rt_file) - 1;
+	if (i < 2)
+		handle_error("wrong file extension", rt);
 	if (rt_file[i] != 't' || rt_file[i - 1] != 'r' || rt_file[i - 2] != '.')
 		handle_error("wrong file extension", rt);
 }
@@ -63,14 +65,5 @@ int		exit_and_free(t_mini_rt *rt)
 		mlx_destroy_window(rt->mlx_ptr, rt->win_ptr);
 	}
 	exit(0);
-	return (0);
-}
-
-int		get_keypress(int key, t_mini_rt *rt)
-{
-	if (key == 17)
-		change_cam(rt);
-	if (key == 53)
-		exit_and_free(rt);
 	return (0);
 }

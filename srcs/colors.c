@@ -6,13 +6,13 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:04:25 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/17 16:18:27 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/19 17:52:14 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-void 	apply_sepia(t_mini_rt *rt)
+void		apply_sepia(t_mini_rt *rt)
 {
 	double		red;
 	double		green;
@@ -21,7 +21,6 @@ void 	apply_sepia(t_mini_rt *rt)
 	red = 0.393 * rt->color.r + 0.769 * rt->color.g + 0.189 * rt->color.b;
 	green = 0.349 * rt->color.r + 0.686 * rt->color.g + 0.168 * rt->color.b;
 	blue = 0.272 * rt->color.r + 0.534 * rt->color.g + 0.131 * rt->color.b;
-
 	if (red > 255)
 		rt->color.r = 255;
 	else

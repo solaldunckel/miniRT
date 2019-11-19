@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/19 15:05:44 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/19 18:55:11 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINI_RT_H
 
 # include "elements.h"
+# include "keys.h"
 # include "../libft/includes/libft.h"
 # include <mlx.h>
 # include <stdlib.h>
@@ -85,7 +86,7 @@ char			**free_split(char **split);
 t_vec			split_vec(char *str, t_mini_rt *rt, int orient);
 t_color			split_rgb(char *str, t_mini_rt *rt);
 void			check_extension(t_mini_rt *rt, char *rt_file);
-
+void			check_id(t_mini_rt *rt);
 
 /*
 ** Events
@@ -117,7 +118,7 @@ void			create_circle(t_mini_rt *rt, t_element *cylinder, double t);
 /*
 ** Camera
 */
-void 			create_all_cam(t_mini_rt *rt);
+void			create_all_cam(t_mini_rt *rt);
 void			select_cam(t_mini_rt *rt);
 void			change_cam(t_mini_rt *rt);
 
@@ -131,7 +132,7 @@ t_color			color_div(t_color color, int average);
 t_color			apply_lights(t_mini_rt *rt);
 int				apply_shadows(t_mini_rt *rt, t_vec ori, t_vec dir,
 t_element *light);
-void 			apply_sepia(t_mini_rt *rt);
+void			apply_sepia(t_mini_rt *rt);
 
 /*
 ** Vectors
