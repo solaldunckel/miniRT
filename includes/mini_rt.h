@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/19 18:55:11 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/20 15:51:35 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,17 @@ typedef struct	s_mini_rt
 	double				aspect;
 	int					cur_cam;
 	int					cam_count;
+	int					cur_obj;
+	int					obj_count;
 	double				anti_aliasing;
 	int					sepia;
+	struct s_color		tmp_color;
 	struct s_image		img;
 	struct s_ray		ray;
 	struct s_res		res;
 	struct s_ambient	ambient;
 	struct s_element	*obj;
-	struct s_element	*obj2;
+	struct s_element	*move_obj;
 	struct s_camera		*cam;
 	struct s_list		*objs_list;
 	struct s_list		*cam_list;
@@ -86,15 +89,18 @@ char			**free_split(char **split);
 t_vec			split_vec(char *str, t_mini_rt *rt, int orient);
 t_color			split_rgb(char *str, t_mini_rt *rt);
 void			check_extension(t_mini_rt *rt, char *rt_file);
+void			check_orient(t_vec *orient);
 void			check_id(t_mini_rt *rt);
 
 /*
 ** Events
 */
+int				key_hook(int key, t_mini_rt *rt);
 int				get_keypress(int key, t_mini_rt *rt);
 int				handle_error(char *str, t_mini_rt *rt);
 int				exit_and_free(t_mini_rt *rt);
 void			free_element(void *elem);
+void			redraw_window(t_mini_rt *rt);
 
 /*
 ** Raytracing functions
@@ -114,7 +120,9 @@ void			triangle(t_mini_rt *rt, t_element *triangle, t_vec ori,
 					t_vec dir);
 void			square(t_mini_rt *rt, t_element *plane, t_vec ori, t_vec dir);
 void			create_circle(t_mini_rt *rt, t_element *cylinder, double t);
-
+void			select_objs(t_mini_rt *rt);
+int				ft_obj_count(t_list *lst);
+void			unselect_obj(t_mini_rt *rt);
 /*
 ** Camera
 */

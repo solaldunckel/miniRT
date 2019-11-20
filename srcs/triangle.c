@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:57:29 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/16 14:41:53 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/20 13:40:56 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ void	triangle(t_mini_rt *rt, t_element *triangle, t_vec ori, t_vec dir)
 	t_vec	tvec;
 	t_vec	qvec;
 	t_vec	pvec;
-	t_vec	lvec;
 	double	inv_det;
 
 	v1 = vec_sub(triangle->point2, triangle->point);
 	v2 = vec_sub(triangle->point3, triangle->point);
 	pvec = vec_cross(dir, v2);
 	s.det = VEC_ADD(vec_cross(v1, pvec));
+	if (fabs(s.det) < 0.000001)
+		return;
 	inv_det = 1 / s.det;
 	tvec = vec_sub(ori, triangle->point);
 	s.a = VEC_ADD(vec_mul(vec_dot(tvec, pvec), inv_det));
@@ -41,6 +42,5 @@ void	triangle(t_mini_rt *rt, t_element *triangle, t_vec ori, t_vec dir)
 	s.b = VEC_ADD(vec_mul(vec_dot(dir, qvec), inv_det));
 	if (s.b < 0 || s.a + s.b > 1)
 		return;
-	lvec = vec_dot(v2, qvec);
-	rt->t = VEC_ADD(vec_mul(lvec, inv_det));
+	rt->t = VEC_ADD(vec_dot(v2, qvec)) * inv_det;
 }

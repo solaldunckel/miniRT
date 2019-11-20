@@ -6,26 +6,87 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:36:45 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/19 19:17:00 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/20 16:04:01 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-void	redraw_window(t_mini_rt *rt)
+int		key_hook5(int key, t_mini_rt *rt)
 {
-	int		i;
-
-	i = 0;
-	while (i < rt->cam->img.size_line * rt->res.y)
+	if (key == KEY_DOWN && rt->move_obj && rt->move_obj->id == TRIANGLE)
 	{
-		rt->cam->img.add[i] = 0;
-		i++;
+		rt->move_obj->point.y--;
+		rt->move_obj->point2.y--;
+		rt->move_obj->point3.y--;
 	}
-	setup_rt(rt);
-	raytracing(rt);
-	mlx_clear_window(rt->mlx_ptr, rt->win_ptr);
-	mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->cam->img.ptr, 0, 0);
+	else if (key == KEY_LEFT && rt->move_obj && rt->move_obj->id == TRIANGLE)
+	{
+		rt->move_obj->point.x--;
+		rt->move_obj->point2.x--;
+		rt->move_obj->point3.x--;
+	}
+	else if (key == KEY_RIGHT && rt->move_obj && rt->move_obj->id == TRIANGLE)
+	{
+		rt->move_obj->point.x++;
+		rt->move_obj->point2.x++;
+		rt->move_obj->point3.x++;
+	}
+	else
+		return (0);
+	return (1);
+}
+
+int		key_hook4(int key, t_mini_rt *rt)
+{
+	if (key == KEY_N && rt->move_obj && rt->move_obj->id == TRIANGLE)
+	{
+		rt->move_obj->point.z--;
+		rt->move_obj->point2.z--;
+		rt->move_obj->point3.z--;
+	}
+	else if (key == KEY_M && rt->move_obj && rt->move_obj->id == TRIANGLE)
+	{
+		rt->move_obj->point.z++;
+		rt->move_obj->point2.z++;
+		rt->move_obj->point3.z++;
+	}
+	else if (key == KEY_UP && rt->move_obj && rt->move_obj->id == TRIANGLE)
+	{
+		rt->move_obj->point.y++;
+		rt->move_obj->point2.y++;
+		rt->move_obj->point3.y++;
+	}
+	else if (key_hook5(key, rt))
+		return (1);
+	else
+		return (0);
+	return (1);
+}
+
+int		key_hook3(int key, t_mini_rt *rt)
+{
+	if (key == KEY_I && rt->move_obj)
+		rt->move_obj->orient.y += 0.1;
+	else if (key == KEY_K && rt->move_obj)
+		rt->move_obj->orient.y -= 0.1;
+	else if (key == KEY_J && rt->move_obj)
+		rt->move_obj->orient.x -= 0.1;
+	else if (key == KEY_L && rt->move_obj)
+		rt->move_obj->orient.x += 0.1;
+	else if (key == KEY_U && rt->move_obj)
+		rt->move_obj->orient.z -= 0.1;
+	else if (key == KEY_O && rt->move_obj)
+		rt->move_obj->orient.z += 0.1;
+	else if (key == KEY_N && rt->move_obj && rt->move_obj->id != TRIANGLE)
+		rt->move_obj->point.z--;
+	else if (key == KEY_M && rt->move_obj && rt->move_obj->id != TRIANGLE)
+		rt->move_obj->point.z++;
+	else
+		return (0);
+	if (rt->move_obj)
+		check_orient(&rt->move_obj->orient);
+	return (1);
 }
 
 int		key_hook2(int key, t_mini_rt *rt)
@@ -36,25 +97,25 @@ int		key_hook2(int key, t_mini_rt *rt)
 		rt->cam->orient.z -= 0.1;
 	else if (key == KEY_Y)
 		rt->cam->orient.z += 0.1;
+	else if (key == KEY_ENTER)
+		select_objs(rt);
+	else if (key == KEY_PIPE)
+		unselect_obj(rt);
+	else if (key == KEY_UP && rt->move_obj && rt->move_obj->id != TRIANGLE)
+		rt->move_obj->point.y++;
+	else if (key == KEY_DOWN && rt->move_obj && rt->move_obj->id != TRIANGLE)
+		rt->move_obj->point.y--;
+	else if (key == KEY_LEFT && rt->move_obj && rt->move_obj->id != TRIANGLE)
+		rt->move_obj->point.x--;
+	else if (key == KEY_RIGHT && rt->move_obj && rt->move_obj->id != TRIANGLE)
+		rt->move_obj->point.x++;
+	else if (key_hook3(key, rt))
+		return (1);
+	else if (key_hook4(key, rt))
+		return (1);
 	else
 		return (0);
 	return (1);
-}
-
-void	check_orient(t_vec *orient)
-{
-	if (orient->x > 1)
-		orient->x = 1;
-	if (orient->x < -1)
-		orient->x = -1;
-	if (orient->y > 1)
-		orient->y = 1;
-	if (orient->y < -1)
-		orient->y = -1;
-	if (orient->z > 1)
-		orient->z = 1;
-	if (orient->z < -1)
-		orient->z = -1;
 }
 
 int		key_hook(int key, t_mini_rt *rt)
@@ -83,16 +144,5 @@ int		key_hook(int key, t_mini_rt *rt)
 		return (0);
 	check_orient(&rt->cam->orient);
 	redraw_window(rt);
-	return (1);
-}
-
-int		get_keypress(int key, t_mini_rt *rt)
-{
-	printf("%d\n", key);
-	if (key == KEY_TAB)
-		change_cam(rt);
-	else if (key == KEY_ESC)
-		exit_and_free(rt);
-	key_hook(key, rt);
 	return (1);
 }
