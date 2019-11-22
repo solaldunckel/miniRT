@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 22:14:46 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/02 15:34:27 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:53:26 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int		handle_line(char *s[], int fd)
 		free(tmp);
 	}
 	else if (ft_strlen(s[fd]) > 0)
-		s[fd] = NULL;
+		ft_strdel(&s[fd]);
 	else
 	{
 		ft_strdel(&s[fd]);

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/22 17:16:46 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 17:35:37 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ static	t_color	rotate_color(t_mini_rt *rt, t_vec p, t_vec n, t_color color)
 			continue;
 		}
 		dot > 0 ? rt->intensity += light->ratio * dot / vec_len(l) : 0;
-		if (dot < 0)
-			color = color_average(color, light->color);
+		dot < 0 ? color = color_average(color, light->color) : 0;
 		free(light);
 		tmp = tmp->next;
 	}
