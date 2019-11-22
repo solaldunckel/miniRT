@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/11/22 15:20:07 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/11/22 18:29:42 by haguerni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS_LIST		= \
 					sphere.c \
 					plane.c \
 					cylinder.c \
+					cone.c \
 					square.c \
 					triangle.c \
 					camera.c \

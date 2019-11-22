@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/22 17:35:37 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 18:28:44 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static	t_color	rotate_color(t_mini_rt *rt, t_vec p, t_vec n, t_color color)
 			continue;
 		}
 		dot > 0 ? rt->intensity += light->ratio * dot / vec_len(l) : 0;
-		dot < 0 ? color = color_average(color, light->color) : 0;
+		dot < 0 ? color = color_average(color, light->color) : color;
 		free(light);
 		tmp = tmp->next;
 	}
@@ -88,6 +88,9 @@ t_color			apply_lights(t_mini_rt *rt)
 	p = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->k));
 	if (rt->obj->id == PLANE || rt->obj->id == CIRCLE || rt->obj->id == SQUARE)
 		n = rt->obj->orient;
+	else if (rt->obj->id == CONE)
+		n = vec_normalize(vec_sub(p, vec_add(rt->obj->point,
+		vec_mul(rt->obj->orient, vec_len(vec_sub(p, rt->obj->point)) * -1))));
 	else
 		n = vec_normalize(vec_sub(p, rt->obj->point));
 	color = rotate_color(rt, p, n, color);

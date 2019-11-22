@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:37:27 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/17 17:25:00 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 18:56:41 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void			create_circle(t_mini_rt *rt, t_element *cylinder, float t)
 	circle->id = 6;
 	circle->point = vec_add(cylinder->point, vec_mul(cylinder->orient, t));
 	circle->orient = cylinder->orient;
-	circle->diameter = cylinder->diameter;
+	cylinder->id == 5 ? circle->diameter = cylinder->diameter : 0;
+	cylinder->id == 7 ? circle->diameter = cylinder->diameter * 1.42 : 0;
 	circle->color = cylinder->color;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(circle));
 }

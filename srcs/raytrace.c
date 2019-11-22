@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/22 15:47:02 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 17:57:32 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	find_objs(t_mini_rt *rt, t_element *obj, t_vec ori, t_vec dir)
 		triangle(rt, obj, ori, dir);
 	else if (obj->id == SQUARE)
 		square(rt, obj, ori, dir);
+	else if (obj->id == CONE)
+		cone(rt, obj, ori, dir);
 }
 
 t_color	ray_intersect(t_mini_rt *rt)

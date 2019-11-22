@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/19 18:23:57 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 17:59:59 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void		check_id(t_mini_rt *rt)
 		parse_square(rt);
 	else if (ft_strequ(rt->split[0], "cy"))
 		parse_cylindre(rt);
+	else if (ft_strequ(rt->split[0], "co"))
+		parse_cone(rt);
 	else if (ft_strequ(rt->split[0], "tr"))
 		parse_triangle(rt);
 	else if (ft_strequ(rt->split[0], "AA"))

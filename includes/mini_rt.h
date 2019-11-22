@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/22 16:38:04 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 19:01:23 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define CYLINDER 4
 # define TRIANGLE 5
 # define CIRCLE 6
+# define CONE 7
 
 # define THREAD_COUNT 16
 
@@ -92,6 +93,7 @@ int				parse_sphere(t_mini_rt *rt);
 int				parse_plane(t_mini_rt *rt);
 int				parse_square(t_mini_rt *rt);
 int				parse_cylindre(t_mini_rt *rt);
+int				parse_cone(t_mini_rt *rt);
 int				parse_triangle(t_mini_rt *rt);
 int				parse_antialiasing(t_mini_rt *rt);
 int				check_split(char **split);
@@ -112,7 +114,6 @@ int				exit_and_free(t_mini_rt *rt);
 void			free_element(void *elem);
 void			redraw_window(t_mini_rt *rt);
 t_element		*element_cpy(t_element *elem);
-
 /*
 ** Raytracing functions
 */
@@ -125,6 +126,7 @@ void			multi_thread(t_mini_rt *rt);
 void			sphere(t_mini_rt *rt, t_element *sphere, t_vec ori, t_vec dir);
 void			cylinder(t_mini_rt *rt, t_element *cylinder, t_vec ori,
 					t_vec dir);
+void			cone(t_mini_rt *rt, t_element *cone, t_vec ori, t_vec dir);
 void			plane(t_mini_rt *rt, t_element *plane, t_vec ori, t_vec dir);
 void			circle(t_mini_rt *rt, t_element *circle, t_vec ori, t_vec dir);
 void			triangle(t_mini_rt *rt, t_element *triangle, t_vec ori,
