@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/20 13:03:45 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:33:53 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	setup_rt(t_mini_rt *rt)
 {
 	rt->cam->fov = 70;
 	rt->ray.ori = VEC_CREATE(rt->cam->pov.x, rt->cam->pov.y, rt->cam->pov.z);
-	rt->aspect = (double)rt->res.x / (double)rt->res.y;
+	rt->aspect = (float)rt->res.x / (float)rt->res.y;
 	if (rt->cam->orient.x != 0 || rt->cam->orient.z != 0)
 		rt->cam->up = vec_normalize(vec_add(VEC_CREATE(0, -0.7, 0),
 		rt->cam->orient));

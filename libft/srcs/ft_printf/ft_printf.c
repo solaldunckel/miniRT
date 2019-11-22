@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:10:11 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/02 15:54:34 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/10/24 15:11:02 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,24 @@ void	ft_add_to_buff(t_printf *tab, char *str, int len)
 			ft_dump_buffer(tab);
 		i++;
 	}
+}
+
+void	ft_print_normal(t_printf *tab, char *str)
+{
+	int		len;
+
+	len = 0;
+	while (str[tab->i] && str[tab->i] != '%')
+	{
+		tab->buf[tab->buf_count] = str[tab->i];
+		tab->buf_count++;
+		len++;
+		if (tab->buf_count == BUFFER_SIZE)
+			ft_dump_buffer(tab);
+		tab->i++;
+	}
+	tab->ret += len;
+	tab->i--;
 }
 
 void	ft_init_struct(t_printf *tab)
@@ -75,11 +93,7 @@ int		ft_printf(const char *str, ...)
 				ft_parse((char*)str, ap, &tab);
 		}
 		else
-		{
-			tab.len = ft_strlen_c((char*)&str[tab.i], '%');
-			ft_add_to_buff(&tab, (char*)&str[tab.i], tab.len);
-			tab.i += tab.len - 1;
-		}
+			ft_print_normal(&tab, (char*)str);
 		tab.i++;
 	}
 	va_end(ap);

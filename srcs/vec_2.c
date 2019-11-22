@@ -45,7 +45,7 @@ t_vec	vec_abs(t_vec v1)
 t_vec	vec_normalize(t_vec v)
 {
 	t_vec	norm;
-	double	len;
+	float	len;
 
 	len = sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
 	norm.x = v.x / len;
@@ -54,9 +54,9 @@ t_vec	vec_normalize(t_vec v)
 	return (norm);
 }
 
-double	vec_len(t_vec v)
+float	vec_len(t_vec v)
 {
-	double	len;
+	float	len;
 
 	len = sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
 	return (len);

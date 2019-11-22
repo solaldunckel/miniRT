@@ -12,7 +12,7 @@
 
 #include "mini_rt.h"
 
-void			create_circle(t_mini_rt *rt, t_element *cylinder, double t)
+void			create_circle(t_mini_rt *rt, t_element *cylinder, float t)
 {
 	t_element		*circle;
 
@@ -31,7 +31,7 @@ t_mini_rt rtt)
 {
 	t_element	plan;
 	t_vec		inter;
-	double		t;
+	float		t;
 
 	s.t1 = (-s.b - sqrt(s.det)) / (2 * s.a);
 	s.t2 = (-s.b + sqrt(s.det)) / (2 * s.a);

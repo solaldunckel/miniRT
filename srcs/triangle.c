@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:57:29 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/20 13:40:56 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:44:01 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	triangle(t_mini_rt *rt, t_element *triangle, t_vec ori, t_vec dir)
 	t_vec	tvec;
 	t_vec	qvec;
 	t_vec	pvec;
-	double	inv_det;
+	float	inv_det;
 
 	v1 = vec_sub(triangle->point2, triangle->point);
 	v2 = vec_sub(triangle->point3, triangle->point);
@@ -42,5 +42,6 @@ void	triangle(t_mini_rt *rt, t_element *triangle, t_vec ori, t_vec dir)
 	s.b = VEC_ADD(vec_mul(vec_dot(dir, qvec), inv_det));
 	if (s.b < 0 || s.a + s.b > 1)
 		return;
-	rt->t = VEC_ADD(vec_dot(v2, qvec)) * inv_det;
+	s.b = VEC_ADD(vec_dot(v2, qvec)) * inv_det;
+	s.b < rt->t ? rt->t = s.b : 0;
 }

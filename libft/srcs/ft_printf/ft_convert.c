@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 10:34:24 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/10/29 22:39:24 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 11:33:07 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_convert_str(va_list ap, t_printf *tab)
 	char	*str;
 	char	*sp;
 
+	if (tab->precision && tab->precision_width < 0)
+		tab->precision_width = -tab->precision_width;
 	if (!(str = va_arg(ap, char *)))
 		str = ft_strdup_l("(null)", tab);
 	else
@@ -64,6 +66,7 @@ void	ft_convert_x(va_list ap, t_printf *tab)
 	char	*sp;
 
 	str = NULL;
+	tab->is_int = 1;
 	ft_size_u(ap, tab);
 	tab->converter == 'x' ? str = ft_itoa_base(tab->u, "0123456789abcdef") : 0;
 	tab->converter == 'X' ? str = ft_itoa_base(tab->u, "0123456789ABCDEF") : 0;
@@ -81,8 +84,7 @@ void	ft_convert_x(va_list ap, t_printf *tab)
 		free(str);
 		str = ft_strdup(" ");
 	}
-	if (tab->sharp && tab->u)
-		tab->len += 2;
+	tab->sharp && tab->u ? tab->len += 2 : 0;
 	sp = ft_print_sp(tab);
 	ft_join_all(str, sp, tab);
 }

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 15:43:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/10/24 22:51:14 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 11:32:47 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	ft_convert_uint(va_list ap, t_printf *tab)
 	char	*str;
 	char	*sp;
 
+	tab->is_int = 1;
 	ft_size_u(ap, tab);
 	str = ft_uitoa(tab->u);
 	tab->len = ft_strlen(str);

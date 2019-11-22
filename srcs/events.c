@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:42:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/20 15:50:40 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:44:26 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	free_camera(t_mini_rt *rt)
 	while (tmp)
 	{
 		cam = tmp->content;
-		mlx_destroy_image(rt->mlx_ptr, cam->img.ptr);
+		if (cam->img.ptr)
+			mlx_destroy_image(rt->mlx_ptr, cam->img.ptr);
 		tmp = tmp->next;
 	}
 }
@@ -70,7 +71,6 @@ int		exit_and_free(t_mini_rt *rt)
 
 int		get_keypress(int key, t_mini_rt *rt)
 {
-	printf("%d\n", key);
 	if (key == KEY_TAB)
 		change_cam(rt);
 	else if (key == KEY_ESC)

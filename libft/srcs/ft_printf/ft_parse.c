@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 13:00:09 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/02 12:33:22 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 11:41:18 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ void	ft_parse(char *str, va_list ap, t_printf *tab)
 		tab->zero = 0;
 		tab->width = -tab->width;
 	}
-	tab->precision && tab->precision_width > 0 ? tab->zero = 0 : 0;
+	if (tab->precision_width < 0)
+		tab->precision = 0;
+	tab->precision && tab->precision_width >= 0 ? tab->zero = 0 : 0;
 	tab->converter = str[tab->i];
 	str[tab->i] == 'c' ? ft_convert_c(ap, tab) : 0;
 	str[tab->i] == 's' ? ft_convert_str(ap, tab) : 0;

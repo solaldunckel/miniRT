@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/20 15:51:35 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 16:38:04 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <string.h>
 # include <math.h>
 # include <stdio.h>
+# include <pthread.h>
 
 # define SPHERE 1
 # define PLANE 2
@@ -30,6 +31,8 @@
 # define CYLINDER 4
 # define TRIANGLE 5
 # define CIRCLE 6
+
+# define THREAD_COUNT 16
 
 # define BMP_FILE_NAME "img.bmp"
 # define BMP_FILE_HEADER_SIZE 14
@@ -47,15 +50,16 @@ typedef struct	s_mini_rt
 	char				*line;
 	char				**split;
 	struct s_color		color;
-	double				intensity;
-	double				t;
-	double				k;
-	double				aspect;
+	float				intensity;
+	float				t;
+	float				k;
+	float				aspect;
 	int					cur_cam;
 	int					cam_count;
 	int					cur_obj;
 	int					obj_count;
-	double				anti_aliasing;
+	int					cur_thr;
+	float				anti_aliasing;
 	int					sepia;
 	struct s_color		tmp_color;
 	struct s_image		img;
@@ -69,6 +73,12 @@ typedef struct	s_mini_rt
 	struct s_list		*cam_list;
 	struct s_list		*light_list;
 }				t_mini_rt;
+
+typedef struct	s_thread
+{
+	int			cur_thr;
+	t_mini_rt	scene;
+}				t_thread;
 
 /*
 ** Parsing
@@ -101,13 +111,14 @@ int				handle_error(char *str, t_mini_rt *rt);
 int				exit_and_free(t_mini_rt *rt);
 void			free_element(void *elem);
 void			redraw_window(t_mini_rt *rt);
+t_element		*element_cpy(t_element *elem);
 
 /*
 ** Raytracing functions
 */
-void			raytracing(t_mini_rt *rt);
+void			raytracing(t_thread *th);
 void			find_objs(t_mini_rt *rt, t_element *obj, t_vec ori, t_vec dir);
-
+void			multi_thread(t_mini_rt *rt);
 /*
 ** Objects
 */
@@ -119,7 +130,7 @@ void			circle(t_mini_rt *rt, t_element *circle, t_vec ori, t_vec dir);
 void			triangle(t_mini_rt *rt, t_element *triangle, t_vec ori,
 					t_vec dir);
 void			square(t_mini_rt *rt, t_element *plane, t_vec ori, t_vec dir);
-void			create_circle(t_mini_rt *rt, t_element *cylinder, double t);
+void			create_circle(t_mini_rt *rt, t_element *cylinder, float t);
 void			select_objs(t_mini_rt *rt);
 int				ft_obj_count(t_list *lst);
 void			unselect_obj(t_mini_rt *rt);
@@ -147,12 +158,12 @@ void			apply_sepia(t_mini_rt *rt);
 */
 t_vec			vec_add(t_vec v1, t_vec v2);
 t_vec			vec_sub(t_vec v1, t_vec v2);
-t_vec			vec_mul(t_vec v1, double m);
-t_vec			vec_div(t_vec v1, double d);
+t_vec			vec_mul(t_vec v1, float m);
+t_vec			vec_div(t_vec v1, float d);
 t_vec			vec_dot(t_vec v1, t_vec v2);
 t_vec			vec_cross(t_vec v1, t_vec v2);
 t_vec			vec_normalize(t_vec p);
-double			vec_len(t_vec v);
+float			vec_len(t_vec v);
 t_vec			vec_abs(t_vec v1);
 t_vec			vec_reverse(t_vec v1);
 

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:56:12 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/20 13:05:06 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:18:10 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	redraw_window(t_mini_rt *rt)
 		i++;
 	}
 	setup_rt(rt);
-	raytracing(rt);
+	multi_thread(rt);
 	mlx_clear_window(rt->mlx_ptr, rt->win_ptr);
 	mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->cam->img.ptr, 0, 0);
 }

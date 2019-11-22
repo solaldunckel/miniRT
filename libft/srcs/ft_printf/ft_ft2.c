@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:51:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/06 15:22:49 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/10/24 22:43:40 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*itoa_printf(intmax_t n)
 	}
 	return (str);
 }
+
 
 int		ft_atoi_printf(char *str, int *i)
 {

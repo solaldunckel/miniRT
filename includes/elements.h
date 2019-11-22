@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/16 01:43:41 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:34:37 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 typedef struct	s_vec
 {
-	double		x;
-	double		y;
-	double		z;
+	float		x;
+	float		y;
+	float		z;
 }				t_vec;
 
 typedef struct	s_color
@@ -41,17 +41,17 @@ typedef struct	s_ray
 
 typedef struct	s_solve
 {
-	double		a;
-	double		b;
-	double		c;
-	double		det;
-	double		t1;
-	double		t2;
+	float		a;
+	float		b;
+	float		c;
+	float		det;
+	float		t1;
+	float		t2;
 }				t_solve;
 
 typedef struct	s_ambient
 {
-	double			ratio;
+	float			ratio;
 	struct s_color	color;
 }				t_ambient;
 
@@ -68,7 +68,7 @@ typedef struct	s_camera
 {
 	struct s_vec	pov;
 	struct s_vec	orient;
-	double			fov;
+	float			fov;
 	struct s_image	img;
 	struct s_vec	up;
 	struct s_vec	right;
@@ -80,9 +80,9 @@ typedef struct	s_element
 	struct s_vec	point;
 	struct s_color	color;
 	struct s_vec	orient;
-	double			ratio;
-	double			diameter;
-	double			height;
+	float			ratio;
+	float			diameter;
+	float			height;
 	struct s_vec	point2;
 	struct s_vec	point3;
 	struct s_vec	dir;

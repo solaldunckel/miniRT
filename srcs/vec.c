@@ -32,7 +32,7 @@ t_vec	vec_sub(t_vec v1, t_vec v2)
 	return (v);
 }
 
-t_vec	vec_mul(t_vec v1, double m)
+t_vec	vec_mul(t_vec v1, float m)
 {
 	t_vec	v;
 
@@ -42,7 +42,7 @@ t_vec	vec_mul(t_vec v1, double m)
 	return (v);
 }
 
-t_vec	vec_div(t_vec v1, double d)
+t_vec	vec_div(t_vec v1, float d)
 {
 	t_vec	v;
 

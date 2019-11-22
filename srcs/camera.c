@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:47 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/19 17:50:07 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:19:25 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	create_all_cam(t_mini_rt *rt)
 			&rt->cam->img.bpp, &rt->cam->img.size_line, &rt->cam->img.endian)))
 			handle_error("fail to get Minilibx image data", rt);
 		setup_rt(rt);
-		raytracing(rt);
+		multi_thread(rt);
 		if (count++ && rt->save)
 			return ;
 		count > 2 ? ft_printf("" BOLDGREEN "-> %d/%d cameras rendered ! <-\n"

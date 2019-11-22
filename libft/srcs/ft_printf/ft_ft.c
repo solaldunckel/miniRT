@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 15:45:21 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/10/24 13:37:20 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 11:42:46 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_add_prefix(t_printf *tab)
 
 void	ft_join_all(char *str, char *sp, t_printf *tab)
 {
-	(tab->is_int == 1 && tab->zero) ? ft_add_sign(tab) : 0;
+	(tab->is_int && tab->zero) ? ft_add_sign(tab) : 0;
 	if (tab->zero && tab->converter == 'p')
 	{
 		ft_add_to_buff(tab, "0x", 2);
@@ -64,7 +64,7 @@ void	ft_join_all(char *str, char *sp, t_printf *tab)
 	}
 	if (tab->sharp && tab->u && !tab->zero && tab->precision_width < tab->len)
 		ft_add_prefix(tab);
-	if (tab->is_int == 1 && !tab->zero)
+	if (tab->is_int && !tab->zero)
 		ft_add_sign(tab);
 	ft_add_to_buff(tab, str, tab->len);
 	if (sp && tab->minus)

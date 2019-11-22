@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/19 17:48:21 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:47:02 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,15 @@ t_color	ray_intersect(t_mini_rt *rt)
 	return (color);
 }
 
-t_vec	calc_ray(t_mini_rt *rt, double x, double y)
+t_vec	calc_ray(t_mini_rt *rt, float x, float y)
 {
 	t_vec	image_point;
 	t_vec	dir;
-	double	norm_x;
-	double	norm_y;
+	float	norm_x;
+	float	norm_y;
 
-	norm_x = ((x / (double)rt->res.x) - 0.5);
-	norm_y = ((y / (double)rt->res.y) - 0.5);
+	norm_x = ((x / (float)rt->res.x) - 0.5);
+	norm_y = ((y / (float)rt->res.y) - 0.5);
 	rt->res.x < rt->res.y ? norm_x *= rt->aspect : 0;
 	rt->res.x > rt->res.y ? norm_y /= rt->aspect : 0;
 	image_point = vec_add(vec_add(vec_mul(rt->cam->right, norm_x),
@@ -72,12 +72,12 @@ t_vec	calc_ray(t_mini_rt *rt, double x, double y)
 	return (dir);
 }
 
-t_color	anti_aliasing(t_mini_rt *rt, double i, double j)
+t_color	anti_aliasing(t_mini_rt *rt, float i, float j)
 {
 	t_color color;
 	int		aa;
-	double	aax;
-	double	aay;
+	float	aax;
+	float	aay;
 
 	aa = 0;
 	aay = -(rt->anti_aliasing - 1) / rt->anti_aliasing;
@@ -95,32 +95,35 @@ t_color	anti_aliasing(t_mini_rt *rt, double i, double j)
 			aax += 1 / (rt->anti_aliasing - 1);
 			aa++;
 		}
-		aay += 1 / ((double)rt->anti_aliasing - 1);
+		aay += 1 / ((float)rt->anti_aliasing - 1);
 	}
 	color = color_div(color, aa);
 	return (color);
 }
 
-void	raytracing(t_mini_rt *rt)
+void	raytracing(t_thread *th)
 {
-	double	i;
-	double	j;
+	float	i;
+	float	j;
 
-	j = -1;
-	while (++j < rt->res.y)
+	j = 0;
+	while (j < th->scene.res.y)
 	{
-		i = -1;
-		while (++i < rt->res.x)
+		i = th->cur_thr;
+		while (i < th->scene.res.x)
 		{
-			if (rt->anti_aliasing > 1)
-				rt->color = anti_aliasing(rt, i, j);
+			if (th->scene.anti_aliasing > 1)
+				th->scene.color = anti_aliasing(&th->scene, i, j);
 			else
 			{
-				rt->ray.dir = calc_ray(rt, i, j);
-				rt->color = ray_intersect(rt);
+				th->scene.ray.dir = calc_ray(&th->scene, i, j);
+				th->scene.color = ray_intersect(&th->scene);
 			}
-			rt->sepia ? apply_sepia(rt) : 0;
-			rt->obj ? color_put(rt, i, j) : 0;
+			th->scene.sepia ? apply_sepia(&th->scene) : 0;
+			th->scene.obj ? color_put(&th->scene, i, j) : 0;
+			i += THREAD_COUNT;
 		}
+		j++;
 	}
+	pthread_exit(NULL);
 }

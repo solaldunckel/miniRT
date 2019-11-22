@@ -15,7 +15,7 @@
 void	plane(t_mini_rt *rt, t_element *plane, t_vec ori, t_vec dir)
 {
 	t_solve	s;
-	double	t;
+	float	t;
 
 	s.a = VEC_ADD(vec_dot(vec_sub(ori, plane->point), plane->orient));
 	s.b = VEC_ADD(vec_dot(dir, plane->orient));

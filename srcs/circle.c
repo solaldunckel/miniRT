@@ -14,10 +14,10 @@
 
 void	circle(t_mini_rt *rt, t_element *circle, t_vec ori, t_vec dir)
 {
-	double	a;
-	double	b;
-	double	t;
-	double	f;
+	float	a;
+	float	b;
+	float	t;
+	float	f;
 	t_vec	inter;
 
 	a = VEC_ADD(vec_dot(vec_sub(ori, circle->point), circle->orient));

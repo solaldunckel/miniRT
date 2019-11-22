@@ -14,9 +14,9 @@
 
 void		apply_sepia(t_mini_rt *rt)
 {
-	double		red;
-	double		green;
-	double		blue;
+	float		red;
+	float		green;
+	float		blue;
 
 	red = 0.393 * rt->color.r + 0.769 * rt->color.g + 0.189 * rt->color.b;
 	green = 0.349 * rt->color.r + 0.686 * rt->color.g + 0.168 * rt->color.b;
