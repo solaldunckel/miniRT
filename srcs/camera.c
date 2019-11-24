@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:47 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/22 15:19:25 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:31:41 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ void	create_all_cam(t_mini_rt *rt)
 		multi_thread(rt);
 		if (count++ && rt->save)
 			return ;
-		count > 2 ? ft_printf("" BOLDGREEN "-> %d/%d cameras rendered ! <-\n"
-			RESET, count - 1, rt->cam_count) : 0;
-		rt->cam_count > 1 && count == 2 ? ft_printf("" BOLDGREEN "-> %d/%d"
+		rt->cam_count > 1 ? ft_printf("" BOLDGREEN "-> %d/%d"
 			" camera rendered ! <-\n" RESET, count - 1, rt->cam_count) : 0;
 		tmp = tmp->next;
 	}

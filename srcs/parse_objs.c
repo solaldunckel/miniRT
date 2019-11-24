@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/19 11:15:17 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/24 04:49:48 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,19 @@ int		parse_sphere(t_mini_rt *rt)
 		handle_error("fail to malloc", rt);
 	if (check_split(rt->split) != 4)
 	{
-		free(sphere);
-		handle_error("sphere parsing error", rt);
+		if (!ft_str_end(rt->split[3], ".xpm"))
+		{
+			free(sphere);
+			handle_error("sphere parsing error", rt);
+		}
 	}
 	sphere->id = 1;
 	sphere->point = split_vec(rt->split[1], rt, 0);
 	sphere->diameter = ft_atof(rt->split[2]);
-	sphere->color = split_rgb(rt->split[3], rt);
+	if (ft_str_end(rt->split[3], ".xpm"))
+		create_texture(rt, sphere, rt->split[3]);
+	else
+		sphere->color = split_rgb(rt->split[3], rt);
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(sphere));
 	if (sphere->diameter < 0)
 		handle_error("sphere parsing error", rt);
@@ -115,9 +121,8 @@ int		parse_triangle(t_mini_rt *rt)
 	triangle->point2 = split_vec(rt->split[2], rt, 0);
 	triangle->point3 = split_vec(rt->split[3], rt, 0);
 	triangle->color = split_rgb(rt->split[4], rt);
-	triangle->orient = vec_normalize(vec_cross(
-		vec_sub(triangle->point2, triangle->point),
-		vec_sub(triangle->point3, triangle->point)));
+	triangle->orient = vec_normalize(vec_cross(vec_sub(triangle->point2,
+		triangle->point), vec_sub(triangle->point3, triangle->point)));
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(triangle));
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 23:24:13 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/19 17:45:41 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/23 13:51:41 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_element *light)
 	t_element	*obj;
 
 	tmp = rt->objs_list;
-	rt->t = INT_MAX;
+	(void)light;
+	 rt->t = INT_MAX;
 	plane(rt, light, ori, dir);
 	rt->k = rt->t;
 	while (tmp)

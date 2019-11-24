@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/22 19:01:23 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/24 12:58:54 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 # define CIRCLE 6
 # define CONE 7
 
+# define DIFFUSE 10
+# define DIRECTIONAL 11
+
 # define THREAD_COUNT 16
 
 # define BMP_FILE_NAME "img.bmp"
@@ -40,7 +43,6 @@
 # define BMP_INFO_HEADER_SIZE 40
 # define BMP_HEADER_SIZE BMP_FILE_HEADER_SIZE + BMP_INFO_HEADER_SIZE
 
-# define VEC_ADD(v) (v.x + v.y + v.z)
 # define VEC_CREATE(x,y,z) ((t_vec){x,y,z})
 
 typedef struct	s_mini_rt
@@ -51,6 +53,7 @@ typedef struct	s_mini_rt
 	char				*line;
 	char				**split;
 	struct s_color		color;
+	struct s_color		color2;
 	float				intensity;
 	float				t;
 	float				k;
@@ -96,11 +99,11 @@ int				parse_cylindre(t_mini_rt *rt);
 int				parse_cone(t_mini_rt *rt);
 int				parse_triangle(t_mini_rt *rt);
 int				parse_antialiasing(t_mini_rt *rt);
+int				parse_dir_light(t_mini_rt *rt);
 int				check_split(char **split);
 char			**free_split(char **split);
 t_vec			split_vec(char *str, t_mini_rt *rt, int orient);
 t_color			split_rgb(char *str, t_mini_rt *rt);
-void			check_extension(t_mini_rt *rt, char *rt_file);
 void			check_orient(t_vec *orient);
 void			check_id(t_mini_rt *rt);
 
@@ -109,17 +112,19 @@ void			check_id(t_mini_rt *rt);
 */
 int				key_hook(int key, t_mini_rt *rt);
 int				get_keypress(int key, t_mini_rt *rt);
-int				handle_error(char *str, t_mini_rt *rt);
+void			handle_error(char *str, t_mini_rt *rt);
 int				exit_and_free(t_mini_rt *rt);
 void			free_element(void *elem);
 void			redraw_window(t_mini_rt *rt);
 t_element		*element_cpy(t_element *elem);
+
 /*
 ** Raytracing functions
 */
 void			raytracing(t_thread *th);
 void			find_objs(t_mini_rt *rt, t_element *obj, t_vec ori, t_vec dir);
 void			multi_thread(t_mini_rt *rt);
+
 /*
 ** Objects
 */
@@ -134,8 +139,10 @@ void			triangle(t_mini_rt *rt, t_element *triangle, t_vec ori,
 void			square(t_mini_rt *rt, t_element *plane, t_vec ori, t_vec dir);
 void			create_circle(t_mini_rt *rt, t_element *cylinder, float t);
 void			select_objs(t_mini_rt *rt);
-int				ft_obj_count(t_list *lst);
+int				objs_count(t_list *lst);
 void			unselect_obj(t_mini_rt *rt);
+void			create_texture(t_mini_rt *rt, t_element *elem, char *file_path);
+
 /*
 ** Camera
 */
@@ -152,8 +159,11 @@ t_color			color_add(t_color color1, t_color color2);
 t_color			color_div(t_color color, int average);
 t_color			apply_lights(t_mini_rt *rt);
 int				apply_shadows(t_mini_rt *rt, t_vec ori, t_vec dir,
-t_element *light);
+					t_element *light);
 void			apply_sepia(t_mini_rt *rt);
+t_color			get_color(t_mini_rt *rt);
+void			get_tex_coord(t_mini_rt *rt, t_element *sphere, int *column,
+					int *row);
 
 /*
 ** Vectors
@@ -162,7 +172,7 @@ t_vec			vec_add(t_vec v1, t_vec v2);
 t_vec			vec_sub(t_vec v1, t_vec v2);
 t_vec			vec_mul(t_vec v1, float m);
 t_vec			vec_div(t_vec v1, float d);
-t_vec			vec_dot(t_vec v1, t_vec v2);
+float			vec_dot(t_vec v1, t_vec v2);
 t_vec			vec_cross(t_vec v1, t_vec v2);
 t_vec			vec_normalize(t_vec p);
 float			vec_len(t_vec v);

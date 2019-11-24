@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 17:10:22 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 15:51:32 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:58:55 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	sphere(t_mini_rt *rt, t_element *sphere, t_vec ori, t_vec dir)
 {
 	t_solve	s;
 
-	s.a = VEC_ADD(vec_dot(dir, dir));
-	s.b = 2 * VEC_ADD(vec_dot(dir, vec_sub(ori, sphere->point)));
-	s.c = VEC_ADD(vec_dot(vec_sub(ori, sphere->point),
-		vec_sub(ori, sphere->point))) - pow(sphere->diameter / 2, 2);
+	s.a = vec_dot(dir, dir);
+	s.b = 2 * vec_dot(dir, vec_sub(ori, sphere->point));
+	s.c = vec_dot(vec_sub(ori, sphere->point),
+		vec_sub(ori, sphere->point)) - pow(sphere->diameter / 2, 2);
 	s.det = pow(s.b, 2) - (4 * s.a * s.c);
 	if (s.det < 0)
 		return ;

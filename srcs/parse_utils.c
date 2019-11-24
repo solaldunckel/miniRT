@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/22 17:59:59 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/24 12:58:38 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void		check_id(t_mini_rt *rt)
 		parse_antialiasing(rt);
 	else if (ft_strequ(rt->split[0], "SEPIA"))
 		rt->sepia = 1;
+	else if (ft_strequ(rt->split[0], "dl"))
+		parse_dir_light(rt);
 	// else
 	// 	handle_error("unrecognized id", rt);
 }

@@ -6,13 +6,13 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 09:55:14 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/20 12:00:24 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/24 04:50:31 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-int		ft_obj_count(t_list *lst)
+int		objs_count(t_list *lst)
 {
 	int			count;
 	t_list		*tmp;

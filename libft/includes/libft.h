@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 10:57:51 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/22 15:35:08 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/23 17:41:17 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char				*ft_strncat(char *s1, const char *s2, size_t n);
 char				*ft_strncpy(char *dst, const char *src, size_t len);
 int					ft_str_c_count(char *str, char c);
 int					ft_str_isdigit(char *str);
+int					ft_str_end(char *str, char *end);
 
 /*
 ** Memory Functions

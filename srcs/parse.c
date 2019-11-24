@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/20 10:20:41 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/24 12:57:19 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	parse_rt_file(char *rt_file, t_mini_rt *rt)
 		ft_strdel(&rt->line);
 	}
 	close(fd);
-	rt->obj_count = ft_obj_count(rt->objs_list);
+	rt->obj_count = objs_count(rt->objs_list);
 	if (!(rt->cam_count = ft_lstsize(rt->cam_list)))
 		handle_error("no camera available", rt);
 	if (!rt->res.x || !rt->res.y)
@@ -86,6 +86,7 @@ int		parse_light(t_mini_rt *rt)
 		free(light);
 		handle_error("light parsing error", rt);
 	}
+	light->id = 10;
 	light->point = split_vec(rt->split[1], rt, 0);
 	light->ratio = ft_atof(rt->split[2]);
 	light->color = split_rgb(rt->split[3], rt);

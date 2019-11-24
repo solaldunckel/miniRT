@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:37:27 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/22 18:56:41 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:57:40 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ t_vec dir)
 
 	rtt.ray.ori = ori;
 	rtt.ray.dir = dir;
-	s.a = VEC_ADD(vec_dot(vec_cross(rtt.ray.dir, cylinder->orient),
-	vec_cross(rtt.ray.dir, cylinder->orient)));
-	s.b = 2 * VEC_ADD(vec_dot(vec_cross(rtt.ray.dir, cylinder->orient),
-	vec_cross(vec_sub(rtt.ray.ori, cylinder->point), cylinder->orient)));
-	s.c = VEC_ADD(vec_dot(vec_cross(vec_sub(rtt.ray.ori, cylinder->point),
-	cylinder->orient), vec_cross(vec_sub(rtt.ray.ori, cylinder->point),
-	cylinder->orient))) - (pow(cylinder->diameter / 2, 2)
-	* VEC_ADD(vec_dot(cylinder->orient, cylinder->orient)));
+	s.a = vec_dot(vec_cross(rtt.ray.dir, cylinder->orient),
+		vec_cross(rtt.ray.dir, cylinder->orient));
+	s.b = 2 * vec_dot(vec_cross(rtt.ray.dir, cylinder->orient),
+		vec_cross(vec_sub(rtt.ray.ori, cylinder->point), cylinder->orient));
+	s.c = vec_dot(vec_cross(vec_sub(rtt.ray.ori, cylinder->point),
+		cylinder->orient), vec_cross(vec_sub(rtt.ray.ori, cylinder->point),
+		cylinder->orient)) - (pow(cylinder->diameter / 2, 2)
+		* vec_dot(cylinder->orient, cylinder->orient));
 	s.det = pow(s.b, 2) - (4 * s.a * s.c);
 	if (s.det < 0)
 		return ;

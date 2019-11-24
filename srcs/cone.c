@@ -37,16 +37,13 @@ void			cone(t_mini_rt *rt, t_element *cone, t_vec ori, t_vec dir)
 	theta = vec_normalize(cone->orient);
 	m = pow(cone->diameter / 2, 2) / pow(cone->height, 2);
 	w = vec_sub(rtt.ray.ori, cone->point);
-	s.a = VEC_ADD(vec_dot(rtt.ray.dir, rtt.ray.dir)) - m *
-	pow(VEC_ADD(vec_dot(rtt.ray.dir, theta)), 2) -
-	pow(VEC_ADD(vec_dot(rtt.ray.dir,theta)), 2);
-	s.b = 2 * (VEC_ADD(vec_dot(rtt.ray.dir, w)) - m *
-	VEC_ADD(vec_dot(rtt.ray.dir, theta)) *
-	VEC_ADD(vec_dot(w, theta)) -
-	VEC_ADD(vec_dot(rtt.ray.dir, theta)) *
-	VEC_ADD(vec_dot(w, theta)));
-	s.c = VEC_ADD(vec_dot(w,w)) - m * pow(VEC_ADD(vec_dot(w,theta)),2) -
-	pow(VEC_ADD(vec_dot(w,theta)),2);
+	s.a = vec_dot(rtt.ray.dir, rtt.ray.dir) - m *
+	pow(vec_dot(rtt.ray.dir, theta), 2) -
+	pow(vec_dot(rtt.ray.dir,theta), 2);
+	s.b = 2 * (vec_dot(rtt.ray.dir, w) - m * vec_dot(rtt.ray.dir, theta)
+		* vec_dot(w, theta) - vec_dot(rtt.ray.dir, theta) * vec_dot(w, theta));
+	s.c = vec_dot(w,w) - m * pow(vec_dot(w,theta), 2)
+		- pow(vec_dot(w,theta), 2);
 	s.det = pow(s.b, 2) - (4 * s.a * s.c);
 	if (s.det < 0)
 		return ;

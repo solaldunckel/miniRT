@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/22 17:57:32 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/24 05:04:24 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,14 @@ void	find_objs(t_mini_rt *rt, t_element *obj, t_vec ori, t_vec dir)
 t_color	ray_intersect(t_mini_rt *rt)
 {
 	t_list		*tmp;
-	t_color		color;
 
-	color.r = 0;
-	color.g = 0;
-	color.b = 0;
 	rt->obj = NULL;
 	rt->t = INT_MAX;
 	rt->k = INT_MAX;
 	tmp = rt->objs_list;
+	rt->color.r = 0;
+	rt->color.g = 0;
+	rt->color.b = 0;
 	while (tmp)
 	{
 		find_objs(rt, tmp->content, rt->ray.ori, rt->ray.dir);
@@ -53,8 +52,11 @@ t_color	ray_intersect(t_mini_rt *rt)
 		tmp = tmp->next;
 	}
 	if (rt->obj != NULL)
-		color = apply_lights(rt);
-	return (color);
+	{
+		rt->color = get_color(rt);
+		rt->color = apply_lights(rt);
+	}
+	return (rt->color);
 }
 
 t_vec	calc_ray(t_mini_rt *rt, float x, float y)
@@ -92,8 +94,8 @@ t_color	anti_aliasing(t_mini_rt *rt, float i, float j)
 		while (aax <= (rt->anti_aliasing - 1) / rt->anti_aliasing)
 		{
 			rt->ray.dir = calc_ray(rt, i + aax, j + aay);
-			rt->color = ray_intersect(rt);
-			color = color_add(color, rt->color);
+			rt->color2 = ray_intersect(rt);
+			color = color_add(color, rt->color2);
 			aax += 1 / (rt->anti_aliasing - 1);
 			aa++;
 		}

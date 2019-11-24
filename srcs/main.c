@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/22 15:33:53 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:14:28 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	init_rt(t_mini_rt *rt)
 {
-	rt->mlx_ptr = NULL;
+	if (!(rt->mlx_ptr = mlx_init()))
+		handle_error("fail to initialize Minilibx", rt);
 	rt->win_ptr = NULL;
 	rt->objs_list = NULL;
 	rt->cam_list = NULL;
@@ -24,6 +25,7 @@ void	init_rt(t_mini_rt *rt)
 	rt->cam = NULL;
 	rt->cam_count = 0;
 	rt->cur_cam = 0;
+	rt->cur_obj = 0;
 	rt->obj = NULL;
 	rt->res.x = 0;
 	rt->res.y = 0;
@@ -34,7 +36,6 @@ void	init_rt(t_mini_rt *rt)
 
 void	setup_rt(t_mini_rt *rt)
 {
-	rt->cam->fov = 70;
 	rt->ray.ori = VEC_CREATE(rt->cam->pov.x, rt->cam->pov.y, rt->cam->pov.z);
 	rt->aspect = (float)rt->res.x / (float)rt->res.y;
 	if (rt->cam->orient.x != 0 || rt->cam->orient.z != 0)
@@ -62,8 +63,6 @@ void	create_window(t_mini_rt *rt)
 
 void	start_mini_rt(t_mini_rt *rt)
 {
-	if (!(rt->mlx_ptr = mlx_init()))
-		handle_error("fail to initialize Minilibx", rt);
 	ft_printf("" BOLDGREEN "Rendering miniRT...\n" RESET);
 	create_all_cam(rt);
 	select_cam(rt);
@@ -73,6 +72,7 @@ void	start_mini_rt(t_mini_rt *rt)
 		ft_printf("" BOLDGREEN ">> " BMP_FILE_NAME " exported <<\n" RESET);
 		exit_and_free(rt);
 	}
+	ft_printf("" BOLDGREEN "Creating window...\n" RESET);
 	create_window(rt);
 }
 
@@ -85,7 +85,8 @@ int		main(int argc, char **argv)
 		handle_error("wrong arguments", &rt);
 	if (argc == 3 && ft_strequ(argv[2], "-save"))
 		rt.save = 1;
-	check_extension(&rt, argv[1]);
+	if (!ft_str_end(argv[1], ".rt"))
+		handle_error("wrong file extension", &rt);
 	parse_rt_file(argv[1], &rt);
 	start_mini_rt(&rt);
 	return (1);

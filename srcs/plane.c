@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:36:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/19 17:49:06 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:57:54 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	plane(t_mini_rt *rt, t_element *plane, t_vec ori, t_vec dir)
 	t_solve	s;
 	float	t;
 
-	s.a = VEC_ADD(vec_dot(vec_sub(ori, plane->point), plane->orient));
-	s.b = VEC_ADD(vec_dot(dir, plane->orient));
+	s.a = vec_dot(vec_sub(ori, plane->point), plane->orient);
+	s.b = vec_dot(dir, plane->orient);
 	if (s.b == 0 || (s.a < 0 && s.b < 0) || (s.a > 0 && s.b > 0))
 		return ;
 	t = -s.a / s.b;

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/22 15:34:37 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:14:36 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,24 +68,35 @@ typedef struct	s_camera
 {
 	struct s_vec	pov;
 	struct s_vec	orient;
-	float			fov;
 	struct s_image	img;
 	struct s_vec	up;
 	struct s_vec	right;
 }				t_camera;
 
+typedef struct	s_texture
+{
+	void 	*ptr;
+	char	*img;
+	int		width;
+	int		height;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}				t_texture;
+
 typedef struct	s_element
 {
-	int				id;
-	struct s_vec	point;
-	struct s_color	color;
-	struct s_vec	orient;
-	float			ratio;
-	float			diameter;
-	float			height;
-	struct s_vec	point2;
-	struct s_vec	point3;
-	struct s_vec	dir;
+	int					id;
+	struct s_vec		point;
+	struct s_color		color;
+	struct s_vec		orient;
+	float				ratio;
+	float				diameter;
+	float				height;
+	struct s_vec		point2;
+	struct s_vec		point3;
+	struct s_vec		dir;
+	struct s_texture	tex;
 }				t_element;
 
 #endif

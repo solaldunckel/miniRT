@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/22 18:28:44 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/24 13:09:31 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,33 @@ t_vec dir)
 	return (0);
 }
 
-static	t_color	rotate_color(t_mini_rt *rt, t_vec p, t_vec n, t_color color)
+t_vec			get_light_vec(t_element *light, t_vec p)
+{
+	t_vec	l;
+
+	l.x = 0;
+	l.y = 0;
+	l.z = 0;
+	if (light->id == DIFFUSE)
+	{
+		l = vec_normalize(vec_sub(light->point, p));
+		light->orient = l;
+	}
+	else if (light->id == DIRECTIONAL)
+		l = light->orient;
+	return (l);
+}
+
+void			apply_intensity(float intensity, t_color *color)
+{
+	if (intensity > 1)
+		return ;
+	color->r = color->r * intensity;
+	color->g = color->g * intensity;
+	color->b = color->b * intensity;
+}
+
+t_color			rotate_color(t_mini_rt *rt, t_vec p, t_vec n, t_color color)
 {
 	t_list		*tmp;
 	t_element	*light;
@@ -49,10 +75,9 @@ static	t_color	rotate_color(t_mini_rt *rt, t_vec p, t_vec n, t_color color)
 	while (tmp)
 	{
 		light = element_cpy(tmp->content);
-		l = vec_normalize(vec_sub(light->point, p));
-		dot = VEC_ADD(vec_dot(n, l));
+		l = get_light_vec(light, p);
+		dot = vec_dot(n, l);
 		dot *= plane_side(rt, light, rt->obj->point, n);
-		light->orient = l;
 		if (apply_shadows(rt, p, l, light))
 		{
 			tmp = tmp->next;
@@ -60,21 +85,11 @@ static	t_color	rotate_color(t_mini_rt *rt, t_vec p, t_vec n, t_color color)
 			continue;
 		}
 		dot > 0 ? rt->intensity += light->ratio * dot / vec_len(l) : 0;
-		dot < 0 ? color = color_average(color, light->color) : color;
+		dot > 0 ? color = color_average(color, light->color) : color;
 		free(light);
 		tmp = tmp->next;
 	}
 	return (color);
-}
-
-void			apply_intensity(t_mini_rt *rt, float intensity, t_color *color)
-{
-	(void)rt;
-	if (intensity > 1)
-		return ;
-	color->r = color->r * intensity;
-	color->g = color->g * intensity;
-	color->b = color->b * intensity;
 }
 
 t_color			apply_lights(t_mini_rt *rt)
@@ -90,11 +105,12 @@ t_color			apply_lights(t_mini_rt *rt)
 		n = rt->obj->orient;
 	else if (rt->obj->id == CONE)
 		n = vec_normalize(vec_sub(p, vec_add(rt->obj->point,
-		vec_mul(rt->obj->orient, vec_len(vec_sub(p, rt->obj->point)) * -1))));
+			vec_mul(rt->obj->orient, vec_len(vec_sub(p, rt->obj->point))
+			* -1))));
 	else
 		n = vec_normalize(vec_sub(p, rt->obj->point));
 	color = rotate_color(rt, p, n, color);
-	color = color_average(color, rt->obj->color);
-	apply_intensity(rt, rt->intensity, &color);
+	color = color_average(color, rt->color);
+	apply_intensity(rt->intensity, &color);
 	return (color);
 }

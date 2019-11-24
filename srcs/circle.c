@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 21:55:13 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/15 21:55:14 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/23 18:55:58 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	circle(t_mini_rt *rt, t_element *circle, t_vec ori, t_vec dir)
 	float	f;
 	t_vec	inter;
 
-	a = VEC_ADD(vec_dot(vec_sub(ori, circle->point), circle->orient));
-	b = VEC_ADD(vec_dot(dir, circle->orient));
+	a = vec_dot(vec_sub(ori, circle->point), circle->orient);
+	b = vec_dot(dir, circle->orient);
 	if (b == 0 || (a < 0 && b < 0) || (a > 0 && b > 0))
 		return ;
 	t = -a / b;
@@ -29,6 +29,6 @@ void	circle(t_mini_rt *rt, t_element *circle, t_vec ori, t_vec dir)
 		return ;
 	inter = vec_add(ori, vec_mul(dir, t));
 	inter = vec_sub(inter, circle->point);
-	f = VEC_ADD(vec_dot(inter, inter));
+	f = vec_dot(inter, inter);
 	sqrt(f) <= circle->diameter / 2 ? rt->t = t : 0;
 }
