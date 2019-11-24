@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/24 04:49:48 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/24 15:48:58 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,13 @@ int		parse_cylindre(t_mini_rt *rt)
 	cylinder->id = 4;
 	cylinder->point = split_vec(rt->split[1], rt, 0);
 	cylinder->orient = split_vec(rt->split[2], rt, 1);
+	cylinder->orient = vec_normalize(cylinder->orient);
 	cylinder->diameter = ft_atof(rt->split[3]);
 	cylinder->height = ft_atof(rt->split[4]);
 	cylinder->color = split_rgb(rt->split[5], rt);
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(cylinder));
 	if (cylinder->height < 0 || cylinder->diameter < 0)
-		handle_error("square parsing error", rt);
+		handle_error("cylinder parsing error", rt);
 	create_circle(rt, cylinder, cylinder->height / 2);
 	create_circle(rt, cylinder, cylinder->height / -2);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/24 12:58:54 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/24 18:21:42 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct	s_mini_rt
 	float				intensity;
 	float				t;
 	float				k;
+	int					tr;
+	float				st;
 	float				aspect;
 	int					cur_cam;
 	int					cam_count;

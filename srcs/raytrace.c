@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/24 05:04:24 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/24 18:19:58 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,18 +109,20 @@ void	raytracing(t_thread *th)
 {
 	float	i;
 	float	j;
+	float	st;
 
 	j = 0;
-	while (j < th->scene.res.y)
+	st = 0;
+	th->scene.st && th->cur_thr % 2 == 1 ? st = round(th->scene.res.x / 50) : 0;
+	while (j < th->scene.res.y && (i = th->cur_thr) >= 0)
 	{
-		i = th->cur_thr;
 		while (i < th->scene.res.x)
 		{
 			if (th->scene.anti_aliasing > 1)
 				th->scene.color = anti_aliasing(&th->scene, i, j);
 			else
 			{
-				th->scene.ray.dir = calc_ray(&th->scene, i, j);
+				th->scene.ray.dir = calc_ray(&th->scene, i - st, j);
 				th->scene.color = ray_intersect(&th->scene);
 			}
 			th->scene.sepia ? apply_sepia(&th->scene) : 0;

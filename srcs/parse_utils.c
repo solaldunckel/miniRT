@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/24 12:58:38 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/24 18:18:47 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void		check_id(t_mini_rt *rt)
 		parse_antialiasing(rt);
 	else if (ft_strequ(rt->split[0], "SEPIA"))
 		rt->sepia = 1;
+	else if (ft_strequ(rt->split[0], "STEREO"))
+		rt->st = 1;
 	else if (ft_strequ(rt->split[0], "dl"))
 		parse_dir_light(rt);
 	// else

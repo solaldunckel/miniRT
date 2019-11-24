@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:37:27 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/23 18:57:40 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/24 15:51:18 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void			create_circle(t_mini_rt *rt, t_element *cylinder, float t)
 	if (!(circle = ft_calloc(1, sizeof(t_element))))
 		handle_error("fail to malloc", rt);
 	circle->id = 6;
-	circle->point = vec_add(cylinder->point, vec_mul(cylinder->orient, t));
+	circle->point = vec_add(cylinder->point,
+	vec_mul(vec_normalize(cylinder->orient), t));
 	circle->orient = cylinder->orient;
-	cylinder->id == 5 ? circle->diameter = cylinder->diameter : 0;
-	cylinder->id == 7 ? circle->diameter = cylinder->diameter * 1.42 : 0;
+	circle->diameter = cylinder->diameter;
 	circle->color = cylinder->color;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(circle));
 }

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:19:10 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/22 17:36:17 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/24 18:14:16 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void		multi_thread(t_mini_rt *rt)
 	{
 		thread[i].cur_thr = i;
 		ft_memcpy(&thread[i].scene, rt, sizeof(t_mini_rt));
+		thread[i].scene.tr = i;
 		pthread_create(&thr[i], NULL, (void*)raytracing, &thread[i]);
 		i++;
 	}

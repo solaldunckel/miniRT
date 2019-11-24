@@ -20,7 +20,7 @@ t_mini_rt rtt)
 	plan.orient = cone->orient;
 	plan.point = cone->point;
 	rtt.t = INT_MAX;
-	plane(&rtt, &plan, inter, vec_mul(cone->orient, 1));
+	plane(&rtt, &plan, inter, vec_normalize(cone->orient));
  	rtt.t <= cone->height ? rt->t = t : 0;
 }
 
