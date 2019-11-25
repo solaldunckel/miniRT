@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/11/23 21:41:13 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/11/25 16:36:29 by haguerni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ SRCS_LIST		= \
 					move_objs.c \
 					multi_thread.c \
 					texture.c \
-					ft.c
+					ft.c \
+					reflect.c
 
 SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})
 

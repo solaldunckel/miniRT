@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/24 18:21:42 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/25 16:47:30 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define DIRECTIONAL 11
 
 # define THREAD_COUNT 16
+# define MAX_REF 5
 
 # define BMP_FILE_NAME "img.bmp"
 # define BMP_FILE_HEADER_SIZE 14
@@ -57,9 +58,10 @@ typedef struct	s_mini_rt
 	float				intensity;
 	float				t;
 	float				k;
-	int					tr;
 	float				st;
 	float				aspect;
+	int					tr;
+	int					nbref;
 	int					cur_cam;
 	int					cam_count;
 	int					cur_obj;
@@ -126,6 +128,7 @@ t_element		*element_cpy(t_element *elem);
 void			raytracing(t_thread *th);
 void			find_objs(t_mini_rt *rt, t_element *obj, t_vec ori, t_vec dir);
 void			multi_thread(t_mini_rt *rt);
+t_color			ray_intersect(t_mini_rt *rt);
 
 /*
 ** Objects
@@ -166,6 +169,8 @@ void			apply_sepia(t_mini_rt *rt);
 t_color			get_color(t_mini_rt *rt);
 void			get_tex_coord(t_mini_rt *rt, t_element *sphere, int *column,
 					int *row);
+void			reflect(t_mini_rt *rt);
+void			apply_intensity(float intensity, t_color *color);
 
 /*
 ** Vectors

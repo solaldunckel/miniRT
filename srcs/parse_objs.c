@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/24 15:48:58 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/25 16:56:49 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int		parse_sphere(t_mini_rt *rt)
 {
-	t_element		*sphere;
+	t_element	*sphere;
+	int			check;
 
+	check = check_split(rt->split);
 	if (!(sphere = ft_calloc(1, sizeof(t_element))))
 		handle_error("fail to malloc", rt);
-	if (check_split(rt->split) != 4)
+	if (check > 5 || check < 4)
 	{
 		if (!ft_str_end(rt->split[3], ".xpm"))
 		{
@@ -33,6 +35,8 @@ int		parse_sphere(t_mini_rt *rt)
 		create_texture(rt, sphere, rt->split[3]);
 	else
 		sphere->color = split_rgb(rt->split[3], rt);
+	sphere->ref = 0;
+	check == 5 ? sphere->ref = ft_atof(rt->split[4]) : 0;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(sphere));
 	if (sphere->diameter < 0)
 		handle_error("sphere parsing error", rt);

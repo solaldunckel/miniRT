@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/24 18:19:58 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/25 16:56:05 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,9 @@ t_color	ray_intersect(t_mini_rt *rt)
 		}
 		tmp = tmp->next;
 	}
-	if (rt->obj != NULL)
-	{
-		rt->color = get_color(rt);
-		rt->color = apply_lights(rt);
-	}
+	rt->obj ? rt->color = get_color(rt) : rt->color;
+	rt->obj && rt->obj->id == SPHERE && rt->obj->ref ? reflect(rt) : rt->color;
+	rt->obj ? rt->color = apply_lights(rt) : rt->color;
 	return (rt->color);
 }
 
@@ -66,6 +64,7 @@ t_vec	calc_ray(t_mini_rt *rt, float x, float y)
 	float	norm_x;
 	float	norm_y;
 
+	rt->ray.ori = rt->cam->pov;
 	norm_x = ((x / (float)rt->res.x) - 0.5);
 	norm_y = ((y / (float)rt->res.y) - 0.5);
 	rt->res.x < rt->res.y ? norm_x *= rt->aspect : 0;
@@ -116,7 +115,7 @@ void	raytracing(t_thread *th)
 	th->scene.st && th->cur_thr % 2 == 1 ? st = round(th->scene.res.x / 50) : 0;
 	while (j < th->scene.res.y && (i = th->cur_thr) >= 0)
 	{
-		while (i < th->scene.res.x)
+		while (i < th->scene.res.x && (th->scene.nbref = 0) == 0)
 		{
 			if (th->scene.anti_aliasing > 1)
 				th->scene.color = anti_aliasing(&th->scene, i, j);

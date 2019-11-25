@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/23 18:14:36 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/25 16:33:28 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct	s_element
 	float				ratio;
 	float				diameter;
 	float				height;
+	float				ref;
 	struct s_vec		point2;
 	struct s_vec		point3;
 	struct s_vec		dir;
