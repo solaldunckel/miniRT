@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/24 18:18:47 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/26 19:24:37 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,11 @@ t_color		split_rgb(char *str, t_mini_rt *rt)
 		free_split(split);
 		handle_error("invalid rgb parsing", rt);
 	}
-	c.r = ft_atoi(split[0]);
-	c.g = ft_atoi(split[1]);
-	c.b = ft_atoi(split[2]);
+	c.r = ft_atoi(split[0]) / 255;
+	c.g = ft_atoi(split[1]) / 255;
+	c.b = ft_atoi(split[2]) / 255;
 	free_split(split);
-	if (c.r > 255 || c.g > 255 || c.b > 255 || c.r < 0 || c.g < 0 || c.b < 0)
+	if (c.r > 1 || c.g > 1 || c.b > 1 || c.r < 0 || c.g < 0 || c.b < 0)
 		handle_error("invalid rgb parsing", rt);
 	return (c);
 }

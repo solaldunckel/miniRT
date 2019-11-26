@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/25 16:33:28 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/26 19:24:02 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ typedef struct	s_vec
 
 typedef struct	s_color
 {
-	int			r;
-	int			g;
-	int			b;
+	float		r;
+	float		g;
+	float		b;
 }				t_color;
 
 typedef struct	s_res

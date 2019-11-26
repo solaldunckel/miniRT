@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 09:55:14 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/24 04:50:31 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/26 19:27:13 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	color_move_obj(t_mini_rt *rt, int reset)
 		rt->tmp_color.r = rt->move_obj->color.r;
 		rt->tmp_color.g = rt->move_obj->color.g;
 		rt->tmp_color.b = rt->move_obj->color.b;
-		rt->move_obj->color.r = abs(rt->move_obj->color.r - 255);
-		rt->move_obj->color.g = abs(rt->move_obj->color.g - 255);
-		rt->move_obj->color.b = abs(rt->move_obj->color.b - 255);
+		rt->move_obj->color.r = fabs(rt->move_obj->color.r - 1);
+		rt->move_obj->color.g = fabs(rt->move_obj->color.g - 1);
+		rt->move_obj->color.b = fabs(rt->move_obj->color.b - 1);
 	}
 }
 

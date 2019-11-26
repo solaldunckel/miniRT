@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/25 16:56:05 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/26 23:08:23 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_color	ray_intersect(t_mini_rt *rt)
 		tmp = tmp->next;
 	}
 	rt->obj ? rt->color = get_color(rt) : rt->color;
-	rt->obj && rt->obj->id == SPHERE && rt->obj->ref ? reflect(rt) : rt->color;
+	rt->obj && rt->obj->ref ? reflect(rt) : rt->color;
 	rt->obj ? rt->color = apply_lights(rt) : rt->color;
 	return (rt->color);
 }

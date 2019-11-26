@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/23 18:14:28 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/26 22:48:42 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_rt(t_mini_rt *rt)
 	rt->line = NULL;
 	rt->split = NULL;
 	rt->cam = NULL;
+	rt->st = 0;
 	rt->cam_count = 0;
 	rt->cur_cam = 0;
 	rt->cur_obj = 0;
@@ -39,10 +40,10 @@ void	setup_rt(t_mini_rt *rt)
 	rt->ray.ori = VEC_CREATE(rt->cam->pov.x, rt->cam->pov.y, rt->cam->pov.z);
 	rt->aspect = (float)rt->res.x / (float)rt->res.y;
 	if (rt->cam->orient.x != 0 || rt->cam->orient.z != 0)
-		rt->cam->up = vec_normalize(vec_add(VEC_CREATE(0, -0.7, 0),
+		rt->cam->up = vec_normalize(vec_add(VEC_CREATE(0, -1, 0),
 		rt->cam->orient));
 	else
-		rt->cam->up = vec_normalize(vec_add(VEC_CREATE(0, 0, -0.7),
+		rt->cam->up = vec_normalize(vec_add(VEC_CREATE(0, 0, -1),
 		rt->cam->orient));
 	rt->cam->right = vec_normalize(vec_cross(rt->cam->orient, rt->cam->up));
 	rt->cam->up = vec_normalize(vec_cross(rt->cam->right, rt->cam->orient));

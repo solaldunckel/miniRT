@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/25 16:56:49 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/26 17:05:10 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		parse_sphere(t_mini_rt *rt)
 	check = check_split(rt->split);
 	if (!(sphere = ft_calloc(1, sizeof(t_element))))
 		handle_error("fail to malloc", rt);
-	if (check > 5 || check < 4)
+	if ((sphere->id = 1) == 1 && (check > 5 || check < 4))
 	{
 		if (!ft_str_end(rt->split[3], ".xpm"))
 		{
@@ -28,14 +28,12 @@ int		parse_sphere(t_mini_rt *rt)
 			handle_error("sphere parsing error", rt);
 		}
 	}
-	sphere->id = 1;
 	sphere->point = split_vec(rt->split[1], rt, 0);
 	sphere->diameter = ft_atof(rt->split[2]);
-	if (ft_str_end(rt->split[3], ".xpm"))
+	if ((sphere->ref = 0) == 0 && ft_str_end(rt->split[3], ".xpm"))
 		create_texture(rt, sphere, rt->split[3]);
 	else
 		sphere->color = split_rgb(rt->split[3], rt);
-	sphere->ref = 0;
 	check == 5 ? sphere->ref = ft_atof(rt->split[4]) : 0;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(sphere));
 	if (sphere->diameter < 0)
@@ -45,11 +43,13 @@ int		parse_sphere(t_mini_rt *rt)
 
 int		parse_plane(t_mini_rt *rt)
 {
-	t_element		*plane;
+	t_element	*plane;
+	int			check;
 
+	check = check_split(rt->split);
 	if (!(plane = ft_calloc(1, sizeof(t_element))))
 		handle_error("fail to malloc", rt);
-	if (check_split(rt->split) != 4)
+	if (check < 4 || check > 5)
 	{
 		free(plane);
 		handle_error("plane parsing error", rt);
@@ -58,17 +58,21 @@ int		parse_plane(t_mini_rt *rt)
 	plane->point = split_vec(rt->split[1], rt, 0);
 	plane->orient = split_vec(rt->split[2], rt, 1);
 	plane->color = split_rgb(rt->split[3], rt);
+	plane->ref = 0;
+	check == 5 ? plane->ref = ft_atof(rt->split[4]) : 0;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(plane));
 	return (1);
 }
 
 int		parse_square(t_mini_rt *rt)
 {
-	t_element		*square;
+	t_element	*square;
+	int			check;
 
+	check = check_split(rt->split);
 	if (!(square = ft_calloc(1, sizeof(t_element))))
 		handle_error("fail to malloc", rt);
-	if (check_split(rt->split) != 5)
+	if (check < 5 || check > 6)
 	{
 		free(square);
 		handle_error("square parsing error", rt);
@@ -78,6 +82,8 @@ int		parse_square(t_mini_rt *rt)
 	square->orient = split_vec(rt->split[2], rt, 1);
 	square->height = ft_atof(rt->split[3]);
 	square->color = split_rgb(rt->split[4], rt);
+	square->ref = 0;
+	check == 6 ? square->ref = ft_atof(rt->split[5]) : 0;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(square));
 	if (square->height < 0)
 		handle_error("square parsing error", rt);
@@ -86,11 +92,13 @@ int		parse_square(t_mini_rt *rt)
 
 int		parse_cylindre(t_mini_rt *rt)
 {
-	t_element		*cylinder;
+	t_element	*cylinder;
+	int			check;
 
+	check = check_split(rt->split);
 	if (!(cylinder = ft_calloc(1, sizeof(t_element))))
 		handle_error("fail to malloc", rt);
-	if (check_split(rt->split) != 6)
+	if ((cylinder -> ref = 0) == 0 && (check < 6 || check > 7))
 	{
 		free(cylinder);
 		handle_error("cylinder parsing error", rt);
@@ -102,6 +110,7 @@ int		parse_cylindre(t_mini_rt *rt)
 	cylinder->diameter = ft_atof(rt->split[3]);
 	cylinder->height = ft_atof(rt->split[4]);
 	cylinder->color = split_rgb(rt->split[5], rt);
+	check == 7 ? cylinder->ref = ft_atof(rt->split[6]) : 0;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(cylinder));
 	if (cylinder->height < 0 || cylinder->diameter < 0)
 		handle_error("cylinder parsing error", rt);
@@ -113,10 +122,12 @@ int		parse_cylindre(t_mini_rt *rt)
 int		parse_triangle(t_mini_rt *rt)
 {
 	t_element		*triangle;
+	int			check;
 
+	check = check_split(rt->split);
 	if (!(triangle = ft_calloc(1, sizeof(t_element))))
 		handle_error("fail to malloc", rt);
-	if (check_split(rt->split) != 5)
+	if (check < 5 || check > 6)
 	{
 		free(triangle);
 		handle_error("triangle parsing error", rt);
@@ -128,6 +139,8 @@ int		parse_triangle(t_mini_rt *rt)
 	triangle->color = split_rgb(rt->split[4], rt);
 	triangle->orient = vec_normalize(vec_cross(vec_sub(triangle->point2,
 		triangle->point), vec_sub(triangle->point3, triangle->point)));
+	triangle->ref = 0;
+	check == 6 ? triangle->ref = ft_atof(rt->split[5]) : 0;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(triangle));
 	return (1);
 }

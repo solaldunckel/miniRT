@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/25 16:47:30 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/26 22:26:23 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define DIRECTIONAL 11
 
 # define THREAD_COUNT 16
-# define MAX_REF 5
+# define MAX_REF 20
 
 # define BMP_FILE_NAME "img.bmp"
 # define BMP_FILE_HEADER_SIZE 14
@@ -170,7 +170,7 @@ t_color			get_color(t_mini_rt *rt);
 void			get_tex_coord(t_mini_rt *rt, t_element *sphere, int *column,
 					int *row);
 void			reflect(t_mini_rt *rt);
-void			apply_intensity(float intensity, t_color *color);
+t_color			apply_intensity(float intensity, t_color color);
 
 /*
 ** Vectors
@@ -185,6 +185,7 @@ t_vec			vec_normalize(t_vec p);
 float			vec_len(t_vec v);
 t_vec			vec_abs(t_vec v1);
 t_vec			vec_reverse(t_vec v1);
+t_vec			get_normal_vector(t_mini_rt *rt, t_vec p);
 
 /*
 ** Additional functions

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:40:08 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/24 12:58:03 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/26 17:04:30 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ int		parse_antialiasing(t_mini_rt *rt)
 int		parse_cone(t_mini_rt *rt)
 {
 	t_element		*cone;
+	int			check;
 
+	check = check_split(rt->split);
 	if (!(cone = ft_calloc(1, sizeof(t_element))))
 		handle_error("fail to malloc", rt);
-	if (check_split(rt->split) != 6)
+	if (check < 6 || check > 7)
 	{
 		free(cone);
 		handle_error("cone parsing error", rt);
@@ -39,6 +41,8 @@ int		parse_cone(t_mini_rt *rt)
 	cone->diameter = ft_atof(rt->split[3]);
 	cone->height = ft_atof(rt->split[4]);
 	cone->color = split_rgb(rt->split[5], rt);
+	cone->ref = 0;
+	check == 7 ? cone->ref = ft_atof(rt->split[6]) : 0;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(cone));
 	if (cone->height < 0 || cone->diameter < 0)
 		handle_error("cone parsing error", rt);

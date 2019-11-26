@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/24 15:49:30 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/26 23:25:32 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,14 @@ t_vec			get_light_vec(t_element *light, t_vec p)
 	return (l);
 }
 
-void			apply_intensity(float intensity, t_color *color)
+t_color			apply_intensity(float intensity, t_color color)
 {
 	if (intensity > 1)
-		return ;
-	color->r = color->r * intensity;
-	color->g = color->g * intensity;
-	color->b = color->b * intensity;
+		return (color);
+	color.r = color.r * intensity;
+	color.g = color.g * intensity;
+	color.b = color.b * intensity;
+	return (color);
 }
 
 t_color			rotate_color(t_mini_rt *rt, t_vec p, t_vec n, t_color color)
@@ -78,14 +79,14 @@ t_color			rotate_color(t_mini_rt *rt, t_vec p, t_vec n, t_color color)
 		l = get_light_vec(light, p);
 		dot = vec_dot(n, l);
 		dot *= plane_side(rt, light, rt->obj->point, n);
-		if (apply_shadows(rt, p, l, light))
+		if (dot < 0 || apply_shadows(rt, p, l, light))
 		{
 			tmp = tmp->next;
 			free(light);
 			continue;
 		}
-		dot > 0 ? rt->intensity += light->ratio * dot / vec_len(l) : 0;
-		dot > 0 ? color = color_average(color, light->color) : color;
+		color = color_add(color, color_average(rt->color,
+		apply_intensity(light->ratio * dot, light->color)));
 		free(light);
 		tmp = tmp->next;
 	}
@@ -98,19 +99,10 @@ t_color			apply_lights(t_mini_rt *rt)
 	t_vec		n;
 	t_color		color;
 
-	rt->intensity = rt->ambient.ratio;
-	color = rt->ambient.color;
+	color = color_average(rt->color,
+	apply_intensity(rt->ambient.ratio, rt->ambient.color));
 	p = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->k));
-	if (rt->obj->id == PLANE || rt->obj->id == CIRCLE || rt->obj->id == SQUARE)
-		n = rt->obj->orient;
-	else if (rt->obj->id == CONE)
-		n = vec_normalize(vec_sub(p, vec_add(rt->obj->point,
-			vec_mul(rt->obj->orient, vec_len(vec_sub(p, rt->obj->point))
-			* -1))));
-	else
-		n = vec_normalize(vec_sub(p, rt->obj->point));
+	n = get_normal_vector(rt, p);
 	color = rotate_color(rt, p, n, color);
-	color = color_average(color, rt->color);
-	apply_intensity(rt->intensity, &color);
 	return (color);
 }
