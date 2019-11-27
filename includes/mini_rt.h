@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/26 22:26:23 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:15:20 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct	s_mini_rt
 	int					cur_thr;
 	float				anti_aliasing;
 	int					sepia;
+	int					mouse;
 	struct s_color		tmp_color;
 	struct s_image		img;
 	struct s_ray		ray;
@@ -115,6 +116,7 @@ void			check_id(t_mini_rt *rt);
 ** Events
 */
 int				key_hook(int key, t_mini_rt *rt);
+int				get_mouse_pos(int x, int y, t_mini_rt *rt);
 int				get_keypress(int key, t_mini_rt *rt);
 void			handle_error(char *str, t_mini_rt *rt);
 int				exit_and_free(t_mini_rt *rt);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cone.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/27 13:20:56 by sdunckel          #+#    #+#             */
+/*   Updated: 2019/11/27 13:23:35 by sdunckel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "mini_rt.h"
 
 static	void	inter_cone(t_mini_rt *rt, t_element *cone, t_solve s,
@@ -21,7 +33,7 @@ t_mini_rt rtt)
 	plan.point = cone->point;
 	rtt.t = INT_MAX;
 	plane(&rtt, &plan, inter, vec_normalize(cone->orient));
- 	rtt.t <= cone->height ? rt->t = t : 0;
+	rtt.t <= cone->height ? rt->t = t : 0;
 }
 
 void			cone(t_mini_rt *rt, t_element *cone, t_vec ori, t_vec dir)
@@ -37,13 +49,13 @@ void			cone(t_mini_rt *rt, t_element *cone, t_vec ori, t_vec dir)
 	theta = vec_normalize(cone->orient);
 	m = pow(cone->diameter / 2, 2) / pow(cone->height, 2);
 	w = vec_sub(rtt.ray.ori, cone->point);
-	s.a = vec_dot(rtt.ray.dir, rtt.ray.dir) - m *
-	pow(vec_dot(rtt.ray.dir, theta), 2) -
-	pow(vec_dot(rtt.ray.dir,theta), 2);
+	s.a = vec_dot(rtt.ray.dir, rtt.ray.dir) - m
+		* pow(vec_dot(rtt.ray.dir, theta), 2)
+		- pow(vec_dot(rtt.ray.dir, theta), 2);
 	s.b = 2 * (vec_dot(rtt.ray.dir, w) - m * vec_dot(rtt.ray.dir, theta)
 		* vec_dot(w, theta) - vec_dot(rtt.ray.dir, theta) * vec_dot(w, theta));
-	s.c = vec_dot(w,w) - m * pow(vec_dot(w,theta), 2)
-		- pow(vec_dot(w,theta), 2);
+	s.c = vec_dot(w, w) - m * pow(vec_dot(w, theta), 2)
+		- pow(vec_dot(w, theta), 2);
 	s.det = pow(s.b, 2) - (4 * s.a * s.c);
 	if (s.det < 0)
 		return ;

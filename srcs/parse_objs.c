@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/26 17:05:10 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:19:19 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		parse_cylindre(t_mini_rt *rt)
 	check = check_split(rt->split);
 	if (!(cylinder = ft_calloc(1, sizeof(t_element))))
 		handle_error("fail to malloc", rt);
-	if ((cylinder -> ref = 0) == 0 && (check < 6 || check > 7))
+	if ((cylinder->ref = 0) == 0 && (check < 6 || check > 7))
 	{
 		free(cylinder);
 		handle_error("cylinder parsing error", rt);
@@ -121,7 +121,7 @@ int		parse_cylindre(t_mini_rt *rt)
 
 int		parse_triangle(t_mini_rt *rt)
 {
-	t_element		*triangle;
+	t_element	*triangle;
 	int			check;
 
 	check = check_split(rt->split);

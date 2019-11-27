@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:40:08 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/26 17:04:30 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:20:35 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		parse_antialiasing(t_mini_rt *rt)
 
 int		parse_cone(t_mini_rt *rt)
 {
-	t_element		*cone;
+	t_element	*cone;
 	int			check;
 
 	check = check_split(rt->split);

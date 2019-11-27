@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/26 23:25:32 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:41:54 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_color			rotate_color(t_mini_rt *rt, t_vec p, t_vec n, t_color color)
 			continue;
 		}
 		color = color_add(color, color_average(rt->color,
-		apply_intensity(light->ratio * dot, light->color)));
+			apply_intensity(light->ratio * dot, light->color)));
 		free(light);
 		tmp = tmp->next;
 	}
@@ -100,7 +100,7 @@ t_color			apply_lights(t_mini_rt *rt)
 	t_color		color;
 
 	color = color_average(rt->color,
-	apply_intensity(rt->ambient.ratio, rt->ambient.color));
+		apply_intensity(rt->ambient.ratio, rt->ambient.color));
 	p = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->k));
 	n = get_normal_vector(rt, p);
 	color = rotate_color(rt, p, n, color);

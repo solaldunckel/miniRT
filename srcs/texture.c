@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 21:39:46 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/26 23:19:25 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:45:36 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ t_color	get_color(t_mini_rt *rt)
 	{
 		get_tex_coord(rt, rt->obj, &column, &row);
 		i = row * rt->obj->tex.size_line + rt->obj->tex.bpp / 8 * column;
-		color.b = (float)abs(rt->obj->tex.img[i]) / 255;
-		color.g = (float)abs(rt->obj->tex.img[i + 1]) / 255;
-		color.r = (float)abs(rt->obj->tex.img[i + 2]) / 255;
+		color.b = (float)rt->obj->tex.img[i] / 255;
+		color.g = (float)rt->obj->tex.img[i + 1] / 255;
+		color.r = (float)rt->obj->tex.img[i + 2] / 255;
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/26 22:48:42 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:16:55 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_rt(t_mini_rt *rt)
 	rt->res.y = 0;
 	rt->save = 0;
 	rt->sepia = 0;
+	rt->mouse = 0;
 	rt->anti_aliasing = 1;
 }
 
@@ -51,12 +52,33 @@ void	setup_rt(t_mini_rt *rt)
 	rt->t = 0;
 }
 
+int		mouse_press(int button, int x, int y, t_mini_rt *rt)
+{
+	(void)x;
+	(void)y;
+	if (button == 1)
+		rt->mouse = 1;
+	return (1);
+}
+
+int		mouse_release(int button, int x, int y, t_mini_rt *rt)
+{
+	(void)x;
+	(void)y;
+	if (button == 1)
+		rt->mouse = 0;
+	return (1);
+}
+
 void	create_window(t_mini_rt *rt)
 {
 	if (!(rt->win_ptr = mlx_new_window(rt->mlx_ptr, rt->res.x,
 		rt->res.y, "miniRT")))
 		handle_error("fail to create Minilibx window", rt);
 	mlx_key_hook(rt->win_ptr, get_keypress, rt);
+	mlx_hook(rt->win_ptr, 4, 0, mouse_press, rt);
+	mlx_hook(rt->win_ptr, 5, 0, mouse_release, rt);
+	mlx_hook(rt->win_ptr, 6, 0, get_mouse_pos, rt);
 	mlx_hook(rt->win_ptr, 17, 0, exit_and_free, rt);
 	mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->cam->img.ptr, 0, 0);
 	mlx_loop(rt->mlx_ptr);

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/26 19:24:02 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:22:20 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct	s_camera
 
 typedef struct	s_texture
 {
-	void 	*ptr;
+	void	*ptr;
 	char	*img;
 	int		width;
 	int		height;

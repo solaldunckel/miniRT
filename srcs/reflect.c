@@ -6,13 +6,13 @@
 /*   By: haguerni <haguerni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 19:51:52 by haguerni          #+#    #+#             */
-/*   Updated: 2019/11/26 23:37:10 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:23:07 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-t_vec	get_cylinder_normal(t_element *cylinder, t_vec p)
+t_vec		get_cylinder_normal(t_element *cylinder, t_vec p)
 {
 	t_element	plan;
 	t_mini_rt	rtt;
@@ -22,14 +22,16 @@ t_vec	get_cylinder_normal(t_element *cylinder, t_vec p)
 	rtt.t = INT_MAX;
 	plane(&rtt, &plan, p, cylinder->orient);
 	if (rtt.t != INT_MAX)
-		return(vec_normalize(vec_sub(p, vec_add(cylinder->point,
+	{
+		return (vec_normalize(vec_sub(p, vec_add(cylinder->point,
 			vec_mul(cylinder->orient, rtt.t * -1)))));
+	}
 	plane(&rtt, &plan, p, vec_mul(cylinder->orient, -1));
-	return(vec_normalize(vec_sub(p, vec_add(cylinder->point,
+	return (vec_normalize(vec_sub(p, vec_add(cylinder->point,
 		vec_mul(cylinder->orient, rtt.t)))));
 }
 
-t_vec	get_normal_vector(t_mini_rt *rt, t_vec p)
+t_vec		get_normal_vector(t_mini_rt *rt, t_vec p)
 {
 	t_vec	norm_vec;
 
@@ -59,7 +61,7 @@ t_color		color_average3(t_color color1, t_color color2, float intens)
 	return (color);
 }
 
-void	reflect(t_mini_rt *rt)
+void		reflect(t_mini_rt *rt)
 {
 	t_mini_rt	rtt;
 

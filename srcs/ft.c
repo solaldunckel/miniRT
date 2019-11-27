@@ -6,13 +6,13 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:56:12 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/22 18:38:17 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:20:45 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-void	check_orient(t_vec *orient)
+void		check_orient(t_vec *orient)
 {
 	if (orient->x > 1)
 		orient->x = 1;
@@ -28,7 +28,7 @@ void	check_orient(t_vec *orient)
 		orient->z = -1;
 }
 
-void	redraw_window(t_mini_rt *rt)
+void		redraw_window(t_mini_rt *rt)
 {
 	int		i;
 
