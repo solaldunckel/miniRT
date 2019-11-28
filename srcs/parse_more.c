@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:40:08 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/27 13:20:35 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/28 16:08:07 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,31 @@ int		parse_cone(t_mini_rt *rt)
 	return (1);
 }
 
+int		parse_cube(t_mini_rt *rt)
+{
+	t_element	cube;
+
+	if (check_split(rt->split) != 4)
+		handle_error("cube parsing error", rt);
+	cube.point = split_vec(rt->split[1], rt, 0);
+	cube.height = ft_atof(rt->split[2]);
+	cube.color = split_rgb(rt->split[3], rt);
+	create_square(rt, &cube, cube.point, (t_vec){0, 0, 1});
+	create_square(rt, &cube, (t_vec){cube.point.x, cube.point.y,
+		cube.point.z + cube.height}, (t_vec){0, 0, 1});
+	create_square(rt, &cube, (t_vec){cube.point.x + cube.height / 2,
+		cube.point.y, cube.point.z + cube.height / 2}, (t_vec){1, 0, 0});
+	create_square(rt, &cube, (t_vec){cube.point.x - cube.height / 2,
+		cube.point.y, cube.point.z + cube.height / 2}, (t_vec){1, 0, 0});
+	create_square(rt, &cube, (t_vec){cube.point.x, cube.point.y
+		+ cube.height / 2, cube.point.z + cube.height / 2},
+		(t_vec){0, 1, 0});
+	create_square(rt, &cube, (t_vec){cube.point.x, cube.point.y
+		- cube.height / 2, cube.point.z + cube.height / 2},
+		(t_vec){0, 1, 0});
+	return (1);
+}
+
 int		parse_dir_light(t_mini_rt *rt)
 {
 	t_element		*light;
@@ -62,7 +87,7 @@ int		parse_dir_light(t_mini_rt *rt)
 		handle_error("dir light parsing error", rt);
 	}
 	light->id = 11;
-	light->orient = split_vec(rt->split[1], rt, 0);
+	light->orient = split_vec(rt->split[1], rt, 1);
 	light->ratio = ft_atof(rt->split[2]);
 	light->color = split_rgb(rt->split[3], rt);
 	ft_lstadd_back(&rt->light_list, ft_lstnew(light));

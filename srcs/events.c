@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:42:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/27 14:17:38 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/28 16:04:26 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,30 +66,35 @@ int		exit_and_free(t_mini_rt *rt)
 	return (1);
 }
 
+char	**free_split(char **split)
+{
+	int		i;
+
+	i = 0;
+	while (split[i])
+	{
+		ft_strdel(&split[i]);
+		i++;
+	}
+	free(split);
+	split = NULL;
+	return (split);
+}
+
 int		get_keypress(int key, t_mini_rt *rt)
 {
 	if (key == KEY_TAB)
 		change_cam(rt);
 	else if (key == KEY_ESC)
 		exit_and_free(rt);
-	key_hook(key, rt);
-	return (1);
-}
-
-int		get_mouse_pos(int x, int y, t_mini_rt *rt)
-{
-	if (x > 0 && x <= rt->res.x && y > 0 && y < rt->res.y && rt->mouse)
+	if (key == KEY_V)
 	{
-		if (x < rt->res.x / 3)
-			rt->cam->orient.x -= 0.1;
-		else if (x > rt->res.x - rt->res.x / 3)
-			rt->cam->orient.x += 0.1;
-		else if (y < rt->res.y / 3)
-			rt->cam->orient.y -= 0.1;
-		else if (y > rt->res.y - rt->res.y / 3)
-			rt->cam->orient.y += 0.1;
-		check_orient(&rt->cam->orient);
-		redraw_window(rt);
+		if (!rt->kb)
+			rt->kb = 1;
+		else
+			rt->kb = 0;
+		show_keybind(rt);
 	}
+	key_hook(key, rt);
 	return (1);
 }

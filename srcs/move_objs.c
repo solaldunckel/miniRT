@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 09:55:14 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/26 19:27:13 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/28 16:09:06 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		objs_count(t_list *lst)
 	{
 		obj = tmp->content;
 		tmp = tmp->next;
-		if (obj->id != CIRCLE)
+		if (!obj->nm)
 			count++;
 	}
 	return (count);
@@ -66,6 +66,8 @@ void	select_objs(t_mini_rt *rt)
 	tmp = rt->objs_list;
 	while (tmp)
 	{
+		if (((t_element*)tmp->content)->nm && (tmp = tmp->next))
+			continue ;
 		if (rt->cur_obj == count)
 		{
 			if (rt->move_obj)

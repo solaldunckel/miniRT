@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 12:41:20 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/19 17:50:31 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/28 13:28:37 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@ void	bitmap_file_header(t_mini_rt *rt, int padding_size, int fd)
 
 	if (!(file_header = ft_calloc(BMP_FILE_HEADER_SIZE, sizeof(unsigned char))))
 		handle_error("fail to malloc", rt);
-	file_size = BMP_HEADER_SIZE + (rt->cam->img.bpp / 8 * rt->res.x +
-		padding_size) * rt->res.y;
+	file_size = BMP_FILE_HEADER_SIZE + BMP_INFO_HEADER_SIZE
+		+ (rt->cam->img.bpp / 8 * rt->res.x + padding_size) * rt->res.y;
 	file_header[0] = (unsigned char)('B');
 	file_header[1] = (unsigned char)('M');
 	file_header[2] = (unsigned char)(file_size);
 	file_header[3] = (unsigned char)(file_size >> 8);
 	file_header[4] = (unsigned char)(file_size >> 16);
 	file_header[5] = (unsigned char)(file_size >> 24);
-	file_header[10] = (unsigned char)(BMP_HEADER_SIZE);
+	file_header[10] = (unsigned char)(BMP_FILE_HEADER_SIZE
+		+ BMP_INFO_HEADER_SIZE);
 	write(fd, file_header, BMP_FILE_HEADER_SIZE);
 	file_header = NULL;
 	free(file_header);

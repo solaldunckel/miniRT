@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/27 13:41:54 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/28 12:51:03 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ t_vec dir)
 	&& rt->obj->id != TRIANGLE)
 		return (1);
 	rtt.t = INT_MAX;
-	light2.orient = dir;
-	light2.point = light->point;
-	plane(&rtt, &light2, ori, dir);
-	rtt.k = rtt.t;
+	if (light->id == DIFFUSE)
+	{
+		light2.orient = dir;
+		light2.point = light->point;
+		plane(&rtt, &light2, ori, dir);
+		rtt.k = rtt.t;
+	}
 	cam_plane.point = rt->ray.ori;
 	cam_plane.orient = dir;
 	rtt.t = INT_MAX;

@@ -6,11 +6,26 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:57:20 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/23 18:58:22 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:53:45 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+void	create_square(t_mini_rt *rt, t_element *cube, t_vec point, t_vec orient)
+{
+	t_element		*square;
+
+	if (!(square = ft_calloc(1, sizeof(t_element))))
+		handle_error("fail to malloc", rt);
+	square->id = 3;
+	square->nm = 1;
+	square->point = point;
+	square->orient = orient;
+	square->height = cube->height;
+	square->color = cube->color;
+	ft_lstadd_back(&rt->objs_list, ft_lstnew(square));
+}
 
 void	square(t_mini_rt *rt, t_element *square, t_vec ori, t_vec dir)
 {

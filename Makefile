@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/11/25 16:36:29 by haguerni         ###   ########.fr        #
+#    Updated: 2019/11/28 13:37:34 by sdunckel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS_LIST		= \
 					circle.c \
 					shadows.c \
 					hooks.c \
+					hooks_2.c \
 					move_objs.c \
 					multi_thread.c \
 					texture.c \
@@ -59,7 +60,7 @@ all:			$(NAME)
 
 $(NAME):		$(OBJS)
 				@make -j8 -C $(LIBFT)
-				@$(CC) $(CFLAGS) -g3 $(LFLAGS) -I $(HEADER) $(LIBFT)/libft.a $(OBJS) -o $(NAME)
+				@$(CC) $(CFLAGS) -o3 $(LFLAGS) -I $(HEADER) $(LIBFT)/libft.a $(OBJS) -o $(NAME)
 
 %.o: %.c
 				@$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<

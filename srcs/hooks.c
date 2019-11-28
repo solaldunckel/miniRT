@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 15:36:45 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/20 16:04:01 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:37:34 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int		key_hook3(int key, t_mini_rt *rt)
 		rt->move_obj->point.z--;
 	else if (key == KEY_M && rt->move_obj && rt->move_obj->id != TRIANGLE)
 		rt->move_obj->point.z++;
+	else if (key == KEY_G)
+		rt->cam->orient.y -= 0.1;
 	else
 		return (0);
 	if (rt->move_obj)
@@ -136,13 +138,12 @@ int		key_hook(int key, t_mini_rt *rt)
 		rt->cam->orient.x -= 0.1;
 	else if (key == KEY_H)
 		rt->cam->orient.x += 0.1;
-	else if (key == KEY_G)
-		rt->cam->orient.y -= 0.1;
 	else if (key_hook2(key, rt))
 		;
 	else
 		return (0);
-	check_orient(&rt->cam->orient);
+	if (!check_orient(&rt->cam->orient))
+		return (0);
 	redraw_window(rt);
 	return (1);
 }

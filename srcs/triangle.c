@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:57:29 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/27 13:27:45 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/28 13:44:46 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,4 @@ void	triangle(t_mini_rt *rt, t_element *triangle, t_vec ori, t_vec dir)
 	if (s.b < 0 || s.a + s.b > 1)
 		return ;
 	rt->t = vec_dot(v2, tvec) * s.c;
-	//s.b < rt->t ? rt->t = s.b : 0;
 }

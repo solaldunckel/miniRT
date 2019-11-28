@@ -6,11 +6,30 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/26 19:24:37 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/28 15:42:51 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+int			check_id_bonus(t_mini_rt *rt)
+{
+	if (ft_strequ(rt->split[0], "co"))
+		parse_cone(rt);
+	else if (ft_strequ(rt->split[0], "AA"))
+		parse_antialiasing(rt);
+	else if (ft_strequ(rt->split[0], "SEPIA"))
+		rt->sepia = 1;
+	else if (ft_strequ(rt->split[0], "st"))
+		rt->st = 1;
+	else if (ft_strequ(rt->split[0], "dl"))
+		parse_dir_light(rt);
+	else if (ft_strequ(rt->split[0], "cb"))
+		parse_cube(rt);
+	else
+		return (0);
+	return (1);
+}
 
 void		check_id(t_mini_rt *rt)
 {
@@ -30,20 +49,14 @@ void		check_id(t_mini_rt *rt)
 		parse_square(rt);
 	else if (ft_strequ(rt->split[0], "cy"))
 		parse_cylindre(rt);
-	else if (ft_strequ(rt->split[0], "co"))
-		parse_cone(rt);
 	else if (ft_strequ(rt->split[0], "tr"))
 		parse_triangle(rt);
-	else if (ft_strequ(rt->split[0], "AA"))
-		parse_antialiasing(rt);
-	else if (ft_strequ(rt->split[0], "SEPIA"))
-		rt->sepia = 1;
-	else if (ft_strequ(rt->split[0], "STEREO"))
-		rt->st = 1;
-	else if (ft_strequ(rt->split[0], "dl"))
-		parse_dir_light(rt);
-	// else
-	// 	handle_error("unrecognized id", rt);
+	else if (rt->split[0][0] == '#' || ft_strequ(rt->split[0], "#"))
+		;
+	else if (check_id_bonus(rt))
+		;
+	else
+		handle_error("unrecognized id", rt);
 }
 
 int			check_split(char **split)
@@ -68,21 +81,6 @@ int			check_split(char **split)
 		i++;
 	}
 	return (i);
-}
-
-char		**free_split(char **split)
-{
-	int		i;
-
-	i = 0;
-	while (split[i])
-	{
-		ft_strdel(&split[i]);
-		i++;
-	}
-	free(split);
-	split = NULL;
-	return (split);
 }
 
 t_vec		split_vec(char *str, t_mini_rt *rt, int orient)
@@ -117,9 +115,9 @@ t_color		split_rgb(char *str, t_mini_rt *rt)
 		free_split(split);
 		handle_error("invalid rgb parsing", rt);
 	}
-	c.r = ft_atoi(split[0]) / 255;
-	c.g = ft_atoi(split[1]) / 255;
-	c.b = ft_atoi(split[2]) / 255;
+	c.r = ft_atof(split[0]) / 255;
+	c.g = ft_atof(split[1]) / 255;
+	c.b = ft_atof(split[2]) / 255;
 	free_split(split);
 	if (c.r > 1 || c.g > 1 || c.b > 1 || c.r < 0 || c.g < 0 || c.b < 0)
 		handle_error("invalid rgb parsing", rt);

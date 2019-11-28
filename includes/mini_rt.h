@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/27 14:15:20 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/28 15:57:57 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define CIRCLE 6
 # define CONE 7
 
+# define NM_SQUARE 12
+
 # define DIFFUSE 10
 # define DIRECTIONAL 11
 
@@ -42,9 +44,6 @@
 # define BMP_FILE_NAME "img.bmp"
 # define BMP_FILE_HEADER_SIZE 14
 # define BMP_INFO_HEADER_SIZE 40
-# define BMP_HEADER_SIZE BMP_FILE_HEADER_SIZE + BMP_INFO_HEADER_SIZE
-
-# define VEC_CREATE(x,y,z) ((t_vec){x,y,z})
 
 typedef struct	s_mini_rt
 {
@@ -58,7 +57,6 @@ typedef struct	s_mini_rt
 	float				intensity;
 	float				t;
 	float				k;
-	float				st;
 	float				aspect;
 	int					tr;
 	int					nbref;
@@ -69,7 +67,9 @@ typedef struct	s_mini_rt
 	int					cur_thr;
 	float				anti_aliasing;
 	int					sepia;
+	float				st;
 	int					mouse;
+	int					kb;
 	struct s_color		tmp_color;
 	struct s_image		img;
 	struct s_ray		ray;
@@ -105,11 +105,12 @@ int				parse_cone(t_mini_rt *rt);
 int				parse_triangle(t_mini_rt *rt);
 int				parse_antialiasing(t_mini_rt *rt);
 int				parse_dir_light(t_mini_rt *rt);
+int				parse_cube(t_mini_rt *rt);
 int				check_split(char **split);
 char			**free_split(char **split);
 t_vec			split_vec(char *str, t_mini_rt *rt, int orient);
 t_color			split_rgb(char *str, t_mini_rt *rt);
-void			check_orient(t_vec *orient);
+int				check_orient(t_vec *orient);
 void			check_id(t_mini_rt *rt);
 
 /*
@@ -117,6 +118,8 @@ void			check_id(t_mini_rt *rt);
 */
 int				key_hook(int key, t_mini_rt *rt);
 int				get_mouse_pos(int x, int y, t_mini_rt *rt);
+int				mouse_press(int button, int x, int y, t_mini_rt *rt);
+int				mouse_release(int button, int x, int y, t_mini_rt *rt);
 int				get_keypress(int key, t_mini_rt *rt);
 void			handle_error(char *str, t_mini_rt *rt);
 int				exit_and_free(t_mini_rt *rt);
@@ -145,6 +148,8 @@ void			triangle(t_mini_rt *rt, t_element *triangle, t_vec ori,
 					t_vec dir);
 void			square(t_mini_rt *rt, t_element *plane, t_vec ori, t_vec dir);
 void			create_circle(t_mini_rt *rt, t_element *cylinder, float t);
+void			create_square(t_mini_rt *rt, t_element *cube, t_vec point,
+					t_vec orient);
 void			select_objs(t_mini_rt *rt);
 int				objs_count(t_list *lst);
 void			unselect_obj(t_mini_rt *rt);
@@ -185,14 +190,13 @@ float			vec_dot(t_vec v1, t_vec v2);
 t_vec			vec_cross(t_vec v1, t_vec v2);
 t_vec			vec_normalize(t_vec p);
 float			vec_len(t_vec v);
-t_vec			vec_abs(t_vec v1);
-t_vec			vec_reverse(t_vec v1);
 t_vec			get_normal_vector(t_mini_rt *rt, t_vec p);
 
 /*
 ** Additional functions
 */
 void			setup_rt(t_mini_rt *rt);
+void			show_keybind(t_mini_rt *rt);
 void			create_bmp_image(t_mini_rt *rt, char *file_name);
 
 #endif

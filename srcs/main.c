@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/27 14:16:55 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/28 15:44:40 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	init_rt(t_mini_rt *rt)
 	rt->line = NULL;
 	rt->split = NULL;
 	rt->cam = NULL;
-	rt->st = 0;
 	rt->cam_count = 0;
 	rt->cur_cam = 0;
 	rt->cur_obj = 0;
@@ -32,42 +31,26 @@ void	init_rt(t_mini_rt *rt)
 	rt->res.y = 0;
 	rt->save = 0;
 	rt->sepia = 0;
+	rt->st = 0;
+	rt->kb = 0;
 	rt->mouse = 0;
 	rt->anti_aliasing = 1;
 }
 
 void	setup_rt(t_mini_rt *rt)
 {
-	rt->ray.ori = VEC_CREATE(rt->cam->pov.x, rt->cam->pov.y, rt->cam->pov.z);
+	rt->ray.ori = (t_vec){rt->cam->pov.x, rt->cam->pov.y, rt->cam->pov.z};
 	rt->aspect = (float)rt->res.x / (float)rt->res.y;
 	if (rt->cam->orient.x != 0 || rt->cam->orient.z != 0)
-		rt->cam->up = vec_normalize(vec_add(VEC_CREATE(0, -1, 0),
+		rt->cam->up = vec_normalize(vec_add((t_vec){0, -1, 0},
 		rt->cam->orient));
 	else
-		rt->cam->up = vec_normalize(vec_add(VEC_CREATE(0, 0, -1),
+		rt->cam->up = vec_normalize(vec_add((t_vec){0, 0, -1},
 		rt->cam->orient));
 	rt->cam->right = vec_normalize(vec_cross(rt->cam->orient, rt->cam->up));
 	rt->cam->up = vec_normalize(vec_cross(rt->cam->right, rt->cam->orient));
 	rt->k = 0;
 	rt->t = 0;
-}
-
-int		mouse_press(int button, int x, int y, t_mini_rt *rt)
-{
-	(void)x;
-	(void)y;
-	if (button == 1)
-		rt->mouse = 1;
-	return (1);
-}
-
-int		mouse_release(int button, int x, int y, t_mini_rt *rt)
-{
-	(void)x;
-	(void)y;
-	if (button == 1)
-		rt->mouse = 0;
-	return (1);
 }
 
 void	create_window(t_mini_rt *rt)

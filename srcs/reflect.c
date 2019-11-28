@@ -6,7 +6,7 @@
 /*   By: haguerni <haguerni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 19:51:52 by haguerni          #+#    #+#             */
-/*   Updated: 2019/11/27 13:23:07 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/28 13:45:13 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,5 @@ void		reflect(t_mini_rt *rt)
 	vec_mul(vec_mul(rtt.ray.dir, vec_dot(rtt.ray.dir, rt->ray.dir)), 2)));
 	rtt.ray.ori = vec_add(rtt.ray.ori, vec_mul(rtt.ray.dir, 0.1));
 	rtt.color = ray_intersect(&rtt);
-	//apply_intensity(rt->obj->ref, &rtt.color);
 	rt->color = color_average3(rt->color, rtt.color, rt->obj->ref);
-	//rt->
 }
