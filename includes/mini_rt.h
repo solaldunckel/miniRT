@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/28 15:57:57 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:24:41 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define DIRECTIONAL 11
 
 # define THREAD_COUNT 16
-# define MAX_REF 20
+# define MAX_REF 5
 
 # define BMP_FILE_NAME "img.bmp"
 # define BMP_FILE_HEADER_SIZE 14
@@ -78,6 +78,7 @@ typedef struct	s_mini_rt
 	struct s_element	*obj;
 	struct s_element	*move_obj;
 	struct s_camera		*cam;
+	struct s_texture	*sky;
 	struct s_list		*objs_list;
 	struct s_list		*cam_list;
 	struct s_list		*light_list;
@@ -112,6 +113,7 @@ t_vec			split_vec(char *str, t_mini_rt *rt, int orient);
 t_color			split_rgb(char *str, t_mini_rt *rt);
 int				check_orient(t_vec *orient);
 void			check_id(t_mini_rt *rt);
+int				parse_sky(t_mini_rt *rt);
 
 /*
 ** Events
@@ -167,7 +169,7 @@ void			change_cam(t_mini_rt *rt);
 */
 int				color_put(t_mini_rt *rt, int x, int y);
 t_color			color_average(t_color color1, t_color color2);
-t_color			color_add(t_color color1, t_color color2);
+t_color			color_add(t_color color1, t_color color2, int cap);
 t_color			color_div(t_color color, int average);
 t_color			apply_lights(t_mini_rt *rt);
 int				apply_shadows(t_mini_rt *rt, t_vec ori, t_vec dir,
@@ -178,6 +180,7 @@ void			get_tex_coord(t_mini_rt *rt, t_element *sphere, int *column,
 					int *row);
 void			reflect(t_mini_rt *rt);
 t_color			apply_intensity(float intensity, t_color color);
+t_color			get_sky_coord(t_mini_rt *rt);
 
 /*
 ** Vectors
@@ -198,5 +201,6 @@ t_vec			get_normal_vector(t_mini_rt *rt, t_vec p);
 void			setup_rt(t_mini_rt *rt);
 void			show_keybind(t_mini_rt *rt);
 void			create_bmp_image(t_mini_rt *rt, char *file_name);
+t_texture		create_sky(t_mini_rt *rt, char *file_path);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/28 15:42:51 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:36:16 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int			check_id_bonus(t_mini_rt *rt)
 		parse_dir_light(rt);
 	else if (ft_strequ(rt->split[0], "cb"))
 		parse_cube(rt);
+	else if (ft_strequ(rt->split[0], "sky"))
+		parse_sky(rt);
 	else
 		return (0);
 	return (1);

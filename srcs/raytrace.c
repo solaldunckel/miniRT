@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/28 15:45:47 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:35:52 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_color	ray_intersect(t_mini_rt *rt)
 	rt->color.r = 0;
 	rt->color.g = 0;
 	rt->color.b = 0;
+	rt->sky ? rt->color = get_sky_coord(rt) : rt->color;
 	while (tmp)
 	{
 		find_objs(rt, tmp->content, rt->ray.ori, rt->ray.dir);
@@ -94,7 +95,7 @@ t_color	anti_aliasing(t_mini_rt *rt, float i, float j)
 		{
 			rt->ray.dir = calc_ray(rt, i + aax, j + aay);
 			rt->color2 = ray_intersect(rt);
-			color = color_add(color, rt->color2);
+			color = color_add(color, rt->color2, 0);
 			aax += 1 / (rt->anti_aliasing - 1);
 			aa++;
 		}
@@ -125,7 +126,7 @@ void	raytracing(t_thread *th)
 				th->scene.color = ray_intersect(&th->scene);
 			}
 			th->scene.sepia ? apply_sepia(&th->scene) : 0;
-			th->scene.obj ? color_put(&th->scene, i, j) : 0;
+			color_put(&th->scene, i, j);
 			i += THREAD_COUNT;
 		}
 		j++;

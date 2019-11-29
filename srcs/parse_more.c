@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:40:08 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/28 16:08:07 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:06:19 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,26 @@ int		parse_dir_light(t_mini_rt *rt)
 	ft_lstadd_back(&rt->light_list, ft_lstnew(light));
 	if (light->ratio > 1 || light->ratio < 0)
 		handle_error("dir light parsing error", rt);
+	return (1);
+}
+
+int		parse_sky(t_mini_rt *rt)
+{
+	t_texture	*sky;
+	int 		i;
+
+	if (!(sky = ft_calloc(1, sizeof(t_texture) * 7)))
+		handle_error("fail to malloc", rt);
+	i = 0;
+	while (rt->split[++i])
+	{
+		if (!ft_str_end(rt->split[i], ".xpm"))
+		{
+			free(sky);
+			handle_error("sky parsing error", rt);
+		}
+		sky[i - 1] = create_sky(rt, rt->split[i]);
+	}
+	rt->sky = sky;
 	return (1);
 }

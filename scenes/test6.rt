@@ -1,16 +1,22 @@
-R 600 600
+R 1024 1024
 
 A 0.2 255,255,255
 AA 1
 #STEREO
 
-c 0,0,-200 0,0,1
+sky textures/moondust_lf.xpm textures/moondust_rt.xpm textures/moondust_ft.xpm textures/moondust_bk.xpm textures/moondust_dn.xpm textures/moondust_up.xpm
 
-l 0,200,0 1 255,255,255
+c 50,0,200 0,0,-1
 
-pl 0,-50,0 0,1,0 100,100,100
+l -200,100,0 1 255,255,255
+#l 0,0,-200 1 255,255,255
+#l -50,1000,200 0.3 255,255,255
+#l 0,-100,0 1 255,255,255
+#l 0,100,200 0.5 255,255,25
 
-sp 0,0,0 80 textures/mercury.xpm
+#pl 0,-50,0 0,-1,0 100,100,100 1
 
-sp -70,0,0 40 255,0,0
-sp 70,0,0 50 255,0,0
+#sp 0,0,20 80 10,200,10 1
+
+#sp -70,0,0 40 0,255,254 0
+sp 70,60,100 50 textures/map.xpm 1

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/28 15:44:40 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:15:19 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_rt(t_mini_rt *rt)
 	rt->line = NULL;
 	rt->split = NULL;
 	rt->cam = NULL;
+	rt->sky = NULL;
 	rt->cam_count = 0;
 	rt->cur_cam = 0;
 	rt->cur_obj = 0;

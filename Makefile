@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/11/28 13:37:34 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/11/29 17:09:57 by haguerni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRCS_LIST		= \
 					multi_thread.c \
 					texture.c \
 					ft.c \
-					reflect.c
+					reflect.c \
+					skybox.c
 
 SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})
 
