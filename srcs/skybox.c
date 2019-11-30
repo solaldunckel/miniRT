@@ -6,7 +6,7 @@
 /*   By: haguerni <haguerni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 17:48:28 by haguerni          #+#    #+#             */
-/*   Updated: 2019/11/29 17:17:44 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/30 15:44:17 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,26 @@ t_color	get_sky_color(t_texture sky, float x, float y, float max)
 	return (color);
 }
 
+void	free_sky(t_mini_rt *rt)
+{
+	int		i;
+
+	i = 0;
+	while (rt->sky[i].img)
+	{
+		if (rt->sky[i].img)
+			mlx_destroy_image(rt->mlx_ptr, rt->sky[i].ptr);
+		i++;
+	}
+	free(rt->sky);
+}
+
 t_color	get_sky_coord(t_mini_rt *rt)
 {
 	t_color	color;
 	float	max;
 
-	color.r = 0;
-	color.g = 0;
-	color.b = 0;
+	ft_bzero(&color, sizeof(t_color));
 	rt->ray.dir = vec_normalize(rt->ray.dir);
 	if (fabs(rt->ray.dir.z) >= fabs(rt->ray.dir.y) && fabs(rt->ray.dir.z) >= fabs(rt->ray.dir.x))
 	{

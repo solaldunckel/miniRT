@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/29 17:35:52 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/30 15:20:00 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,9 @@ t_color	ray_intersect(t_mini_rt *rt)
 	rt->obj = NULL;
 	rt->t = INT_MAX;
 	rt->k = INT_MAX;
-	tmp = rt->objs_list;
-	rt->color.r = 0;
-	rt->color.g = 0;
-	rt->color.b = 0;
+	ft_bzero(&rt->color, sizeof(t_color));
 	rt->sky ? rt->color = get_sky_coord(rt) : rt->color;
+	tmp = rt->objs_list;
 	while (tmp)
 	{
 		find_objs(rt, tmp->content, rt->ray.ori, rt->ray.dir);
@@ -52,9 +50,12 @@ t_color	ray_intersect(t_mini_rt *rt)
 		}
 		tmp = tmp->next;
 	}
-	rt->obj ? rt->color = get_color(rt) : rt->color;
-	rt->obj && rt->obj->ref ? reflect(rt) : rt->color;
-	rt->obj ? rt->color = apply_lights(rt) : rt->color;
+	if (rt->obj)
+	{
+		rt->color = get_color(rt);
+		rt->obj->ref ? reflect(rt) : 0;
+		rt->color = apply_lights(rt);
+	}
 	return (rt->color);
 }
 
@@ -85,9 +86,7 @@ t_color	anti_aliasing(t_mini_rt *rt, float i, float j)
 
 	aa = 0;
 	aay = -(rt->anti_aliasing - 1) / rt->anti_aliasing;
-	color.r = 0;
-	color.g = 0;
-	color.b = 0;
+	ft_bzero(&color, sizeof(t_color));
 	while (aa < (pow(rt->anti_aliasing, 2)))
 	{
 		aax = -(rt->anti_aliasing - 1) / rt->anti_aliasing;

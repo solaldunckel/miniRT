@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/29 17:24:41 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/30 15:38:09 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@
 # define CIRCLE 6
 # define CONE 7
 
-# define NM_SQUARE 12
-
 # define DIFFUSE 10
 # define DIRECTIONAL 11
 
@@ -52,8 +50,8 @@ typedef struct	s_mini_rt
 	int					save;
 	char				*line;
 	char				**split;
-	struct s_color		color;
-	struct s_color		color2;
+	t_color				color;
+	t_color				color2;
 	float				intensity;
 	float				t;
 	float				k;
@@ -70,24 +68,24 @@ typedef struct	s_mini_rt
 	float				st;
 	int					mouse;
 	int					kb;
-	struct s_color		tmp_color;
-	struct s_image		img;
-	struct s_ray		ray;
-	struct s_res		res;
-	struct s_ambient	ambient;
-	struct s_element	*obj;
-	struct s_element	*move_obj;
-	struct s_camera		*cam;
-	struct s_texture	*sky;
-	struct s_list		*objs_list;
-	struct s_list		*cam_list;
-	struct s_list		*light_list;
+	t_color				tmp_color;
+	t_image				img;
+	t_ray				ray;
+	t_res				res;
+	t_ambient			ambient;
+	t_element			*obj;
+	t_element			*move_obj;
+	t_camera			*cam;
+	t_texture			*sky;
+	t_list				*objs_list;
+	t_list				*cam_list;
+	t_list				*light_list;
 }				t_mini_rt;
 
 typedef struct	s_thread
 {
-	int			cur_thr;
-	t_mini_rt	scene;
+	int					cur_thr;
+	t_mini_rt			scene;
 }				t_thread;
 
 /*
@@ -202,5 +200,6 @@ void			setup_rt(t_mini_rt *rt);
 void			show_keybind(t_mini_rt *rt);
 void			create_bmp_image(t_mini_rt *rt, char *file_name);
 t_texture		create_sky(t_mini_rt *rt, char *file_path);
+void			free_sky(t_mini_rt *rt);
 
 #endif

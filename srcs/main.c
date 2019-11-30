@@ -6,40 +6,16 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/29 17:15:19 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/30 15:58:27 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-void	init_rt(t_mini_rt *rt)
-{
-	if (!(rt->mlx_ptr = mlx_init()))
-		handle_error("fail to initialize Minilibx", rt);
-	rt->win_ptr = NULL;
-	rt->objs_list = NULL;
-	rt->cam_list = NULL;
-	rt->light_list = NULL;
-	rt->line = NULL;
-	rt->split = NULL;
-	rt->cam = NULL;
-	rt->sky = NULL;
-	rt->cam_count = 0;
-	rt->cur_cam = 0;
-	rt->cur_obj = 0;
-	rt->obj = NULL;
-	rt->res.x = 0;
-	rt->res.y = 0;
-	rt->save = 0;
-	rt->sepia = 0;
-	rt->st = 0;
-	rt->kb = 0;
-	rt->mouse = 0;
-	rt->anti_aliasing = 1;
-}
-
 void	setup_rt(t_mini_rt *rt)
 {
+	if (!rt->anti_aliasing)
+		rt->anti_aliasing = 1;
 	rt->ray.ori = (t_vec){rt->cam->pov.x, rt->cam->pov.y, rt->cam->pov.z};
 	rt->aspect = (float)rt->res.x / (float)rt->res.y;
 	if (rt->cam->orient.x != 0 || rt->cam->orient.z != 0)
@@ -87,7 +63,9 @@ int		main(int argc, char **argv)
 {
 	t_mini_rt	rt;
 
-	init_rt(&rt);
+	ft_bzero(&rt, sizeof(t_mini_rt));
+	if (!(rt.mlx_ptr = mlx_init()))
+		handle_error("fail to initialize Minilibx", &rt);
 	if (argc > 3 || argc == 1 || (argc == 3 && !ft_strequ(argv[2], "-save")))
 		handle_error("wrong arguments", &rt);
 	if (argc == 3 && ft_strequ(argv[2], "-save"))

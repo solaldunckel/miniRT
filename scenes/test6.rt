@@ -2,9 +2,9 @@ R 1024 1024
 
 A 0.2 255,255,255
 AA 1
-#STEREO
+STEREO
 
-sky textures/moondust_lf.xpm textures/moondust_rt.xpm textures/moondust_ft.xpm textures/moondust_bk.xpm textures/moondust_dn.xpm textures/moondust_up.xpm
+SKY textures/moondust_lf.xpm textures/moondust_rt.xpm textures/moondust_ft.xpm textures/moondust_bk.xpm textures/moondust_dn.xpm textures/moondust_up.xpm
 
 c 50,0,200 0,0,-1
 

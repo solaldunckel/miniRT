@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/27 13:19:19 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/30 16:05:18 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		parse_sphere(t_mini_rt *rt)
 			free(sphere);
 			handle_error("sphere parsing error", rt);
 		}
+		check = 5;
 	}
 	sphere->point = split_vec(rt->split[1], rt, 0);
 	sphere->diameter = ft_atof(rt->split[2]);
@@ -36,8 +37,7 @@ int		parse_sphere(t_mini_rt *rt)
 		sphere->color = split_rgb(rt->split[3], rt);
 	check == 5 ? sphere->ref = ft_atof(rt->split[4]) : 0;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(sphere));
-	if (sphere->diameter < 0)
-		handle_error("sphere parsing error", rt);
+	sphere->diameter < 0 ? handle_error("sphere parsing error", rt) : 0;
 	return (1);
 }
 

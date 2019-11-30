@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:42:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/28 16:04:26 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/30 15:38:55 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	handle_error(char *str, t_mini_rt *rt)
 		free_split(rt->split);
 	if (rt->line)
 		ft_strdel(&rt->line);
+	if (rt->sky)
+		free_sky(rt);
 	free_camera_and_texture(rt);
 	ft_lstclear(&rt->objs_list, free);
 	ft_lstclear(&rt->cam_list, free);
@@ -54,6 +56,8 @@ int		exit_and_free(t_mini_rt *rt)
 {
 	ft_printf("" BOLDGREEN "Exiting miniRT...\n" RESET);
 	free_camera_and_texture(rt);
+	if (rt->sky)
+		free_sky(rt);
 	ft_lstclear(&rt->objs_list, free);
 	ft_lstclear(&rt->cam_list, free);
 	ft_lstclear(&rt->light_list, free);

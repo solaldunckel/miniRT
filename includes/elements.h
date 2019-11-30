@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/28 14:52:46 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/30 15:50:46 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ typedef struct	s_res
 {
 	int			x;
 	int			y;
+	int			parsed;
 }				t_res;
 
 typedef struct	s_ray
 {
-	struct s_vec	ori;
-	struct s_vec	dir;
+	t_vec		ori;
+	t_vec		dir;
 }				t_ray;
 
 typedef struct	s_solve
@@ -51,54 +52,55 @@ typedef struct	s_solve
 
 typedef struct	s_ambient
 {
-	float			ratio;
-	struct s_color	color;
+	float		ratio;
+	int			parsed;
+	t_color		color;
 }				t_ambient;
 
 typedef struct	s_image
 {
-	void			*ptr;
-	char			*add;
-	int				bpp;
-	int				size_line;
-	int				endian;
+	void		*ptr;
+	char		*add;
+	int			bpp;
+	int			size_line;
+	int			endian;
 }				t_image;
 
 typedef struct	s_camera
 {
-	struct s_vec	pov;
-	struct s_vec	orient;
-	struct s_image	img;
-	struct s_vec	up;
-	struct s_vec	right;
+	t_vec		pov;
+	t_vec		orient;
+	t_image		img;
+	t_vec		up;
+	t_vec		right;
 }				t_camera;
 
 typedef struct	s_texture
 {
-	void	*ptr;
-	char	*img;
-	int		width;
-	int		height;
-	int		bpp;
-	int		size_line;
-	int		endian;
+	void		*ptr;
+	char		*img;
+	int			width;
+	int			height;
+	int			bpp;
+	int			size_line;
+	int			endian;
 }				t_texture;
 
 typedef struct	s_element
 {
-	int					id;
-	struct s_vec		point;
-	struct s_color		color;
-	struct s_vec		orient;
-	float				ratio;
-	float				diameter;
-	float				height;
-	float				ref;
-	int					nm;
-	struct s_vec		point2;
-	struct s_vec		point3;
-	struct s_vec		dir;
-	struct s_texture	tex;
+	int			id;
+	t_vec		point;
+	t_color		color;
+	t_vec		orient;
+	float		ratio;
+	float		diameter;
+	float		height;
+	float		ref;
+	int			nm;
+	t_vec		point2;
+	t_vec		point3;
+	t_vec		dir;
+	t_texture	tex;
 }				t_element;
 
 #endif

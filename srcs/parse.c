@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/24 12:57:19 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/30 16:08:14 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	parse_rt_file(char *rt_file, t_mini_rt *rt)
 	rt->obj_count = objs_count(rt->objs_list);
 	if (!(rt->cam_count = ft_lstsize(rt->cam_list)))
 		handle_error("no camera available", rt);
-	if (!rt->res.x || !rt->res.y)
+	if (!rt->res.parsed)
 		handle_error("no resolution", rt);
 }
 
@@ -42,6 +42,7 @@ int		parse_res(t_mini_rt *rt)
 	rt->res.y = ft_atoi(rt->split[2]);
 	if (rt->res.x < 1 || rt->res.y < 1)
 		handle_error("resolution too small", rt);
+	rt->res.parsed = 1;
 	rt->res.x > 2560 ? rt->res.x = 2560 : 0;
 	rt->res.y > 1440 ? rt->res.y = 1395 : 0;
 	return (1);
@@ -55,6 +56,7 @@ int		parse_ambient(t_mini_rt *rt)
 	rt->ambient.color = split_rgb(rt->split[2], rt);
 	if (rt->ambient.ratio > 1 || rt->ambient.ratio < 0)
 		handle_error("invalid ambient light", rt);
+	rt->ambient.parsed = 1;
 	return (1);
 }
 

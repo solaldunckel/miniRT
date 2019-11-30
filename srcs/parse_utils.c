@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/29 17:36:16 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/30 15:54:03 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ int			check_id_bonus(t_mini_rt *rt)
 {
 	if (ft_strequ(rt->split[0], "co"))
 		parse_cone(rt);
-	else if (ft_strequ(rt->split[0], "AA"))
+	else if (ft_strequ(rt->split[0], "AA") && !rt->anti_aliasing)
 		parse_antialiasing(rt);
-	else if (ft_strequ(rt->split[0], "SEPIA"))
+	else if (ft_strequ(rt->split[0], "SEPIA") && !rt->sepia)
 		rt->sepia = 1;
-	else if (ft_strequ(rt->split[0], "st"))
+	else if (ft_strequ(rt->split[0], "STEREO") && !rt->st)
 		rt->st = 1;
+	else if (ft_strequ(rt->split[0], "SKY") && !rt->sky)
+		parse_sky(rt);
 	else if (ft_strequ(rt->split[0], "dl"))
 		parse_dir_light(rt);
 	else if (ft_strequ(rt->split[0], "cb"))
 		parse_cube(rt);
-	else if (ft_strequ(rt->split[0], "sky"))
-		parse_sky(rt);
 	else
 		return (0);
 	return (1);
@@ -35,9 +35,9 @@ int			check_id_bonus(t_mini_rt *rt)
 
 void		check_id(t_mini_rt *rt)
 {
-	if (ft_strequ(rt->split[0], "R"))
+	if (ft_strequ(rt->split[0], "R") && !rt->res.parsed)
 		parse_res(rt);
-	else if (ft_strequ(rt->split[0], "A"))
+	else if (ft_strequ(rt->split[0], "A") && !rt->ambient.parsed)
 		parse_ambient(rt);
 	else if (ft_strequ(rt->split[0], "c"))
 		parse_camera(rt);
@@ -58,7 +58,7 @@ void		check_id(t_mini_rt *rt)
 	else if (check_id_bonus(rt))
 		;
 	else
-		handle_error("unrecognized id", rt);
+		handle_error("parsing error", rt);
 }
 
 int			check_split(char **split)
