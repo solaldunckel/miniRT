@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/30 16:05:18 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/30 21:50:50 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		parse_sphere(t_mini_rt *rt)
 		create_texture(rt, sphere, rt->split[3]);
 	else
 		sphere->color = split_rgb(rt->split[3], rt);
-	check == 5 ? sphere->ref = ft_atof(rt->split[4]) : 0;
+	rt->split[4] ? sphere->ref = ft_atof(rt->split[4]) : 0;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(sphere));
 	sphere->diameter < 0 ? handle_error("sphere parsing error", rt) : 0;
 	return (1);
@@ -49,7 +49,7 @@ int		parse_plane(t_mini_rt *rt)
 	check = check_split(rt->split);
 	if (!(plane = ft_calloc(1, sizeof(t_element))))
 		handle_error("fail to malloc", rt);
-	if (check < 4 || check > 5)
+	if ((check < 4 || check > 5) && check != 0 && !rt->split[1])
 	{
 		free(plane);
 		handle_error("plane parsing error", rt);
@@ -59,7 +59,11 @@ int		parse_plane(t_mini_rt *rt)
 	plane->orient = split_vec(rt->split[2], rt, 1);
 	plane->color = split_rgb(rt->split[3], rt);
 	plane->ref = 0;
-	check == 5 ? plane->ref = ft_atof(rt->split[4]) : 0;
+	rt->split[4] ? plane->ref = ft_atof(rt->split[4]) : 0;
+	if (rt->split[5] && ft_strequ(rt->split[5], "raiiinbow"))
+		plane->rainbow = 1;
+	if (rt->split[4] && ft_strequ(rt->split[4], "raiiinbow"))
+		plane->rainbow = 1;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(plane));
 	return (1);
 }

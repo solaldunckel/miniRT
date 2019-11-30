@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:04:25 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/29 17:25:07 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/30 21:51:36 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_color		color_add(t_color color1, t_color color2, int cap)
 	t_color		color;
 
 	color.r = color1.r + color2.r;
-	color.r > 1  && cap ? color.r = 1 : 0;
+	color.r > 1 && cap ? color.r = 1 : 0;
 	color.g = color1.g + color2.g;
 	color.g > 1 && cap ? color.g = 1 : 0;
 	color.b = color1.b + color2.b;

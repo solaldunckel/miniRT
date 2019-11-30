@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:40:08 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/30 15:45:03 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/30 21:52:24 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		parse_dir_light(t_mini_rt *rt)
 int		parse_sky(t_mini_rt *rt)
 {
 	t_texture	*sky;
-	int 		i;
+	int			i;
 
 	if (!(sky = ft_calloc(1, sizeof(t_texture) * 7)))
 		handle_error("fail to malloc", rt);

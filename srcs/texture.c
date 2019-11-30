@@ -6,11 +6,50 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 21:39:46 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/29 17:33:41 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/11/30 21:48:58 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+t_color	create_raiiinbow(float dist)
+{
+	t_color		color;
+
+	if (dist < 1)
+		color = (t_color){1, (dist - 0.5) * 2, 1 - dist * 2};
+	else if (dist >= 1 && dist < 2)
+	{
+		dist -= 1;
+		color = (t_color){1 - dist * 2, 1, (dist - 0.5) * 2};
+	}
+	else if (dist >= 2 && dist <= 3)
+	{
+		dist -= 2;
+		color = (t_color){(dist - 0.5) * 2, 1 - dist * 2, 1};
+	}
+	color.r < 0 || color.r > 1 ? color.r = 0 : 0;
+	color.g < 0 || color.g > 1 ? color.g = 0 : 0;
+	color.b < 0 || color.b > 1 ? color.b = 0 : 0;
+	return (color);
+}
+
+t_color	raiiinbow(t_mini_rt *rt)
+{
+	t_element	cam_plane;
+	t_mini_rt	rtt;
+
+	rtt.t = INT_MAX;
+	rtt.ray.dir = rt->cam->orient;
+	rtt.ray.ori = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->k));
+	cam_plane.point = rt->cam->pov;
+	cam_plane.orient = rt->cam->orient;
+	rtt.t = INT_MAX;
+	plane(&rtt, &cam_plane, rtt.ray.ori, rtt.ray.dir);
+	plane(&rtt, &cam_plane, rtt.ray.ori, vec_mul(rtt.ray.dir, -1));
+	rtt.t = fmod(rtt.t / 50, 3);
+	return (create_raiiinbow(rtt.t));
+}
 
 void	create_texture(t_mini_rt *rt, t_element *elem, char *file_path)
 {
@@ -40,12 +79,10 @@ t_color	get_color(t_mini_rt *rt)
 		color.g = (float)(unsigned char)rt->obj->tex.img[i + 1] / 255;
 		color.r = (float)(unsigned char)rt->obj->tex.img[i + 2] / 255;
 	}
+	else if (rt->obj->rainbow)
+		color = raiiinbow(rt);
 	else
-	{
-		color.r = rt->obj->color.r;
-		color.g = rt->obj->color.g;
-		color.b = rt->obj->color.b;
-	}
+		color = rt->obj->color;
 	return (color);
 }
 

@@ -1,22 +1,22 @@
 R 1024 1024
 
-A 0.2 255,255,255
+A 1 255,255,255
 AA 1
-STEREO
+#STEREO
 
 SKY textures/moondust_lf.xpm textures/moondust_rt.xpm textures/moondust_ft.xpm textures/moondust_bk.xpm textures/moondust_dn.xpm textures/moondust_up.xpm
 
-c 50,0,200 0,0,-1
+c 0,0,200 0,0,-1
 
-l -200,100,0 1 255,255,255
+l 10,-100,200 1 255,255,255
 #l 0,0,-200 1 255,255,255
 #l -50,1000,200 0.3 255,255,255
 #l 0,-100,0 1 255,255,255
 #l 0,100,200 0.5 255,255,25
 
-#pl 0,-50,0 0,-1,0 100,100,100 1
+pl 0,-50,0 0,-1,0 100,255,0 raiiinbow
 
 #sp 0,0,20 80 10,200,10 1
 
-#sp -70,0,0 40 0,255,254 0
-sp 70,60,100 50 textures/map.xpm 1
+sp 0,0,0 40 0,0,0 -1.5
+#sp 70,60,100 50 textures/map.xpm -0.01

@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/11/30 13:26:11 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/11/30 16:31:04 by haguerni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ LIBFT 			= libft
 
 CC				= gcc
 CFLAGS 			= -Wall -Wextra -Werror
-LFLAGS			= -L libft -lft -lmlx -framework Metal -framework AppKit
+LFLAGS			= -L libft -lft -lmlx -framework OpenGL -framework AppKit
 RM				= rm -f
 
 all:			$(NAME)

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/30 15:50:46 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/30 18:04:10 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct	s_element
 	t_vec		point3;
 	t_vec		dir;
 	t_texture	tex;
+	int			rainbow;
 }				t_element;
 
 #endif

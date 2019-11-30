@@ -6,7 +6,7 @@
 /*   By: haguerni <haguerni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 19:51:52 by haguerni          #+#    #+#             */
-/*   Updated: 2019/11/28 13:45:13 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/11/30 21:09:22 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,17 @@ void		reflect(t_mini_rt *rt)
 	ft_memcpy(&rtt, rt, sizeof(t_mini_rt));
 	rtt.ray.ori = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->k));
 	rtt.ray.dir = get_normal_vector(rt, rtt.ray.ori);
-	rtt.ray.dir = vec_normalize(vec_sub(rt->ray.dir,
-	vec_mul(vec_mul(rtt.ray.dir, vec_dot(rtt.ray.dir, rt->ray.dir)), 2)));
+	rt->obj->ref < 0 ? rtt.ray.dir = vec_mul(rtt.ray.dir, -1) : rtt.ray.dir;
+	rt->obj->ref > 0 ? rtt.ray.dir = vec_normalize(vec_sub(rt->ray.dir,
+		vec_mul(vec_mul(rtt.ray.dir, vec_dot(rtt.ray.dir, rt->ray.dir)), 2)))
+		: rtt.ray.dir;
+	rt->obj->ref < 0 ? rtt.ray.dir = vec_normalize(vec_sub(rt->ray.dir,
+		vec_mul(vec_mul(rtt.ray.dir, vec_dot(vec_mul(rtt.ray.dir, rt->obj->ref),
+		rt->ray.dir)), 2))) : rtt.ray.dir;
 	rtt.ray.ori = vec_add(rtt.ray.ori, vec_mul(rtt.ray.dir, 0.1));
 	rtt.color = ray_intersect(&rtt);
-	rt->color = color_average3(rt->color, rtt.color, rt->obj->ref);
+	rt->obj->ref > 0 ? rt->color = color_average3(rt->color, rtt.color,
+		rt->obj->ref) : rt->color;
+	rt->obj->ref < 0 ? rt->color = color_average3(rt->color, rtt.color, 1)
+		: rt->color;
 }
