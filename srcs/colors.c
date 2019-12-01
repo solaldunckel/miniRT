@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:04:25 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/30 21:51:36 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/12/01 22:11:10 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ void		apply_sepia(t_mini_rt *rt)
 	if (red > 1)
 		rt->color.r = 1;
 	else
-		rt->color.r = (int)red;
+		rt->color.r = red;
 	if (green > 1)
 		rt->color.g = 1;
 	else
-		rt->color.g = (int)green;
+		rt->color.g = green;
 	if (blue > 1)
 		rt->color.b = 1;
 	else
-		rt->color.b = (int)blue;
+		rt->color.b = blue;
 }
 
 int			color_put(t_mini_rt *rt, int x, int y)

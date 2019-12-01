@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:56:12 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/29 18:59:11 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/01 20:09:51 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ int			check_orient(t_vec *orient)
 	else
 		return (1);
 	return (0);
+}
+
+int			count_split(char **split)
+{
+	int		i;
+
+	i = 0;
+	while (split[i])
+		i++;
+	return (i);
 }
 
 void		show_keybind(t_mini_rt *rt)
@@ -57,27 +67,18 @@ void		show_keybind(t_mini_rt *rt)
 
 void		redraw_window(t_mini_rt *rt)
 {
-	int		i;
-
-	i = 0;
-	while (i < rt->cam->img.size_line * rt->res.y)
-	{
-		rt->cam->img.add[i] = 0;
-		i++;
-	}
 	setup_rt(rt);
 	multi_thread(rt);
-	mlx_clear_window(rt->mlx_ptr, rt->win_ptr);
 	mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->cam->img.ptr, 0, 0);
 	show_keybind(rt);
 }
 
-t_element	*element_cpy(t_element *elem)
+t_element	*element_cpy(t_element *elem, t_mini_rt *rt)
 {
 	t_element	*new_elem;
 
 	if (!(new_elem = ft_calloc(1, sizeof(t_element))))
-		return (NULL);
+		handle_error("fail to malloc", rt);
 	ft_memcpy(new_elem, elem, sizeof(t_element));
 	return (new_elem);
 }

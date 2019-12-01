@@ -6,11 +6,34 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/30 15:58:27 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/01 23:29:53 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+
+void		multi_thread(t_mini_rt *rt)
+{
+	int			i;
+	pthread_t	thr[THREAD_COUNT];
+	t_thread	thread[THREAD_COUNT];
+
+	i = 0;
+	while (i < THREAD_COUNT)
+	{
+		thread[i].cur_thr = i;
+		ft_memcpy(&thread[i].scene, rt, sizeof(t_mini_rt));
+		thread[i].scene.tr = i;
+		pthread_create(&thr[i], NULL, (void*)raytracing, &thread[i]);
+		i++;
+	}
+	i = 0;
+	while (i < THREAD_COUNT)
+	{
+		pthread_join(thr[i], NULL);
+		i++;
+	}
+}
 
 void	setup_rt(t_mini_rt *rt)
 {

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/30 15:54:03 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/01 22:26:05 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,28 +61,25 @@ void		check_id(t_mini_rt *rt)
 		handle_error("parsing error", rt);
 }
 
-int			check_split(char **split)
+int			check_split(char **split, int max)
 {
 	int		i;
 	int		j;
 
-	i = 0;
+	i = 1;
 	while (split[i])
 	{
-		if (i != 0)
+		j = 0;
+		while (split[i][j])
 		{
-			j = 0;
-			while (split[i][j])
-			{
-				if (!ft_isdigit(split[i][j]) && split[i][j] != ','
-					&& split[i][j] != '.' && split[i][j] != '-')
-					return (0);
-				j++;
-			}
+			if (!ft_isdigit(split[i][j]) && split[i][j] != ','
+				&& split[i][j] != '.' && split[i][j] != '-' && (!max || i < max))
+				return (0);
+			j++;
 		}
 		i++;
 	}
-	return (i);
+	return (1);
 }
 
 t_vec		split_vec(char *str, t_mini_rt *rt, int orient)
@@ -91,7 +88,8 @@ t_vec		split_vec(char *str, t_mini_rt *rt, int orient)
 	char	**split;
 
 	split = ft_split(str, ',');
-	if (check_split(split) != 3 || ft_str_c_count(str, ',') != 2)
+	if (count_split(split) != 3 || ft_str_c_count(str, ',') != 2
+		|| !check_split(split, 0))
 	{
 		free_split(split);
 		handle_error("invalid vector parsing", rt);
@@ -112,7 +110,8 @@ t_color		split_rgb(char *str, t_mini_rt *rt)
 	char	**split;
 
 	split = ft_split(str, ',');
-	if (check_split(split) != 3 || ft_str_c_count(str, ',') != 2)
+	if (count_split(split) != 3 || ft_str_c_count(str, ',') != 2
+		|| !check_split(split, 0))
 	{
 		free_split(split);
 		handle_error("invalid rgb parsing", rt);

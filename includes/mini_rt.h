@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/30 15:38:09 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/01 20:10:54 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct	s_mini_rt
 	t_color				color2;
 	float				intensity;
 	float				t;
+	t_vec				p;
 	float				k;
 	float				aspect;
 	int					tr;
@@ -92,26 +93,27 @@ typedef struct	s_thread
 ** Parsing
 */
 void			parse_rt_file(char *rt_file, t_mini_rt *rt);
-int				parse_res(t_mini_rt *rt);
-int				parse_ambient(t_mini_rt *rt);
-int				parse_camera(t_mini_rt *rt);
-int				parse_light(t_mini_rt *rt);
-int				parse_sphere(t_mini_rt *rt);
-int				parse_plane(t_mini_rt *rt);
-int				parse_square(t_mini_rt *rt);
-int				parse_cylindre(t_mini_rt *rt);
-int				parse_cone(t_mini_rt *rt);
-int				parse_triangle(t_mini_rt *rt);
-int				parse_antialiasing(t_mini_rt *rt);
-int				parse_dir_light(t_mini_rt *rt);
-int				parse_cube(t_mini_rt *rt);
-int				check_split(char **split);
+void			parse_res(t_mini_rt *rt);
+void			parse_ambient(t_mini_rt *rt);
+void			parse_camera(t_mini_rt *rt);
+void			parse_light(t_mini_rt *rt);
+void			parse_sphere(t_mini_rt *rt);
+void			parse_plane(t_mini_rt *rt);
+void			parse_square(t_mini_rt *rt);
+void			parse_cylindre(t_mini_rt *rt);
+void			parse_cone(t_mini_rt *rt);
+void			parse_triangle(t_mini_rt *rt);
+void			parse_antialiasing(t_mini_rt *rt);
+void			parse_dir_light(t_mini_rt *rt);
+void			parse_cube(t_mini_rt *rt);
+void			parse_sky(t_mini_rt *rt);
+int				count_split(char **split);
+int				check_split(char **split, int max);
 char			**free_split(char **split);
 t_vec			split_vec(char *str, t_mini_rt *rt, int orient);
 t_color			split_rgb(char *str, t_mini_rt *rt);
 int				check_orient(t_vec *orient);
 void			check_id(t_mini_rt *rt);
-int				parse_sky(t_mini_rt *rt);
 
 /*
 ** Events
@@ -125,7 +127,7 @@ void			handle_error(char *str, t_mini_rt *rt);
 int				exit_and_free(t_mini_rt *rt);
 void			free_element(void *elem);
 void			redraw_window(t_mini_rt *rt);
-t_element		*element_cpy(t_element *elem);
+t_element		*element_cpy(t_element *elem, t_mini_rt *rt);
 
 /*
 ** Raytracing functions

@@ -6,27 +6,11 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:37:27 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/30 15:28:42 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/01 19:17:32 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-
-void			create_circle(t_mini_rt *rt, t_element *cylinder, float t)
-{
-	t_element		*circle;
-
-	if (!(circle = ft_calloc(1, sizeof(t_element))))
-		handle_error("fail to malloc", rt);
-	circle->id = 6;
-	circle->nm = 1;
-	circle->point = vec_add(cylinder->point,
-		vec_mul(vec_normalize(cylinder->orient), t));
-	circle->orient = cylinder->orient;
-	circle->diameter = cylinder->diameter;
-	circle->color = cylinder->color;
-	ft_lstadd_back(&rt->objs_list, ft_lstnew(circle));
-}
 
 static	void	inter(t_mini_rt *rt, t_element *cylinder, t_solve s,
 t_mini_rt rtt)
@@ -35,8 +19,6 @@ t_mini_rt rtt)
 	t_vec		inter;
 	float		t;
 
-	s.t1 = (-s.b - sqrt(s.det)) / (2 * s.a);
-	s.t2 = (-s.b + sqrt(s.det)) / (2 * s.a);
 	t = INT_MAX;
 	if (s.t1 >= 0 && rt->t > s.t1)
 		t = s.t1;
@@ -62,16 +44,19 @@ t_vec dir)
 
 	rtt.ray.ori = ori;
 	rtt.ray.dir = dir;
-	s.a = vec_dot(vec_cross(rtt.ray.dir, cylinder->orient),
-		vec_cross(rtt.ray.dir, cylinder->orient));
-	s.b = 2 * vec_dot(vec_cross(rtt.ray.dir, cylinder->orient),
-		vec_cross(vec_sub(rtt.ray.ori, cylinder->point), cylinder->orient));
-	s.c = vec_dot(vec_cross(vec_sub(rtt.ray.ori, cylinder->point),
-		cylinder->orient), vec_cross(vec_sub(rtt.ray.ori, cylinder->point),
-		cylinder->orient)) - (pow(cylinder->diameter / 2, 2)
+	s.sub = vec_sub(rtt.ray.ori, cylinder->point);
+	s.cross = vec_cross(rtt.ray.dir, cylinder->orient);
+	s.a = vec_dot(s.cross, s.cross);
+	s.cross = vec_cross(s.sub, cylinder->orient);
+	s.b = 2 * s.a;
+	s.c = s.a - (pow(cylinder->diameter / 2, 2)
 		* vec_dot(cylinder->orient, cylinder->orient));
 	s.det = pow(s.b, 2) - (4 * s.a * s.c);
 	if (s.det < 0)
 		return ;
+	s.a = 2 * s.a;
+	s.det = sqrt(s.det);
+	s.t1 = (-s.b - s.det) / s.a;
+	s.t2 = (-s.b + s.det) / s.a;
 	inter(rt, cylinder, s, rtt);
 }

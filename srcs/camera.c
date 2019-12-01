@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:47 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/30 15:32:08 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/01 22:08:44 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	change_cam(t_mini_rt *rt)
 {
 	if (rt->cam_count > 1)
 	{
-		mlx_clear_window(rt->mlx_ptr, rt->win_ptr);
 		select_cam(rt);
 		mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->cam->img.ptr,
 			0, 0);

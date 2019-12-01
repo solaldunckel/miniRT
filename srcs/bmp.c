@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 12:41:20 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/28 13:28:37 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/01 22:07:34 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	bitmap_file_header(t_mini_rt *rt, int padding_size, int fd)
 	file_header[10] = (unsigned char)(BMP_FILE_HEADER_SIZE
 		+ BMP_INFO_HEADER_SIZE);
 	write(fd, file_header, BMP_FILE_HEADER_SIZE);
-	file_header = NULL;
-	free(file_header);
+	ft_strdel((char**)&file_header);
 }
 
 void	bitmap_info_header(t_mini_rt *rt, int fd)
@@ -52,8 +51,7 @@ void	bitmap_info_header(t_mini_rt *rt, int fd)
 	info_header[12] = (unsigned char)(1);
 	info_header[14] = (unsigned char)(rt->cam->img.bpp);
 	write(fd, info_header, BMP_INFO_HEADER_SIZE);
-	info_header = NULL;
-	free(info_header);
+	ft_strdel((char**)&info_header);
 }
 
 void	create_bmp_image(t_mini_rt *rt, char *file_name)

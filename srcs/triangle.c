@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:57:29 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/28 13:44:46 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/01 22:54:06 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	triangle(t_mini_rt *rt, t_element *triangle, t_vec ori, t_vec dir)
 	v2 = vec_sub(triangle->point3, triangle->point);
 	pvec = vec_cross(dir, v2);
 	s.det = vec_dot(v1, pvec);
-	if (fabs(s.det) < 0.000001)
+	if (fabs(s.det) < 0.00001)
 		return ;
 	s.c = 1 / s.det;
 	tvec = vec_sub(ori, triangle->point);

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 21:39:46 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/30 21:48:58 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/12/01 20:00:43 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_color	raiiinbow(t_mini_rt *rt)
 
 	rtt.t = INT_MAX;
 	rtt.ray.dir = rt->cam->orient;
-	rtt.ray.ori = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->k));
+	rtt.ray.ori = rt->p;
 	cam_plane.point = rt->cam->pov;
 	cam_plane.orient = rt->cam->orient;
 	rtt.t = INT_MAX;
@@ -91,10 +91,8 @@ void	get_tex_coord(t_mini_rt *rt, t_element *sphere, int *column, int *row)
 	float	u;
 	float	v;
 	t_vec	n;
-	t_vec	p;
 
-	p = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->k));
-	n = vec_normalize(vec_sub(p, sphere->point));
+	n = vec_normalize(vec_sub(rt->p, sphere->point));
 	u = 0.5 + atan2(n.z, n.x) / (2 * M_PI);
 	v = 0.5 - asin(n.y) / M_PI;
 	*column = (int)(sphere->tex.width * u);

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/30 21:13:21 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/12/01 19:48:01 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,13 @@ t_color	ray_intersect(t_mini_rt *rt)
 	while (tmp)
 	{
 		find_objs(rt, tmp->content, rt->ray.ori, rt->ray.dir);
-		if (rt->t > 0 && rt->t < rt->k)
-		{
-			rt->k = rt->t;
+		if (rt->t > 0 && rt->t < rt->k && (rt->k = rt->t))
 			rt->obj = tmp->content;
-		}
 		tmp = tmp->next;
 	}
 	if (rt->obj)
 	{
+		rt->p = vec_add(rt->ray.ori, vec_mul(rt->ray.dir, rt->k));
 		rt->color = get_color(rt);
 		rt->obj->ref ? reflect(rt) : 0;
 		rt->color = apply_lights(rt);

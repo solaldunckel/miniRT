@@ -6,29 +6,42 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 21:55:13 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/23 18:55:58 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/01 19:17:39 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
+void	create_circle(t_mini_rt *rt, t_element *cylinder, float t)
+{
+	t_element		*circle;
+
+	if (!(circle = ft_calloc(1, sizeof(t_element))))
+		handle_error("fail to malloc", rt);
+	circle->id = 6;
+	circle->nm = 1;
+	circle->point = vec_add(cylinder->point,
+		vec_mul(vec_normalize(cylinder->orient), t));
+	circle->orient = cylinder->orient;
+	circle->diameter = cylinder->diameter;
+	circle->color = cylinder->color;
+	ft_lstadd_back(&rt->objs_list, ft_lstnew(circle));
+}
+
 void	circle(t_mini_rt *rt, t_element *circle, t_vec ori, t_vec dir)
 {
-	float	a;
-	float	b;
-	float	t;
-	float	f;
+	t_solve s;
 	t_vec	inter;
 
-	a = vec_dot(vec_sub(ori, circle->point), circle->orient);
-	b = vec_dot(dir, circle->orient);
-	if (b == 0 || (a < 0 && b < 0) || (a > 0 && b > 0))
+	s.a = vec_dot(vec_sub(ori, circle->point), circle->orient);
+	s.b = vec_dot(dir, circle->orient);
+	if (s.b == 0 || (s.a < 0 && s.b < 0) || (s.a > 0 && s.b > 0))
 		return ;
-	t = -a / b;
-	if (t < 0 || rt->t < t)
+	s.t1 = -s.a / s.b;
+	if (s.t1 < 0 || rt->t < s.t1)
 		return ;
-	inter = vec_add(ori, vec_mul(dir, t));
+	inter = vec_add(ori, vec_mul(dir, s.t1));
 	inter = vec_sub(inter, circle->point);
-	f = vec_dot(inter, inter);
-	sqrt(f) <= circle->diameter / 2 ? rt->t = t : 0;
+	s.det = sqrt(vec_dot(inter, inter));
+	s.det <= circle->diameter / 2 ? rt->t = s.t1 : 0;
 }

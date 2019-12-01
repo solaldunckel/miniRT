@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:30 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/30 16:08:14 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/01 20:12:21 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	parse_rt_file(char *rt_file, t_mini_rt *rt)
 		handle_error("no resolution", rt);
 }
 
-int		parse_res(t_mini_rt *rt)
+void	parse_res(t_mini_rt *rt)
 {
-	if (check_split(rt->split) != 3)
+	if (count_split(rt->split) != 3 || !check_split(rt->split, 0))
 		handle_error("invalid resolution", rt);
 	rt->res.x = ft_atoi(rt->split[1]);
 	rt->res.y = ft_atoi(rt->split[2]);
@@ -45,28 +45,26 @@ int		parse_res(t_mini_rt *rt)
 	rt->res.parsed = 1;
 	rt->res.x > 2560 ? rt->res.x = 2560 : 0;
 	rt->res.y > 1440 ? rt->res.y = 1395 : 0;
-	return (1);
 }
 
-int		parse_ambient(t_mini_rt *rt)
+void	parse_ambient(t_mini_rt *rt)
 {
-	if (check_split(rt->split) != 3)
+	if (count_split(rt->split) != 3 || !check_split(rt->split, 0))
 		handle_error("invalid ambient light", rt);
 	rt->ambient.ratio = ft_atof(rt->split[1]);
 	rt->ambient.color = split_rgb(rt->split[2], rt);
 	if (rt->ambient.ratio > 1 || rt->ambient.ratio < 0)
 		handle_error("invalid ambient light", rt);
 	rt->ambient.parsed = 1;
-	return (1);
 }
 
-int		parse_camera(t_mini_rt *rt)
+void	parse_camera(t_mini_rt *rt)
 {
 	t_camera		*camera;
 
 	if (!(camera = ft_calloc(1, sizeof(t_camera))))
 		handle_error("fail to malloc", rt);
-	if (check_split(rt->split) != 3)
+	if (count_split(rt->split) != 3 || !check_split(rt->split, 0))
 	{
 		free(camera);
 		handle_error("camera parsing error", rt);
@@ -74,16 +72,15 @@ int		parse_camera(t_mini_rt *rt)
 	camera->pov = split_vec(rt->split[1], rt, 0);
 	camera->orient = split_vec(rt->split[2], rt, 1);
 	ft_lstadd_back(&rt->cam_list, ft_lstnew(camera));
-	return (1);
 }
 
-int		parse_light(t_mini_rt *rt)
+void	parse_light(t_mini_rt *rt)
 {
 	t_element		*light;
 
 	if (!(light = ft_calloc(1, sizeof(t_element))))
 		handle_error("fail to malloc", rt);
-	if (check_split(rt->split) != 4)
+	if (count_split(rt->split) != 4 || !check_split(rt->split, 0))
 	{
 		free(light);
 		handle_error("light parsing error", rt);
@@ -95,5 +92,4 @@ int		parse_light(t_mini_rt *rt)
 	ft_lstadd_back(&rt->light_list, ft_lstnew(light));
 	if (light->ratio > 1 || light->ratio < 0)
 		handle_error("light parsing error", rt);
-	return (1);
 }

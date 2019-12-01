@@ -6,29 +6,26 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 23:24:13 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/30 16:38:06 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/12/01 21:51:08 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-int				apply_shadows(t_mini_rt *rt, t_vec ori, t_vec dir,
-t_element *light)
+int		apply_shadows(t_mini_rt *rt, t_vec ori, t_vec dir, t_element *light)
 {
 	t_list		*tmp;
 	t_element	*obj;
 
 	tmp = rt->objs_list;
-	(void)light;
 	rt->t = INT_MAX;
 	plane(rt, light, ori, dir);
 	rt->k = rt->t - 0.1;
 	while (tmp)
 	{
 		obj = tmp->content;
-		if (rt->obj == obj)
+		if (rt->obj == obj || !obj->nm)
 		{
-			obj->id == CYLINDER ? tmp = tmp->next->next : 0;
 			tmp = tmp->next;
 			continue ;
 		}

@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 17:10:22 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/23 18:58:55 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/01 19:01:29 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@ void	sphere(t_mini_rt *rt, t_element *sphere, t_vec ori, t_vec dir)
 {
 	t_solve	s;
 
+	s.sub = vec_sub(ori, sphere->point);
 	s.a = vec_dot(dir, dir);
-	s.b = 2 * vec_dot(dir, vec_sub(ori, sphere->point));
-	s.c = vec_dot(vec_sub(ori, sphere->point),
-		vec_sub(ori, sphere->point)) - pow(sphere->diameter / 2, 2);
+	s.b = 2 * vec_dot(dir, s.sub);
+	s.c = vec_dot(s.sub, s.sub) - pow(sphere->diameter / 2, 2);
 	s.det = pow(s.b, 2) - (4 * s.a * s.c);
 	if (s.det < 0)
 		return ;
-	s.t1 = (-s.b - sqrt(s.det)) / (2 * s.a);
-	s.t2 = (-s.b + sqrt(s.det)) / (2 * s.a);
+	s.det = sqrt(s.det);
+	s.a = 2 * s.a;
+	s.t1 = (-s.b - s.det) / s.a;
+	s.t2 = (-s.b + s.det) / s.a;
 	if (s.t1 >= 0 && rt->t > s.t1)
 		rt->t = s.t1;
 	else if (s.t2 >= 0 && rt->t > s.t2)

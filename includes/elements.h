@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/11/30 18:04:10 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/12/01 21:44:31 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ typedef struct	s_solve
 	float		det;
 	float		t1;
 	float		t2;
+	float		d1;
+	float		d2;
+	t_vec		sub;
+	t_vec		cross;
 }				t_solve;
 
 typedef struct	s_ambient
@@ -95,12 +99,12 @@ typedef struct	s_element
 	float		ratio;
 	float		diameter;
 	float		height;
-	float		ref;
-	int			nm;
 	t_vec		point2;
 	t_vec		point3;
 	t_vec		dir;
 	t_texture	tex;
+	float		ref;
+	int			nm;
 	int			rainbow;
 }				t_element;
 

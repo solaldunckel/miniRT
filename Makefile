@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/11/30 16:31:04 by haguerni         ###   ########.fr        #
+#    Updated: 2019/12/01 23:30:15 by sdunckel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,6 @@ SRCS_LIST		= \
 					hooks.c \
 					hooks_2.c \
 					move_objs.c \
-					multi_thread.c \
 					texture.c \
 					ft.c \
 					reflect.c \
@@ -60,7 +59,7 @@ RM				= rm -f
 all:			$(NAME)
 
 $(NAME):		$(OBJS)
-				@make -s -j8 -C $(LIBFT)
+				@make -s -C $(LIBFT)
 				@$(CC) $(CFLAGS) $(LFLAGS) -I $(HEADER) $(OBJS) -o $(NAME)
 
 %.o: %.c
