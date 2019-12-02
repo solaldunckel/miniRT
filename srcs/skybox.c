@@ -6,7 +6,7 @@
 /*   By: haguerni <haguerni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 17:48:28 by haguerni          #+#    #+#             */
-/*   Updated: 2019/12/01 23:24:14 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/02 15:57:01 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,27 +59,27 @@ void		free_sky(t_mini_rt *rt)
 t_color		get_sky_coord(t_mini_rt *rt)
 {
 	t_color	color;
-	float	max;
+	float	m;
 
 	ft_bzero(&color, sizeof(t_color));
 	rt->ray.dir = vec_normalize(rt->ray.dir);
-	if (fabs(rt->ray.dir.z) >= fabs(rt->ray.dir.y) && fabs(rt->ray.dir.z) >= fabs(rt->ray.dir.x))
-	{
-		max = fabs(rt->ray.dir.z);
-		rt->ray.dir.z <= 0 ? color = get_sky_color(rt->sky[0], -rt->ray.dir.x, -rt->ray.dir.y, max) : color;
-		rt->ray.dir.z >= 0 ? color = get_sky_color(rt->sky[1], rt->ray.dir.x, -rt->ray.dir.y, max) : color;
-	}
-	else if (fabs(rt->ray.dir.x) >= fabs(rt->ray.dir.z) && fabs(rt->ray.dir.x) >= fabs(rt->ray.dir.y))
-	{
-		max = fabs(rt->ray.dir.x);
-		rt->ray.dir.x <= 0 ? color = get_sky_color(rt->sky[2], rt->ray.dir.z, -rt->ray.dir.y, max) : color;
-		rt->ray.dir.x >= 0 ? color = get_sky_color(rt->sky[3], -rt->ray.dir.z, -rt->ray.dir.y, max) : color;
-	}
-	else if (fabs(rt->ray.dir.y) >= fabs(rt->ray.dir.z) && fabs(rt->ray.dir.y) >= fabs(rt->ray.dir.x))
-	{
-		max = fabs(rt->ray.dir.y);
-		rt->ray.dir.y <= 0 ? color = get_sky_color(rt->sky[4], rt->ray.dir.x, -rt->ray.dir.z, max) : color;
-		rt->ray.dir.y >= 0 ? color = get_sky_color(rt->sky[5], rt->ray.dir.x, rt->ray.dir.z, max) : color;
-	}
+	if (fabs(rt->ray.dir.z) >= fabs(rt->ray.dir.y) && fabs(rt->ray.dir.z)
+	>= fabs(rt->ray.dir.x) && rt->ray.dir.z < 0 && (m = rt->ray.dir.z) > -10)
+		color = get_sky_color(rt->sky[0], -rt->ray.dir.x, -rt->ray.dir.y, m);
+	else if (fabs(rt->ray.dir.z) >= fabs(rt->ray.dir.y) && fabs(rt->ray.dir.z)
+	>= fabs(rt->ray.dir.x) && rt->ray.dir.z > 0 && (m = rt->ray.dir.z) > -10)
+		color = get_sky_color(rt->sky[1], rt->ray.dir.x, -rt->ray.dir.y, m);
+	else if (fabs(rt->ray.dir.x) > fabs(rt->ray.dir.z) && fabs(rt->ray.dir.x)
+	> fabs(rt->ray.dir.y) && rt->ray.dir.x < 0 && (m = rt->ray.dir.x) > -10)
+		color = get_sky_color(rt->sky[2], rt->ray.dir.z, -rt->ray.dir.y, m);
+	else if (fabs(rt->ray.dir.x) > fabs(rt->ray.dir.z) && fabs(rt->ray.dir.x)
+	> fabs(rt->ray.dir.y) && rt->ray.dir.x > 0 && (m = rt->ray.dir.x) > -10)
+		color = get_sky_color(rt->sky[3], -rt->ray.dir.z, -rt->ray.dir.y, m);
+	else if (fabs(rt->ray.dir.y) >= fabs(rt->ray.dir.z) && fabs(rt->ray.dir.y)
+	>= fabs(rt->ray.dir.x) && rt->ray.dir.y < 0 && (m = rt->ray.dir.y) > -10)
+		color = get_sky_color(rt->sky[4], -rt->ray.dir.x, rt->ray.dir.z, m);
+	else if (fabs(rt->ray.dir.y) >= fabs(rt->ray.dir.z) && fabs(rt->ray.dir.y)
+	>= fabs(rt->ray.dir.x) && rt->ray.dir.y > 0 && (m = rt->ray.dir.y) > -10)
+		color = get_sky_color(rt->sky[5], rt->ray.dir.x, rt->ray.dir.z, m);
 	return (color);
 }
