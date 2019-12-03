@@ -6,16 +6,18 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 21:39:46 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/01 20:00:43 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/02 19:02:59 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-t_color	create_raiiinbow(float dist)
+t_color	raiiinbow(t_mini_rt *rt)
 {
 	t_color		color;
+	float		dist;
 
+	dist = (rt->obj->id == PLANE ? fmod(rt->k / 50, 3) : fmod(rt->k / 10, 3));
 	if (dist < 1)
 		color = (t_color){1, (dist - 0.5) * 2, 1 - dist * 2};
 	else if (dist >= 1 && dist < 2)
@@ -32,23 +34,6 @@ t_color	create_raiiinbow(float dist)
 	color.g < 0 || color.g > 1 ? color.g = 0 : 0;
 	color.b < 0 || color.b > 1 ? color.b = 0 : 0;
 	return (color);
-}
-
-t_color	raiiinbow(t_mini_rt *rt)
-{
-	t_element	cam_plane;
-	t_mini_rt	rtt;
-
-	rtt.t = INT_MAX;
-	rtt.ray.dir = rt->cam->orient;
-	rtt.ray.ori = rt->p;
-	cam_plane.point = rt->cam->pov;
-	cam_plane.orient = rt->cam->orient;
-	rtt.t = INT_MAX;
-	plane(&rtt, &cam_plane, rtt.ray.ori, rtt.ray.dir);
-	plane(&rtt, &cam_plane, rtt.ray.ori, vec_mul(rtt.ray.dir, -1));
-	rtt.t = fmod(rtt.t / 50, 3);
-	return (create_raiiinbow(rtt.t));
 }
 
 void	create_texture(t_mini_rt *rt, t_element *elem, char *file_path)

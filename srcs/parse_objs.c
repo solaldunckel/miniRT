@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 13:25:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/01 22:46:53 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/02 18:58:56 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void	parse_sphere(t_mini_rt *rt)
 	check = count_split(rt->split);
 	if (!(sphere = ft_calloc(1, sizeof(t_element))))
 		handle_error("fail to malloc", rt);
-	if (check < 4 || check > 6 || (!check_split(rt->split, 0)
-		&& !ft_str_end(rt->split[3], ".xpm")))
+	if (check < 4 || check > 6 )
 	{
 		free(sphere);
 		handle_error("sphere parsing error", rt);
@@ -33,7 +32,9 @@ void	parse_sphere(t_mini_rt *rt)
 		create_texture(rt, sphere, rt->split[3]);
 	else
 		sphere->color = split_rgb(rt->split[3], rt);
-	check == 5 ? sphere->ref = ft_atof(rt->split[4]) : 0;
+	check == 5 || check == 6 ? sphere->ref = ft_atof(rt->split[4]) : 0;
+	if (check == 6 && ft_strequ(rt->split[5], "raiiinbow"))
+			sphere->rainbow = 1;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(sphere));
 	sphere->diameter < 0 ? handle_error("sphere parsing error", rt) : 0;
 }
@@ -55,7 +56,7 @@ void	parse_plane(t_mini_rt *rt)
 	plane->point = split_vec(rt->split[1], rt, 0);
 	plane->orient = split_vec(rt->split[2], rt, 1);
 	plane->color = split_rgb(rt->split[3], rt);
-	check == 5 ? plane->ref = ft_atof(rt->split[4]) : 0;
+	check == 5 || check == 6 ? plane->ref = ft_atof(rt->split[4]) : 0;
 	if (check == 6 && ft_strequ(rt->split[5], "raiiinbow"))
 		plane->rainbow = 1;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(plane));

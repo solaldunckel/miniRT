@@ -6,13 +6,13 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/01 23:29:53 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/02 16:33:31 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-void		multi_thread(t_mini_rt *rt)
+void	multi_thread(t_mini_rt *rt)
 {
 	int			i;
 	pthread_t	thr[THREAD_COUNT];
