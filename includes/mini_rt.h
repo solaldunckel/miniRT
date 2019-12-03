@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/03 10:18:12 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:40:41 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,8 @@ void			circle(t_mini_rt *rt, t_element *circle, t_vec ori, t_vec dir);
 void			triangle(t_mini_rt *rt, t_element *triangle, t_vec ori,
 					t_vec dir);
 void			square(t_mini_rt *rt, t_element *plane, t_vec ori, t_vec dir);
-void			create_circle(t_mini_rt *rt, t_element *cylinder, float t);
+void			create_circle(t_mini_rt *rt, t_element *cylinder, float t,
+					int create);
 void			create_square(t_mini_rt *rt, t_element *cube, t_vec point,
 					t_vec orient);
 void			select_objs(t_mini_rt *rt);

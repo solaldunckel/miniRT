@@ -6,13 +6,13 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 21:55:13 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/01 19:17:39 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:39:42 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-void	create_circle(t_mini_rt *rt, t_element *cylinder, float t)
+void	create_circle(t_mini_rt *rt, t_element *cylinder, float t, int create)
 {
 	t_element		*circle;
 
@@ -25,7 +25,11 @@ void	create_circle(t_mini_rt *rt, t_element *cylinder, float t)
 	circle->orient = cylinder->orient;
 	circle->diameter = cylinder->diameter;
 	circle->color = cylinder->color;
+	circle->ref = cylinder->ref;
+	circle->rainbow = cylinder->rainbow;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(circle));
+	if (create)
+		create_circle(rt, cylinder, cylinder->height / -2, 0);
 }
 
 void	circle(t_mini_rt *rt, t_element *circle, t_vec ori, t_vec dir)

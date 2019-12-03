@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 16:40:08 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/01 20:12:43 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:39:57 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	parse_cone(t_mini_rt *rt)
 	check = count_split(rt->split);
 	if (!(cone = ft_calloc(1, sizeof(t_element))))
 		handle_error("fail to malloc", rt);
-	if (check < 6 || check > 7 || !check_split(rt->split, 0))
+	if (check < 6 || check > 8 || !check_split(rt->split, 7) ||
+		(check == 8 && !ft_strequ(rt->split[7], "raiiinbow")))
 	{
 		free(cone);
 		handle_error("cone parsing error", rt);
@@ -40,11 +41,13 @@ void	parse_cone(t_mini_rt *rt)
 	cone->diameter = ft_atof(rt->split[3]);
 	cone->height = ft_atof(rt->split[4]);
 	cone->color = split_rgb(rt->split[5], rt);
-	check == 7 ? cone->ref = ft_atof(rt->split[6]) : 0;
+	check >= 7 ? cone->ref = ft_atof(rt->split[6]) : 0;
+	if (check == 8 && ft_strequ(rt->split[7], "raiiinbow"))
+		cone->rainbow = 1;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(cone));
 	if (cone->height < 0 || cone->diameter < 0)
 		handle_error("cone parsing error", rt);
-	create_circle(rt, cone, cone->height * -1);
+	create_circle(rt, cone, cone->height * -1, 0);
 }
 
 void	parse_cube(t_mini_rt *rt)

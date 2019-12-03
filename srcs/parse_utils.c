@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/02 16:34:16 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:40:29 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ int			check_split(char **split, int max)
 		j = 0;
 		while (split[i][j])
 		{
+			if (i == 3 && ft_strequ(split[0], "sp")
+				&& ft_str_end(split[i], ".xpm"))
+				break ;
 			if (!ft_isdigit(split[i][j]) && split[i][j] != ',' &&
 				split[i][j] != '.' && split[i][j] != '-' && (!max || i < max))
 				return (0);
