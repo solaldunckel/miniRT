@@ -1,0 +1,23 @@
+R 1024 1024
+
+A 0.4 255,255,255
+AA 1
+#STEREO
+
+SKY textures/moondust_lf.xpm textures/moondust_rt.xpm textures/moondust_bk.xpm textures/moondust_ft.xpm textures/moondust_dn.xpm textures/moondust_up.xpm
+
+c 0,0,200 0,0.2,1
+
+l -100,400,-500 1 255,255,255
+#l 0,0,-200 1 255,255,255
+#l -50,1000,200 0.3 255,255,255
+#l 0,-100,0 1 255,255,255
+#l 0,100,200 0.5 255,255,25
+
+#pl 0,-50,0 0,1,0 100,255,0 -0.5 raiiinbow
+
+sp 0,300,-500 30 textures/map.xpm 0.1
+
+sp 80,300,-100 250 0,0,0 -2
+sp 80,300,-100 50 0,0,0 0
+sp 0,0,350 220  0,0,0 2
