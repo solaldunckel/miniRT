@@ -6,14 +6,14 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:37:27 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/03 10:47:53 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:36:01 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
 static	void	inter(t_mini_rt *rt, t_element *cylinder, t_solve s,
-t_mini_rt rtt)
+					t_mini_rt rtt)
 {
 	t_element	plan;
 	t_vec		inter;
@@ -41,15 +41,16 @@ void			cylinder(t_mini_rt *rt, t_element *cylinder, t_vec ori,
 {
 	t_solve		s;
 	t_mini_rt	rtt;
+	t_vec		cross2;
 
 	rtt.ray.ori = ori;
 	rtt.ray.dir = dir;
-	s.sub = vec_sub(rtt.ray.ori, cylinder->point);
 	s.cross = vec_cross(rtt.ray.dir, cylinder->orient);
-	s.a = vec_dot(s.cross, s.cross);
-	s.cross = vec_cross(s.sub, cylinder->orient);
-	s.b = 2 * s.a;
-	s.c = s.a - (pow(cylinder->diameter / 2, 2)
+	s.sub = vec_sub(rtt.ray.ori, cylinder->point);
+	cross2 = vec_cross(s.sub, cylinder->orient);
+	s.a = vec_dot(s.cross,s.cross);
+	s.b = 2 * vec_dot(s.cross, cross2);
+	s.c = vec_dot(cross2, cross2) - (pow(cylinder->diameter / 2, 2)
 		* vec_dot(cylinder->orient, cylinder->orient));
 	s.det = pow(s.b, 2) - (4 * s.a * s.c);
 	if (s.det < 0)

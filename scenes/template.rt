@@ -1,0 +1,18 @@
+R	x y 										// resolution
+A	ratio	r,g,b 								// ambient light
+
+c	x,y,z	x,y,z 								// camera
+
+sp	x,y,z	diameter	r,g,b 					// sphere
+pl	x,y,z	x,y,z	r,g,b						// plane
+sq	x,y,z	x,y,z	diameter	r,g,b 			// square
+cy	x,y,z	x,y,z	diameter	height	r,g,b	// cylinder
+tr	x,y,z	x,y,z	x,y,z		r,g,b 			// triangle
+
+*** BONUS ***
+
+AA	x											// anti_aliasing
+STEREO 											// stereoscopie
+
+co	x,y,z	x,y,z	diameter	height	r,g,b	// cone
+cb	x,y,z	r,g,b								// cube

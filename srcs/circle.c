@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 21:55:13 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/03 15:39:42 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/03 18:31:31 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	create_circle(t_mini_rt *rt, t_element *cylinder, float t, int create)
 	circle->rainbow = cylinder->rainbow;
 	ft_lstadd_back(&rt->objs_list, ft_lstnew(circle));
 	if (create)
-		create_circle(rt, cylinder, cylinder->height / -2, 0);
+		create_circle(rt, cylinder, (cylinder->height / -2) + 0.1, 0);
 }
 
 void	circle(t_mini_rt *rt, t_element *circle, t_vec ori, t_vec dir)
