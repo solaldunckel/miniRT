@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/03 11:50:49 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:27:07 by haguerni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static	int		plane_side(t_mini_rt *rt, t_element *light, t_vec ori,
 		light2.orient = dir;
 		light2.point = light->point;
 		plane(&rtt, &light2, ori, dir);
-		rtt.k = rtt.t;
 	}
+	rtt.k = rtt.t;
 	cam_plane.point = rt->ray.ori;
 	cam_plane.orient = dir;
 	rtt.t = INT_MAX;
@@ -82,7 +82,7 @@ t_color			rotate_color(t_mini_rt *rt, t_vec p, t_vec n, t_color color)
 		l = get_light_vec(light, p);
 		dot = vec_dot(n, l);
 		dot *= plane_side(rt, light, rt->obj->point, n);
-		if (dot < 0 || apply_shadows(rt, p, l, light))
+		if (dot <= 0 || apply_shadows(rt, p, l, light))
 		{
 			tmp = tmp->next;
 			free(light);
