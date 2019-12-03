@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:37:27 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/01 19:17:32 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/03 10:47:53 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_mini_rt rtt)
 }
 
 void			cylinder(t_mini_rt *rt, t_element *cylinder, t_vec ori,
-t_vec dir)
+					t_vec dir)
 {
 	t_solve		s;
 	t_mini_rt	rtt;

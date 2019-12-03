@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/01 20:10:54 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/03 10:18:12 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void			change_cam(t_mini_rt *rt);
 /*
 ** Colors
 */
-int				color_put(t_mini_rt *rt, int x, int y);
+void			color_put(t_mini_rt *rt, int x, int y);
 t_color			color_average(t_color color1, t_color color2);
 t_color			color_add(t_color color1, t_color color2, int cap);
 t_color			color_div(t_color color, int average);

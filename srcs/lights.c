@@ -6,21 +6,21 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 13:16:49 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/01 19:50:01 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/03 11:50:49 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
 static	int		plane_side(t_mini_rt *rt, t_element *light, t_vec ori,
-t_vec dir)
+					t_vec dir)
 {
 	t_element	cam_plane;
 	t_mini_rt	rtt;
 	t_element	light2;
 
 	if (rt->obj->id != PLANE && rt->obj->id != CIRCLE && rt->obj->id != SQUARE
-	&& rt->obj->id != TRIANGLE)
+		&& rt->obj->id != TRIANGLE)
 		return (1);
 	rtt.t = INT_MAX;
 	if (light->id == DIFFUSE)
