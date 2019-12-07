@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/06 19:45:31 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/07 19:50:53 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,11 @@ void	setup_rt(t_mini_rt *rt)
 		rt->anti_aliasing = 1;
 	rt->ray.ori = (t_vec){rt->cam->pov.x, rt->cam->pov.y, rt->cam->pov.z};
 	rt->aspect = (float)rt->res.x / (float)rt->res.y;
-	if (rt->cam->orient.x != 0 || rt->cam->orient.z != 0)
-		rt->cam->up = vec_normalize(vec_add((t_vec){0, -1, 0},
-		rt->cam->orient));
-	else
-		rt->cam->up = vec_normalize(vec_add((t_vec){0, 0, -1},
-		rt->cam->orient));
-	rt->cam->right = vec_normalize(vec_cross(rt->cam->orient, rt->cam->up));
-	rt->cam->up = vec_normalize(vec_cross(rt->cam->right, rt->cam->orient));
+	rt->cam->up = (t_vec){0, -1, 0};
+	rt->cam->right = vec_normalize(vec_cross(vec_normalize(rt->cam->orient),
+		rt->cam->up));
+	rt->cam->up = vec_normalize(vec_cross(rt->cam->right,
+		vec_normalize(rt->cam->orient)));
 	rt->k = 0;
 	rt->t = 0;
 }

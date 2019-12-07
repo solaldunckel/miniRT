@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/01 19:48:01 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/07 19:50:51 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ t_vec	calc_ray(t_mini_rt *rt, float x, float y)
 	norm_y = ((y / (float)rt->res.y) - 0.5);
 	rt->res.x < rt->res.y ? norm_x *= rt->aspect : 0;
 	rt->res.x > rt->res.y ? norm_y /= rt->aspect : 0;
-	image_point = vec_add(vec_add(vec_mul(rt->cam->right, norm_x),
-		vec_mul(rt->cam->up, norm_y)), vec_add(rt->ray.ori, rt->cam->orient));
+	image_point = vec_add(vec_add(vec_add(vec_mul(rt->cam->right, norm_x),
+		vec_mul(rt->cam->up, norm_y)), rt->ray.ori),
+		vec_normalize(rt->cam->orient));
 	dir = vec_normalize(vec_sub(image_point, rt->ray.ori));
 	return (dir);
 }

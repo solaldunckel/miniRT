@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:05 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/03 15:40:29 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/07 19:45:35 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ t_vec		split_vec(char *str, t_mini_rt *rt, int orient)
 	v.y = ft_atof(split[1]);
 	v.z = ft_atof(split[2]);
 	free_split(split);
-	if (orient && (v.x > 1 || v.y > 1 || v.z > 1 || v.x < -1 || v.y < -1
-		|| v.z < -1))
+	if (orient && ((v.x > 1 || v.y > 1 || v.z > 1 || v.x < -1 || v.y < -1
+		|| v.z < -1) || (!v.x && !v.y && !v.z)))
 		handle_error("invalid vector parsing", rt);
 	return (v);
 }

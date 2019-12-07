@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 11:37:27 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/03 17:36:01 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/07 17:18:23 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void			cylinder(t_mini_rt *rt, t_element *cylinder, t_vec ori,
 	s.cross = vec_cross(rtt.ray.dir, cylinder->orient);
 	s.sub = vec_sub(rtt.ray.ori, cylinder->point);
 	cross2 = vec_cross(s.sub, cylinder->orient);
-	s.a = vec_dot(s.cross,s.cross);
+	s.a = vec_dot(s.cross, s.cross);
 	s.b = 2 * vec_dot(s.cross, cross2);
 	s.c = vec_dot(cross2, cross2) - (pow(cylinder->diameter / 2, 2)
 		* vec_dot(cylinder->orient, cylinder->orient));
