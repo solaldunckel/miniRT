@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/02 16:33:31 by haguerni         ###   ########.fr       */
+/*   Updated: 2019/12/06 19:45:31 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	create_window(t_mini_rt *rt)
 	if (!(rt->win_ptr = mlx_new_window(rt->mlx_ptr, rt->res.x,
 		rt->res.y, "miniRT")))
 		handle_error("fail to create Minilibx window", rt);
-	mlx_key_hook(rt->win_ptr, get_keypress, rt);
+	mlx_hook(rt->win_ptr, 2, 0, get_keypress, rt);
 	mlx_hook(rt->win_ptr, 4, 0, mouse_press, rt);
 	mlx_hook(rt->win_ptr, 5, 0, mouse_release, rt);
 	mlx_hook(rt->win_ptr, 6, 0, get_mouse_pos, rt);
