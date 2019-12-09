@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/07 19:50:51 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/08 03:05:01 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ t_color	ray_intersect(t_mini_rt *rt)
 
 t_vec	calc_ray(t_mini_rt *rt, float x, float y)
 {
-	t_vec	image_point;
 	t_vec	dir;
 	float	norm_x;
 	float	norm_y;
+	t_vec	image_point;
 
+	// float m_fovy = (10 * M_PI / 180.0) / 2.0;
+    // float m_tanf = tan(m_fovy);
 	rt->ray.ori = rt->cam->pov;
 	norm_x = ((x / (float)rt->res.x) - 0.5);
 	norm_y = ((y / (float)rt->res.y) - 0.5);
@@ -123,10 +125,10 @@ void	raytracing(t_thread *th)
 				th->scene.ray.dir = calc_ray(&th->scene, i - st, j);
 				th->scene.color = ray_intersect(&th->scene);
 			}
-			th->scene.sepia ? apply_sepia(&th->scene) : 0;
 			color_put(&th->scene, i, j);
 			i += THREAD_COUNT;
 		}
+		th->scene.percent = (int)(j * 100 / th->scene.res.y) + 1;
 		j++;
 	}
 	pthread_exit(NULL);

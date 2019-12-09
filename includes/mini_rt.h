@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/03 18:28:10 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/08 16:00:55 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct	s_mini_rt
 	int					cur_obj;
 	int					obj_count;
 	int					cur_thr;
+	int					percent;
 	float				anti_aliasing;
 	int					sepia;
 	float				st;
@@ -204,5 +205,6 @@ void			show_keybind(t_mini_rt *rt);
 void			create_bmp_image(t_mini_rt *rt, char *file_name);
 t_texture		create_sky(t_mini_rt *rt, char *file_path);
 void			free_sky(t_mini_rt *rt);
+void			progress_bar(t_thread *thread);
 
 #endif

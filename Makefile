@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/12/07 15:22:00 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/12/08 16:01:05 by sdunckel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS_LIST		= \
 					texture.c \
 					ft.c \
 					reflect.c \
+					utils.c \
 					skybox.c
 
 SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})
@@ -57,7 +58,7 @@ CFLAGS 			= -Wall -Wextra -Werror
 LFLAGS			= -L libft -lft
 
 OPENGL_MLX		= -lmlx -framework OpenGL -framework AppKit
-METAL_MLX		= -L . -lmlx -framework Metal -framework AppKit
+METAL_MLX		= $(MLX)/libmlx.dylib -framework Metal -framework AppKit
 
 RM				= rm -f
 
@@ -67,16 +68,15 @@ $(NAME):		$(OBJS)
 				@make -s -C $(LIBFT)
 				@$(CC) $(CFLAGS) $(LFLAGS) $(OPENGL_MLX) -I $(HEADER) $(OBJS) -o $(NAME)
 
+%.o: %.c
+				@$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
+
 bonus:			$(NAME)
 
 metal:			$(OBJS)
 				@make -s -C $(MLX)
-				@mv $(MLX)/libmlx.dylib .
-				@make -s -C $(LIBFT)
+				@make -s -j8 -C $(LIBFT)
 				@$(CC) $(CFLAGS) $(LFLAGS) $(METAL_MLX) -I $(HEADER) $(OBJS) -o $(NAME)
-
-%.o: %.c
-				@$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
 
 clean:
 				@$(RM) $(OBJS)
@@ -85,7 +85,6 @@ clean:
 
 fclean:			clean
 				@$(RM) $(NAME)
-				@$(RM) libmlx.dylib
 				@$(RM) img.bmp
 				@make fclean -C $(LIBFT)
 

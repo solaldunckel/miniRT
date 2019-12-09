@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 14:59:28 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/07 19:50:53 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/08 02:02:38 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	multi_thread(t_mini_rt *rt)
 		pthread_create(&thr[i], NULL, (void*)raytracing, &thread[i]);
 		i++;
 	}
+	progress_bar((t_thread*)&thread);
 	i = 0;
 	while (i < THREAD_COUNT)
 	{
@@ -42,10 +43,8 @@ void	setup_rt(t_mini_rt *rt)
 	rt->ray.ori = (t_vec){rt->cam->pov.x, rt->cam->pov.y, rt->cam->pov.z};
 	rt->aspect = (float)rt->res.x / (float)rt->res.y;
 	rt->cam->up = (t_vec){0, -1, 0};
-	rt->cam->right = vec_normalize(vec_cross(vec_normalize(rt->cam->orient),
-		rt->cam->up));
-	rt->cam->up = vec_normalize(vec_cross(rt->cam->right,
-		vec_normalize(rt->cam->orient)));
+	rt->cam->right = vec_cross(vec_normalize(rt->cam->orient), rt->cam->up);
+	rt->cam->up = vec_cross(rt->cam->right, vec_normalize(rt->cam->orient));
 	rt->k = 0;
 	rt->t = 0;
 }
@@ -66,7 +65,7 @@ void	create_window(t_mini_rt *rt)
 
 void	start_mini_rt(t_mini_rt *rt)
 {
-	ft_printf("" BOLDGREEN "Rendering miniRT...\n" RESET);
+	ft_printf("" BOLDGREEN "\rRendering miniRT...\n" RESET);
 	create_all_cam(rt);
 	select_cam(rt);
 	if (rt->save)
@@ -75,7 +74,7 @@ void	start_mini_rt(t_mini_rt *rt)
 		ft_printf("" BOLDGREEN ">> " BMP_FILE_NAME " exported <<\n" RESET);
 		exit_and_free(rt);
 	}
-	ft_printf("" BOLDGREEN "Creating window...\n" RESET);
+	ft_printf("" BOLDGREEN "\rCreating window...\n" RESET);
 	create_window(rt);
 }
 

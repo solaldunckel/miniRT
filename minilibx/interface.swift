@@ -216,6 +216,7 @@ public func mlx_destroy_window_swift(_ mlxptr:UnsafeRawPointer, _ winptr:UnsafeR
 	let mlx:MlxMain = _mlx_bridge(ptr:mlxptr)
 	/// bridge_transfer to get the retain, at end of this func should release the MlxWin object, because no ref anymore.
 	let win:MlxWin = _mlx_bridge_transfer(ptr:winptr)
+	win.delNotifs()
 	win.flushImages()
 	win.waitForGPU()
 	win.destroyWinE()

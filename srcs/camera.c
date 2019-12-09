@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 13:41:47 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/01 22:08:44 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/08 01:09:19 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	create_all_cam(t_mini_rt *rt)
 		if (!(rt->cam->img.add = mlx_get_data_addr(rt->cam->img.ptr,
 			&rt->cam->img.bpp, &rt->cam->img.size_line, &rt->cam->img.endian)))
 			handle_error("fail to get Minilibx image data", rt);
+		rt->cam_count > 1 ? ft_printf("" BOLDGREEN ">> %d/%d"
+			" camera <<\n" RESET, count, rt->cam_count) : 0;
 		setup_rt(rt);
 		multi_thread(rt);
 		if (rt->save)
 			return ;
-		rt->cam_count > 1 ? ft_printf("" BOLDGREEN "-> %d/%d"
-			" camera rendered ! <-\n" RESET, count, rt->cam_count) : 0;
 		count++;
 		tmp = tmp->next;
 	}
