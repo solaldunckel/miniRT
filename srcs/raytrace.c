@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 11:24:40 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/08 03:05:01 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/09 15:13:45 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,6 @@ t_vec	calc_ray(t_mini_rt *rt, float x, float y)
 	float	norm_y;
 	t_vec	image_point;
 
-	// float m_fovy = (10 * M_PI / 180.0) / 2.0;
-    // float m_tanf = tan(m_fovy);
-	rt->ray.ori = rt->cam->pov;
 	norm_x = ((x / (float)rt->res.x) - 0.5);
 	norm_y = ((y / (float)rt->res.y) - 0.5);
 	rt->res.x < rt->res.y ? norm_x *= rt->aspect : 0;

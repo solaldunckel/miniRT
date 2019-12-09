@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 11:31:56 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/01 20:09:40 by sdunckel         ###   ########.fr       */
+/*   Updated: 2019/12/09 15:19:31 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int		get_mouse_pos(int x, int y, t_mini_rt *rt)
 		else if (x > rt->res.x - rt->res.x / 3)
 			rt->cam->orient.x += 0.1;
 		else if (y < rt->res.y / 3)
-			rt->cam->orient.y -= 0.1;
-		else if (y > rt->res.y - rt->res.y / 3)
 			rt->cam->orient.y += 0.1;
+		else if (y > rt->res.y - rt->res.y / 3)
+			rt->cam->orient.y -= 0.1;
 		check_orient(&rt->cam->orient);
 		redraw_window(rt);
 	}

@@ -6,7 +6,7 @@
 #    By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/07 12:02:19 by sdunckel          #+#    #+#              #
-#    Updated: 2019/12/08 16:01:05 by sdunckel         ###   ########.fr        #
+#    Updated: 2019/12/09 14:10:41 by sdunckel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ CFLAGS 			= -Wall -Wextra -Werror
 LFLAGS			= -L libft -lft
 
 OPENGL_MLX		= -lmlx -framework OpenGL -framework AppKit
-METAL_MLX		= $(MLX)/libmlx.dylib -framework Metal -framework AppKit
+METAL_MLX		= libmlx.dylib -framework Metal -framework AppKit
 
 RM				= rm -f
 
@@ -75,6 +75,7 @@ bonus:			$(NAME)
 
 metal:			$(OBJS)
 				@make -s -C $(MLX)
+				@mv $(MLX)/libmlx.dylib .
 				@make -s -j8 -C $(LIBFT)
 				@$(CC) $(CFLAGS) $(LFLAGS) $(METAL_MLX) -I $(HEADER) $(OBJS) -o $(NAME)
 
@@ -85,6 +86,7 @@ clean:
 
 fclean:			clean
 				@$(RM) $(NAME)
+				@$(RM) libmlx.dylib
 				@$(RM) img.bmp
 				@make fclean -C $(LIBFT)
 
