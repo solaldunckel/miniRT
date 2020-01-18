@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:31:50 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/01 21:44:31 by sdunckel         ###   ########.fr       */
+/*   Updated: 2020/01/18 06:48:49 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct	s_camera
 	t_image		img;
 	t_vec		up;
 	t_vec		right;
+	int			fov;
 }				t_camera;
 
 typedef struct	s_texture

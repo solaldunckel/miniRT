@@ -6,7 +6,7 @@
 /*   By: sdunckel <sdunckel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:29:00 by sdunckel          #+#    #+#             */
-/*   Updated: 2019/12/08 16:00:55 by sdunckel         ###   ########.fr       */
+/*   Updated: 2020/01/18 07:07:40 by sdunckel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "elements.h"
 # include "keys.h"
 # include "../libft/includes/libft.h"
-# include <mlx.h>
+# include "../minilibx/mlx.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
