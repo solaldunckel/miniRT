@@ -24,3 +24,6 @@ make
 # Execute the binary with a .rt file
 ./miniRT [scene_path]
 ```
+## Credits :
+
+* Done with [@hguerni](https://github.com/hguerni)
